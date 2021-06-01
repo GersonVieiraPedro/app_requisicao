@@ -1,4 +1,3 @@
-const ListaArray = require("./Database");
 
 
 function AdicionarLinha() {
@@ -56,7 +55,7 @@ function temClasse(elem, className) {
 //Pega o elemento que foi precionado da tabela pela classe
 let tabela = document.getElementById('TabelaReq');
 
-//
+
 tabela.addEventListener('click', function (e) {
   if (temClasse(e.target, 'btn-id')) {
     let elem = e.target
@@ -67,26 +66,12 @@ tabela.addEventListener('click', function (e) {
 
 
 
-
-//$('btnRemove').on("click",()=>{
-//removerLinha()
-//})
-
-
-
-
-const Usuarios = ['GERSON VIEIRA PEDRO', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
-
-function ListaDeNomes(){
-  return alert('Ola')
-}
-
 function autoComplete(lista) {
 
-  //const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
+  const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
   let SQL = `SELECT Nome FROM Pessoas`
-  let ListaNome = ListaArray(SQL)
-  let Arr = ListaNome
+ // let ListaNome = ListaArray(SQL)
+  //let Arr = window.Database.ListaArray(SQL)
   //Procura o valor digitado no arrey e inputa na variavel
   return Arr.filter((valor) => {
     const valorMinusculo = valor.toLowerCase()
@@ -99,6 +84,7 @@ function autoComplete(lista) {
 const campo = document.getElementById('Colaborador')
 const sugestoes = document.getElementById('ColaboradorList')
 
+//Cria os elementos com os nomes pesquisados
 campo.addEventListener('input', ({target}) => {
   const dadosDoCampo = target.value
 
@@ -113,7 +99,10 @@ campo.addEventListener('input', ({target}) => {
   }
 })
 
+
+//Escuta o imput de colaborador 
 document.getElementById('Colaborador').addEventListener('change', () => {
   autocomplete(document.getElementById('Colaborador'))
 
 })
+

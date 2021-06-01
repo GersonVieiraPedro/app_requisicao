@@ -2,50 +2,42 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path')
 const nameBanco = 'DB_RequisicaoAlmox.db'
 const banco = path.resolve(__dirname, nameBanco)
-const caminho = 'C:/Users/Gerson Viera Pedro/Desktop/req/src/components/banco/DB_RequisicaoAlmox.db'
+const caminho = 'C:/Projetos/Rep/src/components/Db/DB_RequisicaoAlmox.db'
 
 
-// open the database
-function OnBanco(Local) {
-  caminho = Local
+const caminho2 = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
+
+
+
+
+  //Abre o banco de dados 
   let db = new sqlite3.Database(caminho, (err) => {
     if (err) {
       console.error(`Erro ao conectar :${err.message}`);
     }
     console.log('Conectado ao banco de dados.');
   });
-}
-/*
-db.serialize(() => {
-  db.all(`SELECT Nome FROM Pessoas ;`, (err, row) => { 
+ 
+  let SQL = `SELECT Nome FROM Pessoas`
+
+  //modulo de select (abre e fecha o banco)
+module.exports.ListaArray= function (CodeSQL) {
+
+  //Abre o Banco
+  let db = new sqlite3.Database(caminho, (err) => {
     if (err) {
-      console.error(`Erro ao realizar o comando :${err.message}`);
+      console.error(`Erro ao conectar :${err.message}`);
     }
-    console.log(row.id + "\t" + row.name);
+    console.log('Conectado ao banco de dados.');
   });
-});
-*/
-function OffBanco(){
-  db.close((err) => {
-    if (err) {
-      console.error(`Erro ao fecha o banco :${err.message}`);
-    }
-    console.log('Banco de dados fechado.');
-  });
-  }
-  
+ 
 
-let SQL = `SELECT Nome FROM Pessoas`
-//let Nick = Nome;
-
-
-// first row only
-function ListaArray(CodeSQL) {
-  OnBanco()
+  //Select
   let SQL = CodeSQL
-
   db.all(SQL, [], (err, rows) => {
+
     let Lista = [];
+
     if (err) {
       throw err;
     }
@@ -55,18 +47,16 @@ function ListaArray(CodeSQL) {
     });
     return Lista
   });
-  OffBanco()
+
+    //Fecha o Banco
+  db.close((err) => {
+    if (err) {
+      console.error(`Erro ao fecha o banco :${err.message}`);
+    }
+    console.log('Banco de dados fechado.');
+  });
+  
+
 }
 
-let ar = ListaArray(SQL)
-console.log(ar)
 
-
-
-
-/* let sql = `SELECT Nick, Senha
-            FROM Login
-            WHERE Nick  = ?`;
- */
-
-module.exports = ListaArray;
