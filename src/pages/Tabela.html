@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.css" />
+  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.min.css" />
+  <title>requisição</title>
+</head>
+
+<body>
+  <div class="container-lg ">
+    <div class="row">   
+
+      <div class="col-3">
+        <!-- Coluna Lateral Esquenda -->
+      </div>
+
+      <div class="col-6">
+        <div class="card a mb-5 ">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="input-group input-group-sm mb-3 ">
+
+                  <input class="form-control" list="ColaboradorList" id="Colaborador" placeholder="Colaborador">
+                  
+                  <datalist id="ColaboradorList">
+                    <!-- <option value="San Francisco">-->
+                  </datalist>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3 ">
+              <div class="col">
+                <div class="input-group input-group-sm ">
+
+                  <input type="text" id="Produto" class="form-control w-50" placeholder="Produto">
+
+                  <input type="text" id="Quantidade" class="form-control" placeholder="Quantidade">
+
+                  <input type="text" id="Motivo" class="form-control" placeholder="Motivo">
+
+                </div>
+              </div>
+            </div>
+          <div class="d-grid gap-2 col-6 mx-auto">
+
+              <button class="btn btn-success" id="btn" type="button">Adicionar</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="col-3">
+        <!-- Coluna do lado Direito da parte Superior  -->
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-hover table-sm" id='TabelaReq'>
+          <thead class="table-warning">
+            <tr>
+              <th class="col-1" scope="col">Material</th>
+              <th class="col-3" scope="col">Produto</th>
+              <th class="col-1" scope="col">Qtd</th>
+              <th class="col-1" scope="col">Un. Preço</th>
+              <th class="col-1" scope="col">Valor</th>
+              <th class="col-3" scope="col">Colaborador</th>
+              <th class="col-0" scope="col">Led Time</th>
+              <th class="col-0 " scope="col">Motivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+        <!--  <th scope="row">616175</th>
+              <td>CARNE EM CUBOS SWIFT</td>
+              <td>10</td>
+              <td>15,75</td>
+              <td>157,50</td>
+              <td>GERSON VIEIRA PEDRO</td>
+              <td>0</td>
+              <td>U</td>
+              <td><button onclick="removerLinha(this)" id="btnRemove" class="btn btn-danger btn-sm" type="button">X</button></td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+  <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
+  <script src="../components/Js/Tabela.js"></script>
+  <script src="../components/Js/Database.js"></script>
+
+
+</body>
+
+</html>
