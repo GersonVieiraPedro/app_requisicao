@@ -1,8 +1,3 @@
-const  { ListaArray, Lista } = require("./Database");
-
-console.log(Lista)
-let SQL = `SELECT Nome FROM Pessoas`
-console.log("Lista Array :" & ListaArray(SQL))
 function AdicionarLinha() {
 
   //Valor 
@@ -71,41 +66,53 @@ tabela.addEventListener('click', function (e) {
 
 function autoComplete(lista) {
 
+  let DivEscondida = document.getElementById('ListaDeNomes')
   //const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
-  let SQL = `SELECT Nome FROM Pessoas`
-  let ListaNome = ListaArray(SQL) || ['a']
-  let Arr = ListaNome
+
+  let Arr = DivEscondida.Value
+
+  const listaMinusculo = lista.toUpperCase()
   //Procura o valor digitado no arrey e inputa na variavel
+  return Arr.filter( ArrayComFilter  => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
+
+  /*
   return Arr.filter((valor) => {
     const valorMinusculo = valor.toLowerCase()
     const listaMinusculo = lista.toLowerCase()
     return valorMinusculo.includes(listaMinusculo)
   })
+  */
 }
 
-//Define os elemente do DOM em variaveis 
-const campo = document.getElementById('Colaborador')
-const sugestoes = document.getElementById('ColaboradorList')
-
-//Cria os elementos com os nomes pesquisados
-campo.addEventListener('input', ({target}) => {
-  const dadosDoCampo = target.value
-
-  if (dadosDoCampo.length) {
-
-    const autoCompleteValores = autoComplete(dadosDoCampo)
-    sugestoes.innerHTML =`
-                ${autoCompleteValores.map((value) => {
-                    return (`<option value="${value}">`)
-                 }).join('')}`
-               
-  }
-})
 
 
 //Escuta o imput de colaborador 
 document.getElementById('Colaborador').addEventListener('change', () => {
-  autocomplete(document.getElementById('Colaborador'))
 
+
+  //Define os elemente do DOM em variaveis 
+  const campo = document.getElementById('Colaborador')
+  const sugestoes = document.getElementById('ColaboradorList')
+
+  //Cria os elementos com os nomes pesquisados
+  campo.addEventListener('input', ({target}) => {
+
+    const dadosDoCampo = target.value
+
+    if (dadosDoCampo == "0" || dadosDoCampo == " " || dadosDoCampo == null) {
+      return
+    } else {
+      if (dadosDoCampo.length) {
+
+        const autoCompleteValores = autoComplete(dadosDoCampo)
+        sugestoes.innerHTML = `${
+
+          autoCompleteValores.map((value) => { 
+          return (`<option value="${value}">`) 
+
+          }).join('')
+        }`
+      }
+    }
+  })
 })
-

@@ -1,4 +1,4 @@
-
+"use strict"
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path')
 const nameBanco = 'DB_RequisicaoAlmox.db'
@@ -22,6 +22,7 @@ const caminho3 = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/sr
  
   let SQL = `SELECT Nome FROM Pessoas`
 */
+
   //modulo de select (abre e fecha o banco)
 module.exports.ListaArray= function (CodeSQL) {
 
@@ -64,8 +65,23 @@ module.exports.ListaArray= function (CodeSQL) {
 
 }
 
-module.exports.Lista = function(){
-let SQL = `SELECT Nome FROM Pessoas`
- let lista = this.ListaArray(SQL)
- return lista
-}
+window.addEventListener('DOMContentLoaded', () => {
+  const replaceText = (selector, text) => {
+    const element = document.getElementById(selector)
+    if (element) element.innerText = text
+  }
+
+  for (const dependency of ['chrome', 'node', 'electron']) {
+    replaceText(`${dependency}-version`, process.versions[dependency])
+  }
+})
+/*
+document.addEventListener('DOMContentLoaded',()=>{
+  let SQL = `SELECT Nome FROM Pessoas`
+  let lista = this.ListaArray(SQL)
+  let DivEscondida = document.getElementById('ListaDeNomes')
+  console.log(lista)
+  DivEscondida.innerHTML = lista
+
+})
+*/
