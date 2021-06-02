@@ -4,7 +4,6 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "postinstall": "install-app-deps",
     "test": "electron .",
     "Tabela": "src/components/js/Tabela.js",
     "rebuild": "electron-rebuild -f -w sqlite3"
@@ -13,8 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^13.0.1",
-    "remote": "^0.2.6",
-    "sql.js": "^1.5.0",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {

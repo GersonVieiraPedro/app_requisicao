@@ -1,6 +1,8 @@
 
 // main.js
 
+
+
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
@@ -11,7 +13,10 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      nodeIntegration: true,
+      contextIsolation: false,
+      preload: "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/js/Database.js"
+      //preload: path.join(__dirname, 'preload.js')
     }
   })
 
@@ -21,7 +26,7 @@ function createWindow () {
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
-let server = require('./components/js/Database')
+let server = require('./components/js/Database.js')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

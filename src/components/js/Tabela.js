@@ -1,5 +1,8 @@
+const  { ListaArray, Lista } = require("./Database");
 
-
+console.log(Lista)
+let SQL = `SELECT Nome FROM Pessoas`
+console.log("Lista Array :" & ListaArray(SQL))
 function AdicionarLinha() {
 
   //Valor 
@@ -68,10 +71,10 @@ tabela.addEventListener('click', function (e) {
 
 function autoComplete(lista) {
 
-  const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
+  //const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
   let SQL = `SELECT Nome FROM Pessoas`
- // let ListaNome = ListaArray(SQL)
-  //let Arr = window.Database.ListaArray(SQL)
+  let ListaNome = ListaArray(SQL) || ['a']
+  let Arr = ListaNome
   //Procura o valor digitado no arrey e inputa na variavel
   return Arr.filter((valor) => {
     const valorMinusculo = valor.toLowerCase()
