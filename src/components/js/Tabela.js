@@ -87,15 +87,14 @@ function autoComplete(lista) {
 
 
 //Escuta o imput de colaborador 
-document.getElementById('Colaborador').addEventListener('change', () => {
-
+document.getElementById('Colaborador').addEventListener('keypress', () => {
 
   //Define os elemente do DOM em variaveis 
   const campo = document.getElementById('Colaborador')
   const sugestoes = document.getElementById('ColaboradorList')
 
   //Cria os elementos com os nomes pesquisados
-  campo.addEventListener('input', ({target}) => {
+  campo.addEventListener('keyup', ({target}) => {
 
     const dadosDoCampo = target.value
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "test": "electron .",
+    "start": "electron .",
     "Tabela": "src/components/js/Tabela.js",
     "rebuild": "electron-rebuild -f -w sqlite3"
   },
