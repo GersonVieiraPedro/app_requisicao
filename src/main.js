@@ -7,7 +7,7 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
-function createWindow () {
+function PageTabela () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -30,11 +30,11 @@ function createWindow () {
 //const server = require('./components/js/Database.js')
 
 app.whenReady().then(() => {
-  createWindow()
+  PageTabela () 
 
   app.on('activate', function () {
 
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) PageTabela () 
   
   })
 })

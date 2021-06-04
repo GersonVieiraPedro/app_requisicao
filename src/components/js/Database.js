@@ -24,7 +24,7 @@ const caminho3 = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/sr
 */
 
   //modulo de select (abre e fecha o banco)
-module.exports.ListaArray= function (CodeSQL) {
+module.exports.ListaArray = function (CodeSQL) {
 
   //Abre o Banco
   let db = new sqlite3.Database(caminho3, (err) => {
@@ -75,6 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${dependency}-version`, process.versions[dependency])
   }
 })
+
 /*
 document.addEventListener('DOMContentLoaded',()=>{
   let SQL = `SELECT Nome FROM Pessoas`

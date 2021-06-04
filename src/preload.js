@@ -1,16 +1,26 @@
-"use strict"
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path')
-const nameBanco = 'DB_RequisicaoAlmox.db'
-const banco = path.resolve(__dirname, "components/Db/", nameBanco)
-const caminho = 'C:/Projetos/Rep/src/components/Db/DB_RequisicaoAlmox.db'
-const caminho2 = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
-const caminho3 = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
+// Variaveis constantes 
+    const SQLite = require('sqlite3').verbose();
+    const path = require('path')
+    const nameBanco = 'DB_RequisicaoAlmox.db'
+    const LocalApp = path.resolve(__dirname, "components/Db/", nameBanco)
+    const LocalJob = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
+    const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
+    const LocalHost = "//bbrdskadm13/host/05-Bancos De Dados/DB_RequisicaoAlmox.db"
+    const {Produto} = require( "./components/js/Classe.js")
+
+//
 
 
+let Produtos = new Produto()
+
+
+
+
+/* Conecta e consulta no banco um lista de nomes e salva no Front
+   para que possa executar as informações de carregamento. */
 document.addEventListener('DOMContentLoaded', () => {
     //Abre o Banco
-    let db = new sqlite3.Database(banco, (err) => {
+    let db = new SQLite.Database(LocalApp, (err) => {
         if (err) {
             console.error(`Erro ao conectar :${err.message}`);
         }
@@ -18,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    let SQL = `SELECT Nome FROM Pessoas`
+    let SQL = `SELECT Nome FROM Pessoas WHERE Cd = "CDA"`
 
     db.all(SQL, [], (err, rows) => {
 
@@ -32,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ListaA.push(row.Nome)
             });
             
-            //Armazena o Array criano no elemento Hidder la no HTML
+            //Armazena o Array criando no elemento Hidder la no HTML
             document.getElementById('ListaDeNomes').Value = ''
             document.getElementById('ListaDeNomes').Value = ListaA
             //console.log(ListaA)
