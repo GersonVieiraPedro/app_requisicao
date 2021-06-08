@@ -1,5 +1,32 @@
 
 
+function Requisicao(){
+
+  this.Add = (Material = Number, Descricao = String , Quantidade = Number, PrecoUn = Number, Valor = Number, Data = Date,
+              Hora = Date, Chapa = Number, Nome = Text, Vistoria = Text, Maquina = Text, Username = Text) =>{
+      
+      let Req = new Object()
+      Req ={
+          Material: Material,
+          Desc: Descricao,
+          Quantidade: Quantidade,
+          PrecoUn : PrecoUn,
+          Valor: Valor,
+          Data: Data,
+          Hora: Hora,
+          Chapa: Chapa,
+          Nome: Nome,
+          Vistoria: Vistoria,
+          Maquina: Maquina,
+          Username: Username
+      }
+      return(Req)
+  }
+}
+
+
+
+
 function AdicionarLinha() {
 
   //Valor 
@@ -24,19 +51,24 @@ function AdicionarLinha() {
   let CellMotivo = Linha.insertCell(7);
   let CellButton = Linha.insertCell(8);
 
+  
+  //Pega o Array de Objetos do elemento Escondido no HTML
+  let ArrayProdutos = document.getElementById('ListaDeProdutos').Value
+  let ArrayPessoas = document.getElementById('ListaDeNomes').Value
+
   //CellMaterial.innerHTML =
   CellProduto.innerHTML = Produto.toUpperCase()
-  CellQtd.innerHTML = Qtd
+  CellQtd.innerHTML = QtdS
   //CellPreco.innerHTML =
   //CellValor.innerHTML =
   CellCalaborador.innerHTML = Calocaborador.toUpperCase()
   //CellLedtime.innerHTML =
   CellMotivo.innerHTML = Motivo
-  CellButton.innerHTML = `<button  onclick="removerLinha()"  id="btnRemove" class=" btn-id btn btn-danger btn-sm"
-  type="button">X</button>`
+  CellButton.innerHTML = `<button  onclick="removerLinha()"  id="btnRemove" class=" btn-id btn btn-danger btn-sm" type="button">X</button>`
 
 
 }
+
 //Remover Linha da Tabela
 function removerLinha(Linha) {
   document.getElementById('TabelaReq').deleteRow(Linha);
@@ -55,7 +87,6 @@ function temClasse(elem, className) {
 //Pega o elemento que foi precionado da tabela pela classe
 let tabela = document.getElementById('TabelaReq');
 
-
 tabela.addEventListener('click', function (e) {
   if (temClasse(e.target, 'btn-id')) {
     let elem = e.target
@@ -65,17 +96,32 @@ tabela.addEventListener('click', function (e) {
 })
 
 
-
-function autoComplete(lista) {
+//AutoComplete do campo Nomes 
+function autoCompleteNomes(lista) {
 
   let DivEscondida = document.getElementById('ListaDeNomes')
   //const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
-
+  
+  //Pega o Array de Objetos do elemento Escondido no HTML
   let Arr = DivEscondida.Value
+
+  //Criando estrutura para a extração e criação de um array so de nomes.
+  let ArrNomes = new Array()
+  let Tamanho = Arr.length; 
+  let indice = 0;
+
+  //Criando o Array de Nomes.
+  while(indice < Tamanho){ 
+    let ObjetoColaborador = Arr[indice]
+    if(indice<=Tamanho){
+    ArrNomes.push(ObjetoColaborador.Nome)
+    }
+    indice = indice + 1 
+  } 
 
   const listaMinusculo = lista.toUpperCase()
   //Procura o valor digitado no arrey e inputa na variavel
-  return Arr.filter( ArrayComFilter  => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
+  return ArrNomes.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
 
   /*
   return Arr.filter((valor) => {
@@ -87,7 +133,6 @@ function autoComplete(lista) {
 }
 
 
-
 //Escuta o imput de colaborador 
 document.getElementById('Colaborador').addEventListener('keypress', () => {
 
@@ -96,7 +141,9 @@ document.getElementById('Colaborador').addEventListener('keypress', () => {
   const sugestoes = document.getElementById('ColaboradorList')
 
   //Cria os elementos com os nomes pesquisados
-  campo.addEventListener('keyup', ({target}) => {
+  campo.addEventListener('keyup', ({
+    target
+  }) => {
 
     const dadosDoCampo = target.value
 
@@ -105,7 +152,74 @@ document.getElementById('Colaborador').addEventListener('keypress', () => {
     } else {
       if (dadosDoCampo.length) {
 
-        const autoCompleteValores = autoComplete(dadosDoCampo)
+        const autoCompleteValores = autoCompleteNomes(dadosDoCampo)
+        sugestoes.innerHTML = `${
+
+          autoCompleteValores.map((value) => { 
+          return (`<option value="${value}">`) 
+
+          }).join('')
+        }`
+      }
+    }
+  })
+})
+
+
+
+//AutoComplete do campo Produtos 
+function autoCompleteProduto(lista) {
+
+  //Pega o Array de Objetos do elemento Escondido no HTML
+  let Arr = document.getElementById('ListaDeProdutos').Value
+
+  //Criando estrutura para a extração e criação de um array so de nomes.
+  let ArrNomes = new Array()
+  let Tamanho = Arr.length; 
+  let indice = 0;
+
+  //Criando o Array de Nomes.
+  while(indice < Tamanho){ 
+    let ObjetoProdutos = Arr[indice]
+    if(indice<=Tamanho){
+    ArrNomes.push(ObjetoProdutos.Prod)
+    }
+    indice = indice + 1 
+  } 
+
+  const listaMinusculo = lista.toUpperCase()
+  //Procura o valor digitado no arrey e inputa na variavel
+  return ArrNomes.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
+
+  /*
+  return Arr.filter((valor) => {
+    const valorMinusculo = valor.toLowerCase()
+    const listaMinusculo = lista.toLowerCase()
+    return valorMinusculo.includes(listaMinusculo)
+  })
+  */
+}
+
+//Escuta o imput de Produtos 
+document.getElementById('Produto').addEventListener('keypress', () => {
+
+  //Define os elemente do DOM em variaveis 
+  const campo = document.getElementById('Produto')
+  const sugestoes = document.getElementById('ProdutoList')
+
+  //Cria os elementos com os nomes pesquisados
+  campo.addEventListener('keyup', ({
+    target
+  }) => {
+
+    const dadosDoCampo = target.value
+
+    if (dadosDoCampo == "0" || dadosDoCampo == " " || dadosDoCampo == null) {
+      return
+    } else {
+      if (dadosDoCampo.length >= 2) {
+
+        const autoCompleteValores = autoCompleteProduto(dadosDoCampo)
         sugestoes.innerHTML = `${
 
           autoCompleteValores.map((value) => { 

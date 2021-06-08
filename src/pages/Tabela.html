@@ -1,34 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  <meta http-equiv="content-security-policy"content="default-src 'none'; script-src 'self';connect-src 'self'; img-src 'self';style-src 'self' 'sha256-CwE3Bg0VYQOIdNAkbB/Btdkhul49qZuwgNCMPgNY5zw=';" />
+  <meta http-equiv="content-security-policy"
+    content="default-src 'none'; script-src 'self';connect-src 'self'; img-src 'self';style-src 'self' 'sha256-CwE3Bg0VYQOIdNAkbB/Btdkhul49qZuwgNCMPgNY5zw=';" />
   <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.css" />
-  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.min.css" /> 
   <title>requisição</title>
 </head>
 
 <body>
   <div class="container-lg ">
-    <div class="row">   
+    <div class="row">
 
       <div class="col-3">
         <input type="hidden" id="ListaDeNomes">
+        <input type="hidden" id="ListaDeProdutos">
+
         <!-- Coluna Lateral Esquenda -->
       </div>
 
       <div class="col-6">
-        <div class="card a mb-5 ">  
+        <div class="card a mb-5 ">
           <div class="card-body">
             <div class="row">
               <div class="col">
                 <div class="input-group input-group-sm mb-3 ">
 
                   <input class="form-control" list="ColaboradorList" id="Colaborador" placeholder="Colaborador">
-                  
+
                   <datalist id="ColaboradorList">
                     <!-- <option value="San Francisco">-->
                   </datalist>
@@ -41,23 +44,35 @@
               <div class="col">
                 <div class="input-group input-group-sm ">
 
-                  <input type="text" id="Produto" class="form-control w-50" placeholder="Produto">
+                  <!-- <input type="text" id="Produto" class="form-control w-50" placeholder="Produto"> -->
+                  <input class="form-control w-50" list="ProdutoList" id="Produto" placeholder="Produto">
+                  <datalist id="ProdutoList">
+                    <!-- <option value="PICANHA OURO">-->
+                  </datalist>
 
-                  <input type="text" id="Quantidade" class="form-control" placeholder="Quantidade">
-
-                  <input type="text" id="Motivo" class="form-control" placeholder="Motivo">
-
+                    <input type="text" id="Quantidade" class="form-control " placeholder="Qtd">
+             
+                  <!-- <input type="text" id="Motivo" class="form-control w-10" placeholder="Motivo">  -->
+                  
+                     <select id="Motivo" class="form-select w-25">
+                      <option selected>Motivo</option>
+                      <option value="A">A = Admissão</option>
+                      <option value="S">S = Substituição Por Vida Útil</option>
+                      <option value="Q">Q = Substituição Por Quebra</option>
+                      <option value="P">P = Substituição Por Perda</option>
+                      <option value="U">U = Consumos e Usos</option>  </select> 
+                   
                 </div>
               </div>
             </div>
-          <div class="d-grid gap-2 col-6 mx-auto">
+            <div class="d-grid gap-2 col-6 mx-auto">
 
               <button class="btn btn-success" id="btn" type="button">Adicionar</button>
 
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <div class="col-3">
         <!-- Coluna do lado Direito da parte Superior  -->
@@ -82,7 +97,7 @@
           </thead>
           <tbody>
             <tr>
-        <!--  <th scope="row">616175</th>
+              <!--  <th scope="row">616175</th>
               <td>CARNE EM CUBOS SWIFT</td>
               <td>10</td>
               <td>15,75</td>
@@ -101,9 +116,9 @@
 
   <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
   <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
-  
- <script src="../components/Js/Tabela.js"></script>
- <script src="../components/Js/Classe.js"></script>
+
+  <script src="../components/Js/Tabela.js"></script>
+  <script src="../components/Js/Classe.js"></script>
 </body>
 
 </html>
