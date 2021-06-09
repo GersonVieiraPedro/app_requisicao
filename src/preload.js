@@ -16,11 +16,25 @@ let Colaboradores = new Colaborador()
 
 
 
+
+function GetComputerName() {
+    try {
+        var network = new ActiveXObject('WScript.Network');
+        // Show a pop up if it works
+        alert(network.computerName);
+        console.log(network.computerName)
+    }
+    catch (e) { }
+}
+
 /* Conecta e consulta no banco um lista de nomes e salva no Front
    para que possa executar as informações de carregamento. */
 document.addEventListener('DOMContentLoaded', () => {
+
+    
+
     //Abre o Banco
-    let db = new SQLite.Database(LocalJob, (err) => {
+    let db = new SQLite.Database(LocalHome, (err) => {
         if (err) {
             console.error(`Erro ao conectar :${err.message}`);
             throw err
