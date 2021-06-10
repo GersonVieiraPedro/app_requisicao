@@ -7,8 +7,8 @@
     const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
     const LocalHost = "//bbrdskadm13/host/05-Bancos De Dados/DB_RequisicaoAlmox.db"
     const {Produto, Colaborador} = require( "./components/js/Classe.js")
-
 //
+
 
 
 let Produtos = new Produto()
@@ -17,15 +17,6 @@ let Colaboradores = new Colaborador()
 
 
 
-function GetComputerName() {
-    try {
-        var network = new ActiveXObject('WScript.Network');
-        // Show a pop up if it works
-        alert(network.computerName);
-        console.log(network.computerName)
-    }
-    catch (e) { }
-}
 
 /* Conecta e consulta no banco um lista de nomes e salva no Front
    para que possa executar as informações de carregamento. */

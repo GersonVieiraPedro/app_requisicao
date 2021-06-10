@@ -1,11 +1,10 @@
 function Requisicao() {
 
-  this.Add = (Material = Number, Descricao = String, Quantidade = Number, PrecoUn = Number, Valor = Number, Data = Date,
-    Hora = Date, Chapa = Number, Nome = Text, Vistoria = Text, Maquina = Text, Username = Text) => {
+  this.Add = (ID,Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo) => {
 
     let Req = new Object()
     Req = {
-      ID: Material + (Data * 24) + Chapa,
+      ID: ID,
       Material: Material,
       Desc: Descricao,
       Quantidade: Quantidade,
@@ -15,9 +14,11 @@ function Requisicao() {
       Hora: Hora,
       Chapa: Chapa,
       Nome: Nome,
+      Gestor: Gestor,
+      Setor: Setor,
       Vistoria: Vistoria,
-      Maquina: Maquina,
-      Username: Username
+      Username: Username,
+      Motivo: Motivo
     }
     return (Req)
   }
@@ -55,6 +56,10 @@ function AdicionarLinha() {
   let ArrayProdutos = document.getElementById('ListaDeProdutos').Value
   let ArrayPessoas = document.getElementById('ListaDeNomes').Value
 
+  let dominio = document.getElementById('ListaDeNomes').baseURI
+  let T = dominio.indexOf("/", 17)
+  let username = dominio.substring(17, T)
+
   //Filtra o Objeto do array
   let ObjetoProduto = ArrayProdutos.filter(produto => produto.Prod == Produto);
   ObjetoProduto.forEach(produto => {
@@ -68,19 +73,21 @@ function AdicionarLinha() {
   });
 
   let Q = Number.parseFloat(Qtd).toFixed(2) //Transforma a String Qtd em Numero e seta em duas casas decimais
-  let p = ProdutoSelecionado.PrecoUnitatio //Extrai o preço unitario do objeto
-  let Preco = p.replace(",", ".") //Substitui a , para o . do preço
+  let p = ProdutoSelecionado.PrecoUnitatio.toString() //Extrai o preço unitario do objeto
+  let Preco = p.indexOf(",")<0 ? p.replace(",", "."): p ;
   Preco = Number.parseFloat(Preco).toFixed(2) //Transforma a String Preco em Numero e seta em duas casas decimais
   let Valor = (Q * Preco).toFixed(2) //Realiza a multiplicação
+
+  
 
   CellMaterial.innerHTML = ProdutoSelecionado.Material
   CellProduto.innerHTML = Produto.toUpperCase()
   CellQtd.innerHTML = Qtd
-  CellPreco.innerHTML = ProdutoSelecionado.PrecoUnitatio
-  CellValor.innerHTML = `R$:${Valor}`
+  CellPreco.innerHTML = `R$: ${Preco}`
+  CellValor.innerHTML = `R$: ${Valor}`
   CellCalaborador.innerHTML = Calocaborador.toUpperCase()
   //CellLedtime.innerHTML =
-  CellMotivo.innerHTML = Motivo
+  CellMotivo.innerHTML = Motivo.substring(0,1)
   CellButton.innerHTML = `<button  onclick="removerLinha()"  id="btnRemove" class=" btn-id btn btn-danger btn-sm" type="button">X</button>`
 
 
@@ -93,11 +100,13 @@ function AdicionarLinha() {
 
   let dataAtual = new Date(); //29/01/2020
   let dataAtualFormatada = (adicionaZero(dataAtual.getDate().toString()) + "/" + (adicionaZero(dataAtual.getMonth() + 1).toString()) + "/" + dataAtual.getFullYear());
-  let Hora = `${dataAtual.getHours}:${dataAtual.getMinutes}:${dataAtual.getSeconds}`
+  let Hora = `${adicionaZero(dataAtual.getHours())}:${adicionaZero(dataAtual.getMinutes())}:${adicionaZero(dataAtual.getSeconds())}`
 
+  let Id = (dataAtualFormatada+PessoaSelecionado.Chapa+ProdutoSelecionado.Material).replace("/",0).replace("/",0)
 
   let Requisicoes = new Requisicao()
   ListaDeRequisicao.push(Requisicoes.Add(
+    Id,
     ProdutoSelecionado.Material,
     ProdutoSelecionado.Prod,
     Q,
@@ -106,9 +115,20 @@ function AdicionarLinha() {
     dataAtualFormatada,
     Hora,
     PessoaSelecionado.Chapa,
-    PessoaSelecionado.Nome
+    PessoaSelecionado.Nome,
+    PessoaSelecionado.Gestor,
+    PessoaSelecionado.Setor,
+    "GersonV", //Nome do Usuario que logar para fazer a requisição
+    username,
+    Motivo
   ));
+ 
 
+//Limpar valores da seleção deixar apenas o colaborador.
+document.getElementById('Produto').value = ''
+document.getElementById('Quantidade').value = ''
+document.getElementById('Motivo').value = 'Motivo'
+ 
 }
 
 //Remover Linha da Tabela

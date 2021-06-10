@@ -32,7 +32,7 @@ function Colaborador(){
     }
 }
 
-//Criando um Objeto para salvar as informações de registro.
+/*Criando um Objeto para salvar as informações de registro.
 function Requisicao(){
 
     this.Add = (Material = Number, Descricao = String , Quantidade = Number, PrecoUn = Number, Valor = Number, Data = Date,
@@ -68,6 +68,6 @@ console.log(Produtos.Add(10,"File Manga",14.75))
 //Exportando os objetos Globalmente 
 module.exports ={
     Produto,
-    Colaborador,
-    Requisicao
+    Colaborador
+   
 }
