@@ -3,12 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  <meta http-equiv="content-security-policy"
-    content="default-src 'none'; script-src 'self';connect-src 'self'; img-src 'self';style-src 'self' 'sha256-CwE3Bg0VYQOIdNAkbB/Btdkhul49qZuwgNCMPgNY5zw=';" />
+
+  <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+   <meta http-equiv="content-security-policy"
+    content="default-src 'none'; script-src 'self';connect-src 'self'; img-src 'self';style-src 'self' 'sha256-CwE3Bg0VYQOIdNAkbB/Btdkhul49qZuwgNCMPgNY5zw=';" /> -->
   <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.css" />
-  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.min.css" /> 
+  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/style.css" />
   <title>requisição</title>
 </head>
 
@@ -24,80 +25,124 @@
       </div>
 
       <div class="col-6">
-        <div class="card a mb-5 ">
+        <div class="card border mb-5 ">
           <div class="card-body">
-            <div class="row">
-              <div class="col">
-                <div class="input-group input-group-sm mb-3 ">
+            <form action="">
+              <div class="row">
+                <div class="col">
+                  <div class="input-group input-group-sm mb-3 ">
 
-                  <input class="form-control" list="ColaboradorList" id="Colaborador" placeholder="Colaborador">
+                    <input class="form-control" list="ColaboradorList" id="Colaborador" placeholder="Colaborador"
+                      aria-describedby="validationTooltipUsernamePrepend" required>
 
-                  <datalist id="ColaboradorList">
-                    <!-- <option value="San Francisco">-->
-                  </datalist>
-
+                    <datalist id="ColaboradorList">
+                      <!-- <option value="San Francisco">-->
+                    </datalist>
+                    <div class="invalid-tooltip">
+                      Coloque o nome do colaborador por favor.
+                    </div>`
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="row mb-3 ">
-              <div class="col">
-                <div class="input-group input-group-sm ">
+              <div class="row mb-3 ">
+                <div class="col">
+                  <div class="input-group input-group-sm ">
 
-                  <!-- <input type="text" id="Produto" class="form-control w-50" placeholder="Produto"> -->
-                  <input class="form-control w-50" list="ProdutoList" id="Produto" placeholder="Produto">
-                  <datalist id="ProdutoList">
-                    <!-- <option value="PICANHA OURO">-->
-                  </datalist>
+                    <!-- <input type="text" id="Produto" class="form-control w-50" placeholder="Produto"> -->
+                    <input class="form-control w-50" list="ProdutoList" id="Produto" placeholder="Produto" required>
+                    <datalist id="ProdutoList">
+                      <!-- <option value="PICANHA OURO">-->
+                    </datalist>
 
-                    <input type="text" id="Quantidade" class="form-control " placeholder="Qtd">
-             
-                  <!-- <input type="text" id="Motivo" class="form-control w-10" placeholder="Motivo">  -->
-                  
-                     <select id="Motivo" class="form-select w-25">
-                      <option selected>Motivo</option>
-                      <option value="A">A = Admissão</option>
-                      <option value="S">S = Substituição Por Vida Útil</option>
-                      <option value="Q">Q = Substituição Por Quebra</option>
-                      <option value="P">P = Substituição Por Perda</option>
-                      <option value="U">U = Consumos e Usos</option>  </select> 
-                   
+                    <input type="text" id="Quantidade" class="form-control " placeholder="Qtd" required>
+
+                    <!-- <input type="text" id="Motivo" class="form-control w-10" placeholder="Motivo">  -->
+
+                    <select id="Motivo" class="form-select w-25" required aria-placeholder="Motivo">
+                      <option selected></option>
+                      <option value="A"><b>A</b> = Admissão</option>
+                      <option value="S"><b>V</b> = Substituição Por Vida Útil</option>
+                      <option value="Q"><b>Q</b> = Substituição Por Quebra</option>
+                      <option value="P"><b>P</b> = Substituição Por Perda</option>
+                      <option value="U"><b>U</b> = Consumos e Usos</option>
+                    </select>
+
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="d-grid gap-2 col-6 mx-auto">
+              <div class="row mt-3">
+                <div class="col-3">
+                  <button class="btn btn-success btn-rounded btn-fw btn-sm " id="btn-Send" type="submit"
+                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar a Requisição"> Solicitar
 
-              <button class="btn btn-success" id="btn" type="button">Adicionar</button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-cursor-fill" viewBox="-2.5 2 16 16">
+                      <path
+                        d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-3"></div>
 
-            </div>
+                <div class="col-3">
+                  <button class="btn btn-icons btn-rounded btn-outline-primary btn-sm Icon-lg" id="btn-Add"
+                    type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Adicionar Item a Lista">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                    </svg>
+                  </button>
+
+                  <button class="btn btn-icons btn-rounded btn-outline-danger btn-sm Icon-lg" id="btn-Remove"
+                    type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Limpar Toda a Lista">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path
+                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
 
-      <div class="col-3">
+      <div class="col-auto">
         <!-- Coluna do lado Direito da parte Superior  -->
       </div>
-
     </div>
 
-    <div class="card">
-      <div class="card-body">
-        <table class="table table-hover table-sm" id='TabelaReq'>
-          <thead class="table-warning">
-            <tr>
-              <th class="col-1" scope="col">Material</th>
-              <th class="col-3" scope="col">Produto</th>
-              <th class="col-1" scope="col">Qtd</th>
-              <th class="col-1" scope="col">Un. Preço</th>
-              <th class="col-1" scope="col">Valor</th>
-              <th class="col-3" scope="col">Colaborador</th>
-              <th class="col-0" scope="col">Led Time</th>
-              <th class="col-0 " scope="col">Motivo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <!--  <th scope="row">616175</th>
+    <div class="row">
+      <div class="col">
+
+      </div>
+
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <table class="table table-hover table-sm tt" id='TabelaReq'>
+              <thead class="table-warning">
+                <tr>
+                  <th class="col-1 w-25" scope="col">Material</th>
+                  <th class="col-3" scope="col">Produto</th>
+                  <th class="col-1" scope="col">Qtd</th>
+                  <th class="col-1" scope="col">Un. Preço</th>
+                  <th class="col-1" scope="col">Valor</th>
+                  <th class="col-3" scope="col">Colaborador</th>
+                  <th class="col-0" scope="col">Led Time</th>
+                  <th class="col-0 " scope="col">Motivo</th>
+                  <th class="col-0 " scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <!--  <th scope="row">616175</th>
               <td>CARNE EM CUBOS SWIFT</td>
               <td>10</td>
               <td>15,75</td>
@@ -106,19 +151,34 @@
               <td>0</td>
               <td>U</td>
               <td><button onclick="removerLinha(this)" id="btnRemove" class="btn btn-danger btn-sm" type="button">X</button></td> -->
-            </tr>
-          </tbody>
-        </table>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <!-- Coluna do lado Direito da parte Inferior  -->
       </div>
     </div>
   </div>
 
-
+  <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+  <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
   <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
   <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
 
   <script src="../components/Js/Tabela.js"></script>
   <script src="../components/Js/Classe.js"></script>
+
+  <style>
+    .border {
+      border-style: solid;
+      border-color: #5e5e5e;
+    }
+  </style>
+
 </body>
 
 </html>

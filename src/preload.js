@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     //Abre o Banco
-    let db = new SQLite.Database(LocalHome, (err) => {
+    let db = new SQLite.Database(LocalJob, (err) => {
         if (err) {
             console.error(`Erro ao conectar :${err.message}`);
             throw err
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //Armazena o Array criando no elemento Hidder la no HTML
             document.getElementById('ListaDeNomes').Value = ''
             document.getElementById('ListaDeNomes').Value = ListaPessoas
-            console.log(ListaPessoas)
+            //console.log(ListaPessoas)
         }
     });
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //Armazena o Array criando no elemento Hidder la no HTML
             document.getElementById('ListaDeProdutos').Value = ''
             document.getElementById('ListaDeProdutos').Value = ListaProdutos
-            console.log(ListaProdutos)
+            // console.log(ListaProdutos)
         }
     });
 
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Erro ao fecha o banco :${err.message}`);
         }
             console.log('Banco de dados fechado.');
-
+        
     });
 
 })
