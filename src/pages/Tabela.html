@@ -14,10 +14,23 @@
 </head>
 
 <body>
+  <div class="row ">
+    <nav class="NavBar">
+      
+        <a class="navbar-brand" href="https://www.swift.com.br/">
+          <img class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset="" height="50" width="60">
+        </a>
+      
+    </nav>
+
+    <a href=></a>
+  
+  </div>  
   <div class="container-lg ">
     <div class="row">
 
       <div class="col-3">
+        
         <input type="hidden" id="ListaDeNomes">
         <input type="hidden" id="ListaDeProdutos">
 
@@ -25,7 +38,7 @@
       </div>
 
       <div class="col-6">
-        <div class="card border mb-5 ">
+        <div class="card border shadow-sm p-3 mb-3 bg-body rounded">
           <div class="card-body">
             <form action="">
               <div class="row">
@@ -38,9 +51,6 @@
                     <datalist id="ColaboradorList">
                       <!-- <option value="San Francisco">-->
                     </datalist>
-                    <div class="invalid-tooltip">
-                      Coloque o nome do colaborador por favor.
-                    </div>`
                   </div>
                 </div>
               </div>
@@ -55,7 +65,7 @@
                       <!-- <option value="PICANHA OURO">-->
                     </datalist>
 
-                    <input type="text" id="Quantidade" class="form-control " placeholder="Qtd" required>
+                    <input type="number" id="Quantidade" class="form-control " placeholder="Qtd" required>
 
                     <!-- <input type="text" id="Motivo" class="form-control w-10" placeholder="Motivo">  -->
 
@@ -72,22 +82,22 @@
                 </div>
               </div>
               <div class="row mt-3">
-                <div class="col-3">
-                  <button class="btn btn-success btn-rounded btn-fw btn-sm " id="btn-Send" type="submit"
+                <div class="col-4">
+                  <button class="btn btn-primary btn-rounded btn-fw btn-sm " id="btn-Send" type="submit"
                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar a Requisição"> Solicitar
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-cursor-fill" viewBox="-2.5 2 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor"
+                      class="bi bi-cursor-fill" viewBox="-14 1 16 16">
                       <path
                         d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
                     </svg>
                   </button>
                 </div>
-                <div class="col-3"></div>
+                
+                <div class="col-2"></div>
                 <div class="col-3"></div>
 
-                <div class="col-3">
-                  <button class="btn btn-icons btn-rounded btn-outline-primary btn-sm Icon-lg" id="btn-Add"
+                <div class="col-3-buton">
+                  <button class="btn btn-icons btn-rounded btn-outline-success btn-sm Icon-lg" id="btn-Add"
                     type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Adicionar Item a Lista">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -123,10 +133,11 @@
 
       </div>
 
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <table class="table table-hover table-sm tt" id='TabelaReq'>
+      <div class="col position-static">
+        <div class="card position-static">
+          <h4><span id="TotalValor" class="badge bg-success TotalValor"></span></h4>
+          <div class="card-body border position-static rounded">
+            <table class="table table-hover table-sm position-static" id='TabelaReq'>
               <thead class="table-warning">
                 <tr>
                   <th class="col-1 w-25" scope="col">Material</th>
@@ -177,6 +188,37 @@
       border-style: solid;
       border-color: #5e5e5e;
     }
+
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+
+    }
+
+    .TotalValor {
+      margin-left: 90%;
+      width: 10%;
+      margin-bottom: 0.5px;
+    }
+    .NavBar{
+      width: 100%;
+      height: 50px;
+      background: #ffb293;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .logou{
+      margin-top: -4px;
+      margin-left: 8px;
+      margin-bottom: 30px;
+
+    }
+
   </style>
 
 </body>

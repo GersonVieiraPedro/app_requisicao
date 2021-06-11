@@ -1,3 +1,23 @@
+const { TouchBar } = require("electron")
+const {ipcRenderer} = require('electron')
+
+//
+
+document.getElementById('btn-Send').addEventListener('click', ()=>{
+
+  //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
+  ipcRenderer.send('Requsição', ListaDeRequisicao)
+
+  //Recebe  Mensagem no Main 
+  ipcRenderer.on ('asynchronous-reply', (event, arg) => { 
+      console.log (arg) // imprime “pong” 
+   })
+  
+})
+
+
+
+
 //Objeto de requisição 
 function Requisicao() {
 
@@ -177,6 +197,8 @@ document.getElementById('btn-Add').addEventListener('click', () => {
   AdicionarLinha()
 })
 
+
+
 function AdicionarLinha() {
   let st = ValidarTextBox()
   if (st == "vazio") {
@@ -188,7 +210,7 @@ function AdicionarLinha() {
     let Produto = document.getElementById('Produto').value
     let Qtd = document.getElementById('Quantidade').value
     let Motivo = document.getElementById('Motivo').value
-
+    let TotalValor = document.getElementById('TotalValor')
     //Tabela
     let Tabela = document.getElementById('TabelaReq');
     //let numeroDeLinhas = Tabela.rows.lenght;
@@ -235,7 +257,7 @@ function AdicionarLinha() {
     let Valor = (Q * Preco).toFixed(2) //Realiza a multiplicação
 
 
-
+    // inserindo valor nas celular criadas.
     CellMaterial.innerHTML = ProdutoSelecionado.Material
     CellProduto.innerHTML = Produto.toUpperCase()
     CellQtd.innerHTML = Qtd
@@ -244,26 +266,27 @@ function AdicionarLinha() {
     CellCalaborador.innerHTML = Calocaborador.toUpperCase()
     CellLedtime.innerHTML = 12 //led precisa vim da tabela req
     CellMotivo.innerHTML = Motivo.substring(0, 1)
-    CellButton.innerHTML = `<button onclick="removerLinha()" id="btnRemove" class="btn btn-id icon-sm btn-icons btn-rounded btn-danger btn-sm" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-                            </svg>
-                            </button>`
+    CellButton.innerHTML = `<button onclick="" id="btnRemove" class="btn btn-id  bi icon-sm btn-icons-table btn-rounded btn-danger btn-sm" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg></button>`
 
-
-    function adicionaZero(numero) {
-      if (numero <= 9)
-        return "0" + numero;
-      else
-        return numero;
+    //subindo o valor de total na Base
+    let ValorAtual = TotalValor.innerText
+    if (ValorAtual == ""){
+      TotalValor.innerHTML = `R$: ${Valor}`
+    }else{  
+     ValorAtual = ValorAtual.substring(4, ValorAtual.length)
+     ValorAtual = Number.parseFloat(ValorAtual)
+    TotalValor.innerHTML = `R$: ${ValorAtual + Number.parseFloat(Valor)}`
     }
 
+    //Pegando o valor de Data e Hora do registro 
     let dataAtual = new Date(); //29/01/2020
     let dataAtualFormatada = (adicionaZero(dataAtual.getDate().toString()) + "/" + (adicionaZero(dataAtual.getMonth() + 1).toString()) + "/" + dataAtual.getFullYear());
     let Hora = `${adicionaZero(dataAtual.getHours())}:${adicionaZero(dataAtual.getMinutes())}:${adicionaZero(dataAtual.getSeconds())}`
 
+    // Criando o ID para o led Time
     let Id = (dataAtualFormatada + PessoaSelecionado.Chapa + ProdutoSelecionado.Material).replace("/", 0).replace("/", 0)
 
+    //Criando o Objeto requisição para salvar as informações da requsição
     let Requisicoes = new Requisicao()
     ListaDeRequisicao.push(Requisicoes.Add(
       Id,
@@ -282,7 +305,7 @@ function AdicionarLinha() {
       username,
       Motivo
     ));
-    console.log(ListaDeRequisicao)
+    //console.log(ListaDeRequisicao)
 
     //Limpar valores da seleção deixar apenas o colaborador.
     document.getElementById('Produto').value = ''
@@ -292,7 +315,15 @@ function AdicionarLinha() {
   }
 }
 
+//Adiona 0 na Frente se o numero for menor que 10 
+function adicionaZero(numero) {
+  if (numero <= 9)
+    return "0" + numero;
+  else
+    return numero;
+}
 
+//Valida se os INPUT tem valores para funcionar
 function ValidarTextBox() {
   let Colaborador = document.getElementById('Colaborador')
   let Produto = document.getElementById('Produto')
@@ -322,23 +353,32 @@ function ValidarTextBox() {
 //Remover Linha da Tabela
 function removerLinha(Linha) {
   document.getElementById('TabelaReq').deleteRow(Linha);
-  ListaDeRequisicao.splice((Linha - 2), 1)
-  console.log(ListaDeRequisicao)
+  ListaDeRequisicao.splice((Linha - 2), 1) //splice(Indice do elemento, quantidade removidas)
+  //console.log(ListaDeRequisicao)
 }
 
 
 //pega o elemento clicado na tela por nome de classe
 function temClasse(elem, className) {
-  return elem.className.split(' ').indexOf(className) > -1;
+
+  if(elem.tagName == "BUTTON"){
+    return elem.className.split(' ').indexOf(className) > -1;
+  }else{
+    return elem.farthestViewportElement.attributes[4].nodeValue.split(' ').indexOf(className) > -1;
+  }
+
 }
 
 
 //Pega o elemento que foi precionado da tabela pela classe
 let tabela = document.getElementById('TabelaReq');
 tabela.addEventListener('click', function (e) {
-  if (temClasse(e.target, 'btn-id')) {
+  if (temClasse(e.target, 'bi')) {
     let elem = e.target
-    let Linha = elem.parentNode.parentNode.rowIndex
+
+    let Linha =  elem.tagName == "BUTTON"?
+                 elem.parentNode.parentNode.rowIndex: 
+                 elem.parentNode.parentNode.parentNode.parentNode.rowIndex
     removerLinha(Linha)
   }
 })

@@ -1,11 +1,22 @@
-
-// main.js
-
+const SQLite = require('sqlite3').verbose();
 
 
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+const {ipcMain} = require('electron')
+
+
+
+ipcMain.on ('Requsição', (event, args) => { 
+  Obj = JSON.stringify(args)
+console.log (Obj) 
+
+event.sender.send ('asynchronous-reply', 'world')
+})
+
+
+
 
 function PageTabela () {
   // Create the browser window.
@@ -19,10 +30,12 @@ function PageTabela () {
       preload: path.join(__dirname, 'preload.js')
     }
   })
+  mainWindow.setMenu(null)
 
   // and load the index.html of the app.
   mainWindow.loadFile('./src/pages/Tabela.html')
-
+  //mazimiza a pafina 
+  mainWindow.maximize();
   // Open the DevTools.
    mainWindow.webContents.openDevTools()
 }
