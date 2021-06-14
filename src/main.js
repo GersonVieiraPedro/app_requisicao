@@ -1,28 +1,30 @@
-const SQLite = require('sqlite3').verbose();
-
 
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const {app,BrowserWindow} = require('electron')
 const path = require('path')
-const {ipcMain} = require('electron')
+const {ipcMain} = require('electron');
+const { SalvarBanco } = require('./Banco');
 
 
 
-ipcMain.on ('Requsição', (event, args) => { 
-  Obj = JSON.stringify(args)
-console.log (Obj) 
+ipcMain.on('Requsição', (event, args) => {
+ //Obj = JSON.stringify(args)
+ 
+ let Msg = SalvarBanco(args)
 
-event.sender.send ('asynchronous-reply', 'world')
+  event.sender.send('Mensagem', Msg)
 })
 
 
 
 
-function PageTabela () {
+function PageTabela() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -37,18 +39,18 @@ function PageTabela () {
   //mazimiza a pafina 
   mainWindow.maximize();
   // Open the DevTools.
-   mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 //const server = require('./components/js/Database.js')
 
 app.whenReady().then(() => {
-  PageTabela () 
+  PageTabela()
 
   app.on('activate', function () {
 
-    if (BrowserWindow.getAllWindows().length === 0) PageTabela () 
-  
+    if (BrowserWindow.getAllWindows().length === 0) PageTabela()
+
   })
 })
 
@@ -56,5 +58,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
-
-

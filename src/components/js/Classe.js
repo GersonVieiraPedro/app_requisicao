@@ -32,31 +32,34 @@ function Colaborador(){
     }
 }
 
-/*Criando um Objeto para salvar as informações de registro.
-function Requisicao(){
+//Criando um Objeto para salvar as informações de registro.
+//Objeto de requisição 
+function Requisicao() {
 
-    this.Add = (Material = Number, Descricao = String , Quantidade = Number, PrecoUn = Number, Valor = Number, Data = Date,
-                Hora = Date, Chapa = Number, Nome = Text, Vistoria = Text, Maquina = Text, Username = Text) =>{
-        
-        let Req = new Object()
-        Req ={
-            Material: Material,
-            Desc: Descricao,
-            Quantidade: Quantidade,
-            PrecoUn : PrecoUn,
-            Valor: Valor,
-            Data: Data,
-            Hora: Hora,
-            Chapa: Chapa,
-            Nome: Nome,
-            Vistoria: Vistoria,
-            Maquina: Maquina,
-            Username: Username
-        }
-        return(Req)
+  this.Add = (Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo) => {
+
+    let Req = new Object()
+    Req = {
+      Pedido: Pedido,
+      ID: ID,
+      Material: Material,
+      Desc: Descricao,
+      Quantidade: Quantidade,
+      PrecoUn: PrecoUn,
+      Valor: Valor,
+      Data: Data,
+      Hora: Hora,
+      Chapa: Chapa,
+      Nome: Nome,
+      Gestor: Gestor,
+      Setor: Setor,
+      Vistoria: Vistoria,
+      Username: Username,
+      Motivo: Motivo
     }
+    return (Req)
+  }
 }
-
 
 
 /*
@@ -68,6 +71,7 @@ console.log(Produtos.Add(10,"File Manga",14.75))
 //Exportando os objetos Globalmente 
 module.exports ={
     Produto,
-    Colaborador
+    Colaborador,
+    Requisicao
    
 }

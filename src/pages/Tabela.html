@@ -10,20 +10,22 @@
   <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.css" />
   <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/bootstrap.min.css" />
   <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/style.css" />
+  <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/Model.css" />
   <title>requisição</title>
 </head>
 
-<body>
+<body id="Corpo">
   <div class="row ">
     <nav class="NavBar">
       
         <a class="navbar-brand" href="https://www.swift.com.br/">
           <img class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset="" height="50" width="60">
-        </a>
-      
+        
+        </a><a href=""></a>
+        
     </nav>
 
-    <a href=></a>
+   
   
   </div>  
   <div class="container-lg ">
@@ -36,7 +38,7 @@
 
         <!-- Coluna Lateral Esquenda -->
       </div>
-
+   
       <div class="col-6">
         <div class="card border shadow-sm p-3 mb-3 bg-body rounded">
           <div class="card-body">
@@ -71,11 +73,11 @@
 
                     <select id="Motivo" class="form-select w-25" required aria-placeholder="Motivo">
                       <option selected></option>
-                      <option value="A"><b>A</b> = Admissão</option>
-                      <option value="S"><b>V</b> = Substituição Por Vida Útil</option>
-                      <option value="Q"><b>Q</b> = Substituição Por Quebra</option>
-                      <option value="P"><b>P</b> = Substituição Por Perda</option>
-                      <option value="U"><b>U</b> = Consumos e Usos</option>
+                      <option value="A">A = Admissão</option>
+                      <option value="V">V = Substituição Por Vida Útil</option>
+                      <option value="Q">Q = Substituição Por Quebra</option>
+                      <option value="P">P = Substituição Por Perda</option>
+                      <option value="U">U = Consumos e Usos</option>
                     </select>
 
                   </div>
@@ -125,6 +127,16 @@
 
       <div class="col-auto">
         <!-- Coluna do lado Direito da parte Superior  -->
+        <div id="myModal" class="modal">
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span id="close" class="close">&times;</span>
+            <div id="icon"></div>
+            <p id="text"></p>
+          </div>
+        
+        </div>
+
       </div>
     </div>
 
@@ -182,11 +194,12 @@
 
   <script src="../components/Js/Tabela.js"></script>
   <script src="../components/Js/Classe.js"></script>
-
+  <script src="../components/Js/Functions.js"></script>
+  <script src="../components/Js/Model.js"></script>
   <style>
     .border {
       border-style: solid;
-      border-color: #5e5e5e;
+      border-color: #242424;
     }
 
     input[type=number]::-webkit-inner-spin-button {
@@ -208,7 +221,7 @@
     .NavBar{
       width: 100%;
       height: 50px;
-      background: #ffb293;
+      background: #fdbc44;
       margin-bottom: 20px;
       align-items: center;
     }
