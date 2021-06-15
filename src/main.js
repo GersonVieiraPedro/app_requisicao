@@ -1,72 +1,63 @@
 
-// Modules to control application life and create native browser window
-const {app,BrowserWindow} = require('electron')
+const SQLite = require('sqlite3').verbose();
+const LocalJob = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
+const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
+const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ipcMain} = require('electron');
-const { SalvarBanco, ValidarUsuario } = require('./Banco');
+const {SalvarBanco} = require('./Banco');
 
 
 
 
 ipcMain.on('Requsição', (event, args) => {
- //Obj = JSON.stringify(args)
- 
- let Msg = SalvarBanco(args)
+  //Obj = JSON.stringify(args)
+
+  let Msg = SalvarBanco(args)
 
   event.sender.send('Mensagem', Msg)
 })
 
-ipcMain.on("Usuario", (event, arg)=>{
-  console.log(arg)
-  
-   ValidarUsuario(arg)
-   function RetornarSenha(Valor){
-    console.log(Valor)
-    event.sender.send("Senha", Valor)
-    
+
+ipcMain.on("Usuario", (event, arg) => {
+
+  ValidarUsuario(arg)
+
+  function ValidarUsuario(User) {
+
+    let Banco = new SQLite.Database(LocalJob, (err) => {
+      if (err) {
+        console.error(`Erro ao conectar :${err.message}`);
+        throw err
+      } else {
+        console.log('Conectado ao banco de dados.');
+      }
+    });
+
+    let SQL = `SELECT Senha FROM Usuarios WHERE Username = "${User}"`
+    Banco.all(SQL, [], (err, rows) => {
+      rows.forEach((row) => {
+
+        event.sender.send("Senha", row.Senha)
+      });
+
+    });
+
+    Banco.close()
+
+
   }
-  
+
+  // event.sender.send("Senha", "Validar")
+
+
 })
 
 
 
-
-
-
-function PageTabela() {
+function Pages() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 1300,
-    height: 700,
-    title: "Requisição",
-    frame: false,
-    transparent: true,
-    show: false,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      //preload: "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/js/Database"
-      preload: path.join(__dirname, 'preload.js')
-    }
-  })
-  mainWindow.setMenu(null)
-
-  // and load the index.html of the app.
-  mainWindow.loadFile('./src/pages/Tabela.html')
-  //mazimiza a pafina 
-  mainWindow.maximize();
-  // Open the DevTools.
-  mainWindow.once("ready-to-show",()=>{
-    mainWindow.show()
-  })
-  mainWindow.webContents.openDevTools()
-
-
-}
-
-function PageLogin() {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const winLogin = new BrowserWindow({
     width: 1300,
     height: 700,
     frame: false,
@@ -80,42 +71,68 @@ function PageLogin() {
       //preload: path.join(__dirname, 'preload.js')
     }
   })
-  mainWindow.setMenu(null)
-  
+ 
+
+  const winTabela = new BrowserWindow({
+    width: 1300,
+    height: 700,
+    title: "Requisição",
+    frame: false,
+    transparent: true,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      //preload: "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/js/Database"
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('./src/pages/Login.html')
-  //mazimiza a pafina 
-  mainWindow.maximize();
-  // Open the DevTools.
-  mainWindow.once("ready-to-show",()=>{
-    mainWindow.show()
+  ipcMain.on("Aprovado", (event, arg) => {
+    if (arg == "Liberado") {
+      winTabela.setMenu(null)
+      winTabela.loadFile('./src/pages/Tabela.html')
+      winTabela.maximize()
+      winTabela.webContents.openDevTools()
+      //winTabela.once("ready-to-show", () => {
+        winTabela.show(true)
+     // })
+
+      winLogin.close()
+    }else {
+      winLogin.setMenu(null)
+      winLogin.loadFile('./src/pages/Login.html')
+      winLogin.maximize()
+      winLogin.once("ready-to-show", () => {
+        winLogin.show()
+      })
+      winTabela.show(false)
+    }
+    
   })
-  mainWindow.webContents.openDevTools()
+
+  winLogin.loadFile('./src/pages/Login.html')
+
+  //mazimiza a pafina 
+  winLogin.maximize();
+  // Open the DevTools.
+  winLogin.once("ready-to-show", () => {
+    winLogin.show()
+  })
+  
+  winLogin.webContents.openDevTools()
+
 }
 
-//const server = require('./components/js/Database.js')
 
-ipcMain.on("Aprovado", (event, arg)=>{
-  console.log(arg)
-  if(arg == "Liberado"){
-    PageLogin.show(false)
-    PageTabela.show(true)
-  }else{
-    PageLogin.show(true)
-    PageTabela.show(false)
-
-  }
-
-})
 
 
 app.whenReady().then(() => {
-  PageLogin()
-
+  Pages()
   app.on('activate', function () {
 
-    if (BrowserWindow.getAllWindows().length === 0) PageLogin()
+    if (BrowserWindow.getAllWindows().length === 0) Pages()
 
   })
 })
@@ -124,8 +141,3 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
-
-
-module.exports ={
-  RetornarSenha
-}

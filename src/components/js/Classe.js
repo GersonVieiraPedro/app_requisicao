@@ -62,11 +62,6 @@ function Requisicao() {
 }
 
 
-/*
-let Produtos = new Produto()
-
-console.log(Produtos.Add(10,"File Manga",14.75))
-*/
 
 //Exportando os objetos Globalmente 
 module.exports ={

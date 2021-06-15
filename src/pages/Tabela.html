@@ -15,32 +15,25 @@
 </head>
 
 <body id="Corpo">
-  <div class="row ">
-    <nav class="NavBar">
-      
-        <a class="navbar-brand" href="https://www.swift.com.br/">
-          <img class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset="" height="50" width="60">
-        </a>
-        
-    </nav>
-
-   
-  
-  </div>  
+  <div class="Fundo"></div>
   <div class="container-lg ">
     <div class="row">
 
       <div class="col-3">
-        
+
         <input type="hidden" id="ListaDeNomes">
         <input type="hidden" id="ListaDeProdutos">
 
         <!-- Coluna Lateral Esquenda -->
       </div>
-   
+
       <div class="col-6">
-        <div class="card border shadow-sm p-3 mb-3 bg-body rounded">
-          <div class="card-body">
+        <div class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded">
+          <img class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset=""
+            height="50" width="60">
+          <h1 class="t"> Requisição Almoxarifado</h1>
+
+          <div class="card-body" style="margin-top: -30px;">
             <form action="">
               <div class="row">
                 <div class="col">
@@ -93,7 +86,7 @@
                     </svg>
                   </button>
                 </div>
-                
+
                 <div class="col-2"></div>
                 <div class="col-3"></div>
 
@@ -133,7 +126,7 @@
             <div id="icon"></div>
             <p id="text"></p>
           </div>
-        
+
         </div>
 
       </div>
@@ -198,7 +191,8 @@
   <style>
     .border {
       border-style: solid;
-      border-color: #242424;
+      border: 1.5px;
+      border-color: #000000;
     }
 
     input[type=number]::-webkit-inner-spin-button {
@@ -217,20 +211,42 @@
       width: 10%;
       margin-bottom: 0.5px;
     }
-    .NavBar{
+
+    .NavBar {
       width: 100%;
       height: 50px;
       background: #fdbc44;
       margin-bottom: 20px;
       align-items: center;
     }
-    .logou{
-      margin-top: -4px;
-      margin-left: 8px;
-      margin-bottom: 30px;
 
+    .logou {
+      margin-top: -10px;
+      margin-left: 8px;
+      height: 60px;
+      width: 70px;
+      margin-bottom: 30px;
     }
 
+    .t {
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      color: #b3542f;
+      position: absolute;
+      margin-left: 19%;
+      margin-top: -1px;
+    }
+
+    .Fundo {
+      width: 100%;
+      height: 75px;
+      background-image: url(../components/Imagem/Fundo.jpg);
+      background-repeat: repeat-x;
+      background-size: 200px;
+      position: absolute;
+    }
+    
   </style>
 
 </body>

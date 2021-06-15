@@ -1,91 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Francois+One&display=swap');
 *{
-margin: 0;
-padding: 0;
-border:0;
-box-sizing: border-box;
-font-family: 'Francois One', sans-serif;
-}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:  Helvetica, sans-serif;
 
+}
 body{
-background: #f7ddbe;
-min-height: 100vh;
-min-width: 100vw;
-justify-content: center;
-display: flex;
-align-items: center;
+    background: #ff8c00;
+}
+.Wall{
+    margin-left: 15%;
+    width: 10.001%;
+    height: 450px;
+    background: #fde6b8;
+    position:   absolute;
+    z-index: 10;
+    background:#ff8c00;
 }
 .container{
-    min-height: 60vh;
-    min-width: 22vw;
-    padding: 2rem;
-    background: white;
-    box-shadow: 5px 5px 15px rgb(29, 29, 29);
-    border-radius: 8px;
-}
-
-.TextBoxLogin{
-    outline: none;
-    height: 4vh;
-    width: 100%;
-    padding: 0.1rem;
-    margin-bottom: 0.5rem;
-    background: #d8d7d5;
-}
-
-h2{
-    margin-bottom: 3rem ;
-}
-.Botao{
-margin-top: 2rem;
-margin-bottom: 1rem;
-padding: 0.5rem;
-text-align:center;
-background: coral;
-height: 5vh;
-width: 100%;
-border-radius: 3px;
-font-family: 'Francois One', sans-serif;
-color: rgb(255, 255, 253);
-font: bold 20px;
-transition: all 0.3s ease;
-}
-.Botao:hover{
-    letter-spacing: 0.5px;
-    background: rgb(177, 51, 5);
-    cursor: pointer;
-}
-#Olho{
-    position: relative;
-}
-.Olho{
-    position:absolute;
-    right: 7px;
-    height: 18px;
-    width: 18px;
-    top: 3px;
-    align-items: center;
-    cursor: pointer;
-}
-#ImgOlhoOff{
-    opacity: 0;
-}
-.Rodape{
-background: coral;
-height: 5rem;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 5%;
+    background: transparent;
+    width: 700px;
+    height: 450px;
+    position:   relative;
 
 }
-.Cadastro{
-    margin-top: 12%;
-    width: 100%;
-    height: 30px;
-    padding-bottom: 2rem;
-    position: relative;
-}
 
-.Cadas{
-    background: lightcoral;
-    margin-left: 0;
-    margin-top: 5px;
+.banner{
+height: 100%;
+width: 450px;
+position: absolute;
+background: white;
+}       
+.Form{
+    margin-left: 448px;
     position: absolute;
+    height: 100%;
+    width: 250px;
+    background :#fde6b8
+}
+.banner img{
+    position: absolute;
+    padding: 10px;
+    height: 448px;
+    width: 448px;
+}   
+
+@keyframes sairimg {
+    from{margin: 0;}
+    to{ 
+        margin-left: -100px;
+    };
+}
+
+@keyframes entrarimg {
+    from{margin-left: 100px;}
+    to{ 
+        margin-right: 0px;
+    };
+}
+
+@keyframes FadeOut {
+    form{opacity: 1;}
+  
+    to{
+        opacity: 0;
+    }
+}
+
+
+.SpaceText{
+    height: 40px;
+    width: 100%;
+    margin-top: 10px;
+
+}
+
+.TextBox{
+    margin-left: 5%;
+    height: 25px;
+    width: 90%;   
+    outline: none;
+    padding-left: 3%;
+}
+
+.SpaceButton{
+    height: 100px;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+h2{
+    font-size: 20px;
+    margin-top: 30px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #7e2707;
+    font-family: 'Roboto', sans-serif;
+}
+#Pwd{
+    position: relative;
+}
+ svg{
+    align-items: center;
+    margin-top: 3px;
+    position: absolute;
+    margin-left: -10%;
+}   
+.Button{
+
+    height: 35px;
+    width: 90%;  
+    background: #ef4e29;
+    margin-bottom: 5px;
+    color: white;
+    transition: ease 0.5s;
+    border: solid #3d3d3d 1px;
+}
+.bibi-eye-slash{
+   visibility: hidden;
+}
+a{  
+ color: #7e2707;
+ font-size: 11px;
+}
+.Button:hover{
+    background: #f89e89;
+    color: #7e2707;
+}
+.Logo{
+    margin-top: 10px;
+    margin-left: 30%;
+    height: 60px;
+    width: 100px;
+}
+
+.WindowClose {
+    font: bold 15px black;
+    font-family: Arial;
+    background: transparent;
+    height: 25px;
+    width: 45px;
+    margin-left: 96.67%;
+    text-align: center;
+    padding-top: 3px;
+    transition: 0.5s;
+}
+.WindowClose:hover{
+    font-size: 17px;
+    color: white;
+    background: red;
 }

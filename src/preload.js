@@ -17,7 +17,7 @@ let Colaboradores = new Colaborador()
    para que possa executar as informações de carregamento. */
 document.addEventListener('DOMContentLoaded', () => {
     //Abre o Banco
-    let db = new SQLite.Database(LocalHome, (err) => {
+    let db = new SQLite.Database(LocalJob, (err) => {
         if (err) {
             console.error(`Erro ao conectar :${err.message}`);
             throw err
