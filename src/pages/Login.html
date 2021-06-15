@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../components/bootstrap/5.0.1/css/Login.css">
+    <script src="../components/js/Login.js"></script>
+    <title>Login</title>
+
+</head>
+<body>
+ <div class="container">
+   
+     <h2>Login</h2>
+     <div class="TextLogin">
+      <input type="text" name="Nome" id="TxtNome" class="TextBoxLogin" placeholder="Digite Seu Usuario">
+      <div class="Linha"></div>
+     </div>
+      <div class="TextLogin" id="Olho">
+       <input type="password" name="Senha" id="TxtSenha" class="TextBoxLogin" placeholder="Digite Sua Senha">
+       <samp >
+         <img onclick="OLHO()" src="../components/Imagem/outline_visibility_off_black_24dp.png" alt="" id ="ImgOlhoOff"class="Olho">
+         <img onclick="OLHO()" src="../components/Imagem/outline_visibility_black_24dp.png" alt="" id ="ImgOlho"class="Olho">
+       </samp>
+       <div class="Linha"></div>
+     </div>
+    
+     <button id="Logar"onclick="Logar()" type="button" class="Botao">Entrar</button>
+    
+ </div>
+</body>
+</html>

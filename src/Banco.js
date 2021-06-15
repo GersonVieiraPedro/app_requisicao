@@ -1,7 +1,9 @@
 const SQLite = require('sqlite3').verbose();
 const LocalJob = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
+const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
 
-
+const {ipcMain} = require('electron');
+const { RetornarSenha } = require('./main');
 
 function SalvarBanco(Dado) {
 
@@ -11,7 +13,7 @@ function SalvarBanco(Dado) {
         let i = 0
         let Tamanho = Obj.length
         while (i < Tamanho) {
-            const Banco = new SQLite.Database(LocalJob);
+            const Banco = new SQLite.Database(LocalHome);
             Banco.run(`INSERT INTO RequsicaoAlmox(Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [   Obj[i].Pedido,
                     Obj[i].ID,
@@ -47,6 +49,36 @@ function SalvarBanco(Dado) {
     }
 }
 
+
+
+function ValidarUsuario(User){
+    let Valor = 0
+    let Banco = new SQLite.Database(LocalHome, (err) => {
+        if (err) {
+            console.error(`Erro ao conectar :${err.message}`);
+            throw err
+        }else{
+        console.log('Conectado ao banco de dados.');
+        }
+    });
+
+    let SQL = `SELECT Senha FROM Usuarios WHERE Username = "${User}"`
+    Banco.all(SQL, [], (err, rows) => {
+            rows.forEach((row) => {
+                 Valor = row.Senha
+                 RetornarSenha(Valor)
+                 
+            });
+            
+            
+            
+    } );
+    
+    Banco.close()
+}
+
+
 module.exports ={
-    SalvarBanco
+    SalvarBanco,
+    ValidarUsuario
 }
