@@ -34,11 +34,14 @@ ipcMain.on("Usuario", (event, arg) => {
       }
     });
 
-    let SQL = `SELECT Senha FROM Usuarios WHERE Username = "${User}"`
+    let SQL = `SELECT Senha, Chapa FROM Usuarios WHERE Username = "${User}"`
     Banco.all(SQL, [], (err, rows) => {
       rows.forEach((row) => {
 
         event.sender.send("Senha", row.Senha)
+        event.sender.send("Chapa", row.Chapa)
+
+        
       });
 
     });
@@ -140,4 +143,10 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
+})
+
+ipcMain.on('CloseWindow', (event, arg)=>{
+    if(arg == "Close"){
+      app.quit()
+    }
 })

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="WindowClose"> X </div>
+  <div class="WindowClose" onclick="CloseWindow()"> &#10006;</div>
   <div class="Wall"></div>
   <div class="container">
     <div class="banner">
@@ -24,12 +24,13 @@
       <img src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" class="Logo" alt="">
       <h2>Login</h2>
       <div class="SpaceText">
-        <input type="text" name="NickName" id="Name" class="TextBox" placeholder="Usuario">
+        <input type="text" name="NickName" id="Name" class="TextBox" placeholder="Usuario" required>
       </div>
 
       <div class="SpaceText">
 
-        <input type="password" name="Pwd" id="Pwd" class="TextBox" placeholder="**********">
+        <input type="password" name="Pwd" id="Pwd" class="TextBox" placeholder="°°°°°°°°°°°°" required>
+      <!-- </div class="buttonClose"> -->
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bibi-eye"
           viewBox="0 0 16 16" onclick="VerPwd()" id="OnOlho">
           <path
@@ -46,6 +47,7 @@
           <path
             d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172     8   l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
         </svg>
+      
         <div class="SpaceButton">
           <input onclick="Logar()" type="button" value="Entrar" class="Button">
 

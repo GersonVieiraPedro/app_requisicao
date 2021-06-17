@@ -87,6 +87,9 @@ document.getElementById('btn-Add').addEventListener('click', () => {
   AdicionarLinha()
 })
 
+function CloseWindow (){
+  ipcRenderer.send('CloseWindow',"Close")
+}
 
 
 //Escuta o Botão Solicitar
@@ -118,5 +121,32 @@ tabela.addEventListener('click', function (e) {
       elem.parentNode.parentNode.rowIndex :
       elem.parentNode.parentNode.parentNode.parentNode.rowIndex
     removerLinha(Linha)
+
+    let Valor = elem.tagName == "BUTTON" ?
+    elem.parentNode.parentNode.cells[4].innerHTML :
+    elem.parentNode.parentNode.parentNode.parentNode.cells[4].innerHTML 
+    Valor = Valor.substring(4, Valor.length)
+    RemoverValorTotal(Valor)
+    
   }
+})
+
+document.getElementById("UC").addEventListener("mouseover", ()=>{
+  const Container = document.getElementById("UC");
+  Container.style.animation =""
+  setTimeout(()=> Container.style.animation ="ExibirDetalhes 2s ease ")
+  Container.style.opacity = "1 !important"
+  Container.style.visibility = "visible !important"
+  Container.style.width = "200px !important"
+ 
+})
+
+
+document.getElementById("UC").addEventListener("mouseout", ()=>{
+  const Container = document.getElementById("UC");
+  Container.style.animation =""
+  setTimeout(()=> Container.style.animation ="ExibirDetalhes 2s ease reverse")
+  Container.style.opacity = "0 !important"
+  Container.style.visibility ="hidden !important"
+  Container.style.width = "60px !important"
 })

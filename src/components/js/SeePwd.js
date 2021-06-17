@@ -13,3 +13,14 @@ function VerPwd(){
         OffVison.style.visibility = 'hidden'
     }
 }   
+
+
+const inputEle = document.getElementById('Pwd');
+inputEle.addEventListener('keyup', function(e){
+  var key = e.which || e.keyCode;
+  if (key == 13) { 
+      
+    Logar()
+
+  }
+});

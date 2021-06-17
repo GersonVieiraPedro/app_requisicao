@@ -5,7 +5,6 @@ function removerLinha(Linha) {
     //console.log(ListaDeRequisicao)
 }
 
-
 //pega o elemento clicado na tela por nome de classe
 function temClasse(elem, className) {
 
@@ -17,8 +16,15 @@ function temClasse(elem, className) {
 
 }
 
+//pega o nome do usuario 
+function Username(){
+    let dominio = document.getElementById('ListaDeNomes').baseURI
+    let T = dominio.indexOf("/", 17)
+    let username = dominio.substring(17, T)
+    return username
+}
 
-
+//Adiona um linha na tabela e no o Objeto Requisição
 function AdicionarLinha() {
     let st = ValidarTextBox()
     if (st == "vazio") {
@@ -30,7 +36,7 @@ function AdicionarLinha() {
         let Produto = document.getElementById('Produto').value
         let Qtd = document.getElementById('Quantidade').value
         let Motivo = document.getElementById('Motivo').value
-        let TotalValor = document.getElementById('TotalValor')
+        
         //Tabela
         let Tabela = document.getElementById('TabelaReq');
         //let numeroDeLinhas = Tabela.rows.lenght;
@@ -51,10 +57,6 @@ function AdicionarLinha() {
         //Pega o Array de Objetos do elemento Escondido no HTML
         let ArrayProdutos = document.getElementById('ListaDeProdutos').Value
         let ArrayPessoas = document.getElementById('ListaDeNomes').Value
-
-        let dominio = document.getElementById('ListaDeNomes').baseURI
-        let T = dominio.indexOf("/", 17)
-        let username = dominio.substring(17, T)
 
         //Filtra o Objeto do array
         let ObjetoProduto = ArrayProdutos.filter(produto => produto.Prod == Produto);
@@ -88,15 +90,8 @@ function AdicionarLinha() {
         CellMotivo.innerHTML = Motivo.substring(0, 1)
         CellButton.innerHTML = `<button onclick="" id="btnRemove" class="btn btn-id  bi icon-sm btn-icons-table btn-rounded btn-danger btn-sm" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg></button>`
 
-        //subindo o valor de total na Base
-        let ValorAtual = TotalValor.innerText
-        if (ValorAtual == "") {
-            TotalValor.innerHTML = `R$: ${Valor}`
-        } else {
-            ValorAtual = ValorAtual.substring(4, ValorAtual.length)
-            ValorAtual = Number.parseFloat(ValorAtual)
-            TotalValor.innerHTML = `R$: ${ValorAtual + Number.parseFloat(Valor)}`
-        }
+
+        AdicionarValorTotal(Valor)
 
         //Pegando o valor de Data e Hora do registro 
         let DataA = DataAtual()
@@ -122,7 +117,7 @@ function AdicionarLinha() {
             PessoaSelecionado.Gestor,
             PessoaSelecionado.Setor,
             "GersonV", //Nome do Usuario que logar para fazer a requisição
-            username,
+            Username(),
             Motivo
         ));
         //console.log(ListaDeRequisicao)
@@ -134,7 +129,6 @@ function AdicionarLinha() {
 
     }
 }
-
 
 //Valida se os INPUT tem valores para funcionar
 function ValidarTextBox() {
@@ -157,7 +151,7 @@ function ValidarTextBox() {
     }
 }
 
-
+//Remove todas as linhas da tabela 
 function RemoveTudo(tudo) {
     let Tamanho = ListaDeRequisicao.length + 1
     for (Tamanho; Tamanho >= 2; Tamanho--) {
@@ -225,11 +219,13 @@ function autoCompleteNomes(lista) {
 
 }
 
+// Tras o horaio atual formatado "00:00:00"
 function HoraAtual() {
     let DataA = new Date();
     return `${adicionaZero(DataA.getHours())}:${adicionaZero(DataA.getMinutes())}:${adicionaZero(DataA.getSeconds())}`
 }
 
+// Tras a data atual formadata "00/00/0000"
 function DataAtual() {
     let DataA = new Date();
     return `${adicionaZero(DataA.getDate().toString())}/${adicionaZero(DataA.getMonth() + 1).toString()}/${DataA.getFullYear()}`
@@ -243,6 +239,7 @@ function adicionaZero(numero) {
         return numero;
 }
 
+//Adiciona um ID de pedido em todos os OBJ requisição
 function AdicionarNumeroPedido(){
     let i = 0
     let hora = HoraAtual().substring(0,5)
@@ -260,3 +257,39 @@ function AdicionarNumeroPedido(){
         return "Numero de Pedido Não Foi Realizado"
     }
 }
+
+// Adiciona o Valor de total
+function AdicionarValorTotal(valor){
+    let TotalValor = document.getElementById('TotalValor')
+    //subindo o valor de total na Base
+    let ValorAtual = TotalValor.innerText
+    if (ValorAtual == "") {
+        TotalValor.innerHTML = `R$: ${valor}`
+    } else {
+        ValorAtual = ValorAtual.substring(4, ValorAtual.length)
+        ValorAtual = Number.parseFloat(ValorAtual)
+        ValorAtual = ValorAtual + Number.parseFloat(valor)
+        ValorAtual.toFixed(3)
+        TotalValor.innerHTML = `R$: ${ValorAtual}`
+    }
+}
+
+// Remove o Valor quando remover item da lista
+function RemoverValorTotal(valor) {
+    let TotalValor = document.getElementById('TotalValor')
+    //subtraindo o valor de total na Base
+    let ValorAtual = TotalValor.innerText
+
+    ValorAtual = ValorAtual.substring(4, ValorAtual.length)
+    ValorAtual = Number.parseFloat(ValorAtual)
+    ValorAtual = ValorAtual - Number.parseFloat(valor)
+    ValorAtual.toFixed(3)
+    if(ValorAtual == 0 || ValorAtual == "0"){
+        TotalValor.innerHTML = ""    
+    }else{
+        TotalValor.innerHTML = `R$: ${ValorAtual}`
+    }
+    
+}
+
+
