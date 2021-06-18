@@ -5,8 +5,8 @@ const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/s
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ipcMain} = require('electron');
-const {SalvarBanco} = require('./Banco');
-
+const {SalvarBanco, RegistrarUsuario} = require('./Banco');
+const Email = require("nodemailer")
 
 
 
@@ -39,7 +39,7 @@ ipcMain.on("Usuario", (event, arg) => {
       rows.forEach((row) => {
 
         event.sender.send("Senha", row.Senha)
-        event.sender.send("Chapa", row.Chapa)
+        event.sender.send("Chapa", [row.Chapa, User])
 
         
       });
@@ -53,10 +53,38 @@ ipcMain.on("Usuario", (event, arg) => {
 
   // event.sender.send("Senha", "Validar")
 
+})
 
+ipcMain.on("Email", (event, arg)=>{
+  console.log("Enviando Email...")
+  EnviarEmail()
+  
 })
 
 
+function EnviarEmail(){
+
+  let Envair = Email.createTransport({
+    host:"correio.jbs.com.br",
+    //host:"smtp.jbs.com.br",
+    port:587,
+    secure: false,
+    auth:{
+      user:"Gerson.Pedro@swift.com.br",
+      pass:"J}w3eZ9*T$"
+    }
+  })
+  const EstrutaEmail = {
+    from:"Gerson.Pedro@swift.com.br",
+    to:"Gerson.Pedro@swift.com.br",
+    subject:"Teste Requisição Almox",
+    html:"<h2> Olá Nova, </h2><br><h3> Nova Requisição Feita</h3>"
+  }
+  Envair.sendMail(EstrutaEmail, function(err, info){
+    if(err) console.log("Erros " + err)
+    else console.log("Informações " + info)
+  })
+}
 
 function Pages() {
   // Create the browser window.
@@ -93,16 +121,14 @@ function Pages() {
 
   // and load the index.html of the app.
   ipcMain.on("Aprovado", (event, arg) => {
-    if (arg == "Liberado") {
+    if (arg != "") {
       winTabela.setMenu(null)
       winTabela.loadFile('./src/pages/Tabela.html')
       winTabela.maximize()
       winTabela.webContents.openDevTools()
-      //winTabela.once("ready-to-show", () => {
-        winTabela.show(true)
-     // })
-
+      winTabela.show(true)
       winLogin.close()
+      RegistrarUsuario(arg)
     }else {
       winLogin.setMenu(null)
       winLogin.loadFile('./src/pages/Login.html')

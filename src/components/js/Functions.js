@@ -24,6 +24,7 @@ function Username(){
     return username
 }
 
+
 //Adiona um linha na tabela e no o Objeto Requisição
 function AdicionarLinha() {
     let st = ValidarTextBox()

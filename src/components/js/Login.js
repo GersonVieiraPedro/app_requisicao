@@ -18,13 +18,18 @@ function Logar() {
 ipcRenderer.on("Senha", (event, arg) => {
     let Senha = document.getElementById("Pwd").value
 
-    if (arg == Senha) {
+    ipcRenderer.on("Chapa", (e, a) => {
 
-        event.sender.send("Aprovado", "Liberado")
-    }
+        if (arg == Senha) {
 
+            event.sender.send("Aprovado", a )
+        }
+    })
 })
 
+function Email(){
+ipcRenderer.send("Email", "Enviar")
+}
 //Envia mensagem para o main com o objetivo de fechar janela 
 function CloseWindow() {
 

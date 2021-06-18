@@ -1,9 +1,9 @@
 const SQLite = require('sqlite3').verbose();
 const LocalJob = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
 const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
-
-
-
+const path = require("path")
+const NomeBanco = "LocalStorege.db"
+const LocalStorage = path.resolve(__dirname,"components/Db/", NomeBanco)
 
 function SalvarBanco(Dado) {
 
@@ -50,6 +50,22 @@ function SalvarBanco(Dado) {
 }
 
 
+function RegistrarUsuario(Dado){
+
+    let Banco = new SQLite.Database(LocalStorage)
+    let Update = [Dado,"UsuarioLogado"]
+    let SQL = "UPDATE Local SET Valor = ? WHERE Categoria = ?"
+
+    Banco.run(SQL, Update, function(err) {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(`Linha(s) Atualizada: ${this.changes}`);
+    });
+    Banco.close();
+}
+
 module.exports = {
-    SalvarBanco
+    SalvarBanco,
+    RegistrarUsuario
 }

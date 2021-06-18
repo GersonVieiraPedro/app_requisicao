@@ -60,27 +60,37 @@ body{
   .UserConteiner{
     background: #ffffffdb;
     height: 60px;
-    width: 200px;
+    width: 210px;
     margin: 5px;
     position: absolute;
     border-radius: 150px;
-    border: 2px solid #929292;
-    visibility: hidden;
-  
+    border: 2px solid #bb2c00;
+    visibility: visible;
+    opacity: 1;
+    margin-left: 10px;
+
   }
+
   .UserFotoContainer{
     background: #e6e6e6;
-    height: 100%;
+    height: 60px;
     width: 60px;
     border: 3px solid #bb2c00;
     border-radius: 150px;
     visibility: visible !important;
-
+    margin: 5px;
+    position: absolute;
+    z-index: 1;
+    margin-left: 10px;
   }
+
   .UserFoto{
     height: 50px;
     margin-left: 2px;
     border-radius: 50%;
+    position: relative;
+    margin-top: 2px;
+
   }
   .Username{
     background: #292929ab;
@@ -88,8 +98,10 @@ body{
     font-size: 10px;
     width: 60px;
     border-radius: 10px;
-    margin-top: 2px;
     visibility: visible !important;
+    position: absolute;
+    margin: 10px;
+    margin-top: 67px;
   }
   .H3User{
     font-size: 12px;
@@ -101,7 +113,7 @@ body{
   .Detalhes{
     background: transparent;
     margin-left: 63px;
-    margin-top: -60px;
+    margin-top: 11px;
     width: 135px;
     border-radius: 100px;
   }
@@ -112,19 +124,30 @@ body{
   .Setor{
     font-size: 10px;
   }
+
 @keyframes ExibirDetalhes{
   0%{
-    visibility: hidden;
+  
     opacity: 0;
     width: 60px;
     }
-   10%{
-    visibility: visible;
-   } 
   100%{
-    visibility: visible;
+  
     opacity: 1;
     width: 200px;
     }
 }
   
+
+.UserConteinerClose {
+  background: #ffffffdb;
+  height: 60px;
+  width: 60px;
+  margin: 5px;
+  position: absolute;
+  border-radius: 150px;
+  opacity: 0;
+  border: 2px solid #bb2c00;
+  margin-left: 10px;
+
+}

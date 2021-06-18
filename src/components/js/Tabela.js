@@ -87,6 +87,7 @@ document.getElementById('btn-Add').addEventListener('click', () => {
   AdicionarLinha()
 })
 
+//Envia um Mensagem para o main para Finalizar a Aplicação
 function CloseWindow (){
   ipcRenderer.send('CloseWindow',"Close")
 }
@@ -131,22 +132,46 @@ tabela.addEventListener('click', function (e) {
   }
 })
 
-document.getElementById("UC").addEventListener("mouseover", ()=>{
+// Ativa a animação de exibir os detalhes do Usuario 
+function UserDetalhes (){
   const Container = document.getElementById("UC");
-  Container.style.animation =""
-  setTimeout(()=> Container.style.animation ="ExibirDetalhes 2s ease ")
-  Container.style.opacity = "1 !important"
-  Container.style.visibility = "visible !important"
-  Container.style.width = "200px !important"
+  UserLogado(Container.value)
+
+  const Detalhes = document.querySelector(".Detalhes")
+
+  const Nome = document.querySelector(".UserNome").innerHTML
  
-})
+  let Tamanho = Nome.length
 
+  let tamanho = Container.style.width
+  if(tamanho == 60 || tamanho =="" || tamanho == "60px" ){
+    Container.style.animation =""
+    setTimeout(()=> Container.style.animation ="ExibirDetalhes 1s ease ")
+    Container.style.opacity = "1"
+    //Container.style.visibility = "visible"
+    Container.style.width = "210px" 
+    Container.className ="UserConteiner"
+    if(Tamanho > 22){
+      Detalhes.style.marginTop = "5px"
+    }
 
-document.getElementById("UC").addEventListener("mouseout", ()=>{
-  const Container = document.getElementById("UC");
-  Container.style.animation =""
-  setTimeout(()=> Container.style.animation ="ExibirDetalhes 2s ease reverse")
-  Container.style.opacity = "0 !important"
-  Container.style.visibility ="hidden !important"
-  Container.style.width = "60px !important"
-})
+  }else{
+    const Container = document.getElementById("UC");
+    Container.style.animation =""
+    setTimeout(()=> Container.style.animation ="ExibirDetalhes 1s ease reverse")
+    Container.style.opacity = "0"
+    //Container.style.visibility ="hidden"
+    Container.style.width = "60px"
+    Container.className = "UserConteinerClose"
+  }
+}
+
+//Procura o nome e setor do usuario e insere no HTML
+function UserLogado (Chapa){
+  ArrayPessoas = document.getElementById('ListaDeNomes').Value
+  let User = ArrayPessoas.filter(pessoa => pessoa.Chapa == Chapa);
+
+ document.querySelector(".UserNome").innerHTML = User[0].Nome
+ document.querySelector(".Setor").innerHTML = User[0].Setor  
+
+}
