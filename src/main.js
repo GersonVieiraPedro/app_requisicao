@@ -5,17 +5,20 @@ const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/s
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ipcMain} = require('electron');
-const {SalvarBanco, RegistrarUsuario} = require('./Banco');
+const {SalvarBanco, RegistrarUsuario, EnviarEmail} = require('./Banco');
 const Email = require("nodemailer")
 
 
-
+//enviar o email e salva a requisiçao
 ipcMain.on('Requsição', (event, args) => {
   //Obj = JSON.stringify(args)
 
   let Msg = SalvarBanco(args)
 
+  EnviarEmail(args,"ROGERIO BRUNO GONCALVES SANTOS")
+
   event.sender.send('Mensagem', Msg)
+
 })
 
 
@@ -55,36 +58,16 @@ ipcMain.on("Usuario", (event, arg) => {
 
 })
 
+/*
 ipcMain.on("Email", (event, arg)=>{
   console.log("Enviando Email...")
-  EnviarEmail()
+  EnviarEmail
   
 })
 
+*/
 
-function EnviarEmail(){
 
-  let Envair = Email.createTransport({
-    host:"correio.jbs.com.br",
-    //host:"smtp.jbs.com.br",
-    port:587,
-    secure: false,
-    auth:{
-      user:"Gerson.Pedro@swift.com.br",
-      pass:"J}w3eZ9*T$"
-    }
-  })
-  const EstrutaEmail = {
-    from:"Gerson.Pedro@swift.com.br",
-    to:"Gerson.Pedro@swift.com.br",
-    subject:"Teste Requisição Almox",
-    html:"<h2> Olá Nova, </h2><br><h3> Nova Requisição Feita</h3>"
-  }
-  Envair.sendMail(EstrutaEmail, function(err, info){
-    if(err) console.log("Erros " + err)
-    else console.log("Informações " + info)
-  })
-}
 
 function Pages() {
   // Create the browser window.

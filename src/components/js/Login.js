@@ -1,6 +1,4 @@
-const {
-    ipcRenderer
-} = require("electron");
+const {ipcRenderer} = require("electron");
 
 function Logar() {
     let Pwd = document.getElementById("Pwd").value

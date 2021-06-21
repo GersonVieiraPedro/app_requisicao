@@ -95,10 +95,12 @@ function CloseWindow (){
 
 //Escuta o Botão Solicitar
 document.getElementById('btn-Send').addEventListener('click', () => {
-
+  
+  if(ListaDeRequisicao !="" ){
   AdicionarNumeroPedido()
 
   //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
+  
   ipcRenderer.send('Requsição', ListaDeRequisicao)
 
   //Recebe  Mensagem no Main 
@@ -107,7 +109,7 @@ document.getElementById('btn-Send').addEventListener('click', () => {
   })
 
    RemoveTudo(true)
-
+  }
 })
 
 
