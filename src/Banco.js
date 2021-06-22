@@ -64,7 +64,7 @@ function RegistrarUsuario(Dado){
         if (err) {
           return console.error(err.message);
         }
-        console.log(`Linha(s) Atualizada: ${this.changes}`);
+        //console.log(`Linha(s) Atualizada: ${this.changes}`);
     });
     Banco.close();
 }
@@ -97,7 +97,7 @@ function EnviarEmail(Lista, Destinatarios){
         rows.forEach((row) => {
          EmailGes = row.EmailGestor
         });
-        console.log("Email :" + EmailGes)
+        // console.log("Email :" + EmailGes)
 
         //Estrutura do email
         const EstrutaEmail = {
@@ -109,7 +109,7 @@ function EnviarEmail(Lista, Destinatarios){
         //Envia o email
         Envair.sendMail(EstrutaEmail, function (err, info) {
           if (err) console.log("Erros " + err)
-          else console.log("Informações " + info)
+          else console.log("Email Enviado") //console.log("Informações " + info)
         })
       }
     });

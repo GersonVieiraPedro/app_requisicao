@@ -1461,8 +1461,8 @@ function ListaPedidoHTML(ArrayRequisição){
             <span class="badge bg-primary rounded-pill">${Obj[i].Quantidade}</span>
             </li>
             `
+
             i = i + 1
-            return HTML
         }
 
         let Lista = `
@@ -1475,7 +1475,6 @@ function ListaPedidoHTML(ArrayRequisição){
             </ol>
             </div>
              `
-             console.log(Lista)
      return Lista
     }
     
@@ -1483,5 +1482,6 @@ function ListaPedidoHTML(ArrayRequisição){
 
 
 module.exports = {
-    PageEmail
+    PageEmail,
+    ListaPedidoHTML
 }

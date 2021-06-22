@@ -1,8 +1,13 @@
 const {TouchBar} = require("electron")
-const {ipcRenderer} = require('electron')
+const {ipcRenderer } = require('electron')
 const path = require("path")
+
 //
 
+document.getElementById('current').addEventListener('click', ()=> {
+
+  ipcRenderer.send("print", "print")
+})
 
 //Criando a Lista de requisição 
 let ListaDeRequisicao = new Array()
@@ -76,6 +81,8 @@ document.getElementById('Produto').addEventListener('keypress', () => {
 
 //=================================== BOTOES ====================================================
 
+//Escuta o botão adicionar 
+
 
 //Escuta o botão adicionar 
 document.getElementById('btn-Remove').addEventListener('click', () => {
@@ -96,6 +103,8 @@ function CloseWindow (){
 //Escuta o Botão Solicitar
 document.getElementById('btn-Send').addEventListener('click', () => {
   
+
+
   if(ListaDeRequisicao !="" ){
   AdicionarNumeroPedido()
 

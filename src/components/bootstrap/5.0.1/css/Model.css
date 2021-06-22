@@ -151,3 +151,143 @@ body{
   margin-left: 10px;
 
 }
+.border {
+  border-style: solid;
+  border: 1.5px;
+  border-color: #cecece !important;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+
+}
+
+.TotalValor {
+  margin-left: 90%;
+  width: 10%;
+  margin-bottom: 0.5px;
+}
+
+.NavBar {
+  width: 100%;
+  height: 50px;
+  background: #fdbc44;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.logou {
+  margin-top: -10px;
+  margin-left: 8px;
+  height: 60px;
+  width: 70px;
+  margin-bottom: 30px;
+}
+
+.t {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: #ec4c00;
+  position: absolute;
+  margin-left: 19%;
+  margin-top: -1px;
+}
+
+.Fundo {
+  width: 100%;
+  height: 85px;
+  background-image: url(../../../Imagem/Fundo.jpg);
+  background-repeat: repeat-x;
+  background-size: 300px;
+  position: absolute;
+  animation: FundoSpand 0.8s 0.1s;
+}
+
+@keyframes FundoSpand {
+  0% {
+    height: 10px;
+  }
+
+  100% {
+    height: 80px;
+  }
+}
+
+.c {
+  background: #fbf5f1fa !important;
+  margin-bottom: 0.1px;
+}
+
+.ic {
+  margin-left: 92%;
+  margin-top: -6px;
+  position: absolute;
+  color: #d84803;
+  background: white;
+}
+.cardMin{
+  height: 20px !important;
+  transition: ease 1s;
+}
+
+.tMin {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  color: #ec4c00;
+  position: absolute;
+  margin-left: 21%;
+  margin-top: -16px;
+}
+
+.cardHidden{
+  margin-top: -35px;
+  visibility: hidden;
+
+}
+
+@keyframes MinimizaPainel {
+0%{
+  height: 278.16px;
+}
+100%{
+  height: 20px;
+}
+}
+
+@media screen {
+  div.divFooter {
+    display: none;
+  }
+}
+
+@media print {
+  div.divFooter {
+    position: fixed;
+    bottom: 0;
+  }
+  div.painelReq {
+    display: none;
+  }
+  div.cardTabela{
+    margin-top: 150px;
+  }
+}
+
+.titleFooter{
+  font-size: 12px;
+  border-top: 1px Solid black;
+  width: 70%;
+}
+
+.divFooter{
+  width: 100%;
+  margin-left: 40px;
+}

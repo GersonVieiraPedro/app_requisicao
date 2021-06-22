@@ -15,7 +15,7 @@ ipcMain.on('Requsição', (event, args) => {
 
   let Msg = SalvarBanco(args)
 
-  EnviarEmail(args,"ROGERIO BRUNO GONCALVES SANTOS")
+  EnviarEmail(args, args[0].Gestor)
 
   event.sender.send('Mensagem', Msg)
 
@@ -57,6 +57,7 @@ ipcMain.on("Usuario", (event, arg) => {
   // event.sender.send("Senha", "Validar")
 
 })
+
 
 /*
 ipcMain.on("Email", (event, arg)=>{
@@ -123,7 +124,8 @@ function Pages() {
     }
     
   })
-
+   
+  
   winLogin.loadFile('./src/pages/Login.html')
 
   //mazimiza a pafina 
@@ -134,7 +136,12 @@ function Pages() {
   })
   
   winLogin.webContents.openDevTools()
+  ipcMain.on("print", (event, arg) => {
+    winTabela.webContents.print({
+      pageSize:"A4"
 
+    })
+  })
 }
 
 

@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Erro ao conectar :${err.message}`);
             throw err
         } else {
-            console.log('Conectado ao banco de dados.');
+            //console.log('Conectado ao banco de dados.');
         }
     });
 
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Erro ao conectar :${err.message}`);
             throw err
         } else {
-            console.log('Conectado ao banco de dados.');
+            //console.log('Conectado ao banco de dados.');
         }
     })
 

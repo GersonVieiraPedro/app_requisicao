@@ -39,17 +39,33 @@
 
         <input type="hidden" id="ListaDeNomes">
         <input type="hidden" id="ListaDeProdutos">
-
+        <button id="current">
+          Print
+        </button>
         <!-- Coluna Lateral Esquenda -->
       </div>
 
       <div class="col-6">
-        <div class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded">
-          <img class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset=""
+        <div id="card" class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded painelReq ">
+          <img id="logo" class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset=""
             height="50" width="60">
-          <h1 class="t"> Requisição Almoxarifado</h1>
+          <h1 id="Titulo" class="t"> Requisição Almoxarifado</h1>
 
-          <div class="card-body" style="margin-top: -30px;">
+          <!-- <svg id="ButtoRecolher"  onclick="MaxOuMin()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-dash-square-fill ic" viewBox="0 0 16 16">
+            <path
+              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z">
+            </path>
+          </svg>
+
+          <svg id="ButtonExpandi" onclick="MaxOuMin()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-caret-down-square-fill ic" viewBox="0 0 16 16" style="visibility: hidden;">
+            <path
+              d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z">
+            </path>
+          </svg> -->
+
+          <div id="cbody" class="card-body" style="margin-top: -30px;">
             <form action="">
               <div class="row">
                 <div class="col">
@@ -154,7 +170,7 @@
       </div>
 
       <div class="col position-static">
-        <div class="card position-static">
+        <div class="card position-static cardTabela">
           <h4 class="c"><span id="TotalValor" class="badge bg-success TotalValor"></span></h4>
           <div class="card-body border position-static rounded">
             <table class="table table-hover table-sm position-static" id='TabelaReq'>
@@ -173,7 +189,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <!--  <th scope="row">616175</th>
+                  <!-- <th scope="row">616175</th>
               <td>CARNE EM CUBOS SWIFT</td>
               <td>10</td>
               <td>15,75</td>
@@ -193,94 +209,41 @@
         <!-- Coluna do lado Direito da parte Inferior  -->
       </div>
     </div>
-  </div>
-  <div>
-    <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
-    <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
-    <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-    <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
 
-    <script src="../components/Js/Tabela.js"></script>
-    <script src="../components/Js/Classe.js"></script>
-    <script src="../components/Js/Functions.js"></script>
-    <script src="../components/Js/Model.js"></script>
-  </div>
+    <div class="divFooter" style="
+    text-align: center;
+    border-top: black;">
 
-  <style>
-    .border {
-      border-style: solid;
-      border: 1.5px;
-      border-color: #cecece !important;
-    }
+      <div class="row">
 
-    input[type=number]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
+        <div class="col" >
+          <h3 class="titleFooter">Gestor Imediato</h3>
+        </div>
 
-    }
+        <div class="col">
+          <h3 class="titleFooter" >Solicitante</h3>
+        </div>
 
-    input[type=number] {
-      -moz-appearance: textfield;
-      appearance: textfield;
+        <div class="col">
+          <h3 class="titleFooter">Separado</h3>
+        </div>
 
-    }
+      </div>
+      <div>
+        <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+        <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
+        <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+        <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
 
-    .TotalValor {
-      margin-left: 90%;
-      width: 10%;
-      margin-bottom: 0.5px;
-    }
+        <script src="../components/Js/Tabela.js"></script>
+        <script src="../components/Js/Classe.js"></script>
+        <script src="../components/Js/Functions.js"></script>
+        <script src="../components/Js/Model.js"></script>
+      </div>
 
-    .NavBar {
-      width: 100%;
-      height: 50px;
-      background: #fdbc44;
-      margin-bottom: 20px;
-      align-items: center;
-    }
+      <style>
 
-    .logou {
-      margin-top: -10px;
-      margin-left: 8px;
-      height: 60px;
-      width: 70px;
-      margin-bottom: 30px;
-    }
-
-    .t {
-      font-size: 30px;
-      font-weight: bold;
-      text-align: center;
-      color: #ec4c00;
-      position: absolute;
-      margin-left: 19%;
-      margin-top: -1px;
-    }
-
-    .Fundo {
-      width: 100%;
-      height: 85px;
-      background-image: url(../components/Imagem/Fundo.jpg);
-      background-repeat: repeat-x;
-      background-size: 300px;
-      position: absolute;
-      animation: FundoSpand 0.8s 0.1s;
-    }
-
-    @keyframes FundoSpand {
-      0% {
-        height: 10px;
-      }
-
-      100% {
-        height: 80px;
-      }
-    }
-
-    .c {
-      background: #fbf5f1fa !important;
-      margin-bottom: 0.1px;
-    }
-  </style>
+      </style>
 
 </body>
 

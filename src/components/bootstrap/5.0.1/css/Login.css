@@ -174,3 +174,19 @@ a{
     background: red;
     cursor: pointer;
 }
+.ErroInfo{
+    margin-left: 12px;
+    font-size: 11px;
+    color: #d60000;
+    font-weight: bold;
+    cursor: context-menu;
+}
+.bi-exclamation-octagon-fill{
+    margin-top: -2px;
+    color: red;
+    cursor: context-menu;
+}
+.DivInfoErro{
+    visibility: hidden;
+    padding-left: 22px;
+}

@@ -24,6 +24,44 @@ function Username(){
     return username
 }
 
+/*
+function MaxOuMin(){
+ let card = document.getElementById("card")
+ let bCard = document.getElementById("bcard")
+ let titulo = document.getElementById("titulo")
+ let logo = document.getElementById("logo")
+ let Expandi = document.getElementById("ButtonExpandi")
+ let Recolher = document.getElementById("ButtoRecolher")
+ 
+
+    if(card.className == "cardHidden" ){
+
+        card.style.animation = ""
+        setTimeout(() => card.style.animation = "MinimizaPainel 1s reverse")
+        card.style.height = "278.16px" 
+        card.className = "card-body border position-static rounded"
+        bCard.style.visibility = "visible"
+        titulo.className = "tMin"
+        logo.style.height = "22px"
+        Expandi.style.visibility = "hidden"
+        Recolher.style.visibility = "visible"
+
+    }else{
+
+        card.style.animation = ""
+        setTimeout(() => card.style.animation = "MinimizaPainel 1s")
+        card.style.height = "20px" 
+        card.className = "cardHidden"
+        bCard.style.visibility = "hidden"
+        titulo.className = "t"
+        logo.style.height = ""
+        Expandi.style.visibility = "visible"
+        Recolher.style.visibility = "hidden"
+
+    }
+
+}
+*/
 
 //Adiona um linha na tabela e no o Objeto Requisição
 function AdicionarLinha() {
