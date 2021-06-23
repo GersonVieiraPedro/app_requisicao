@@ -2,13 +2,14 @@
 //Criando o Objeto Pessoas
 function Produto() {
 
-    this.Add = (Material = Number, Descricao = String , PrecoUnitatio = Number) => {
+    this.Add = (Material = Number, Descricao = String , PrecoUnitatio = Number, Time = Number) => {
 
         let Prod = new Object()
          Prod = {
             Material: Material,
             Prod: Descricao,
-            PrecoUnitatio: PrecoUnitatio
+            PrecoUnitatio: PrecoUnitatio,
+            Time: Time
         }
         return (Prod)
     }
@@ -36,7 +37,7 @@ function Colaborador(){
 //Objeto de requisição 
 function Requisicao() {
 
-  this.Add = (Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo) => {
+  this.Add = (Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Time) => {
 
     let Req = new Object()
     Req = {
@@ -55,7 +56,8 @@ function Requisicao() {
       Setor: Setor,
       Vistoria: Vistoria,
       Username: Username,
-      Motivo: Motivo
+      Motivo: Motivo,
+      Time: Time
     }
     return (Req)
   }

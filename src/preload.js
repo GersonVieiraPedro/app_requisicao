@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             throw err;
         } else {
             rows.forEach((row) => {
-                ListaProdutos.push(Produtos.Add(row.Material, row.Descricao, row.PrecoUn))
+                ListaProdutos.push(Produtos.Add(row.Material, row.Descricao, row.PrecoUn, row.Time))
             });
 
             //Armazena o Array criando no elemento Hidder la no HTML

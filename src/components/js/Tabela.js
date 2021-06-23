@@ -106,19 +106,40 @@ document.getElementById('btn-Send').addEventListener('click', () => {
 
 
   if(ListaDeRequisicao !="" ){
-  AdicionarNumeroPedido()
 
-  //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
+    let Obj = ListaDeRequisicao
+    let i = 0
+    let Tamanho = Obj.length
+    while (i < Tamanho) {
+    let Time = Obj[i].Time
+    let Data = Obj[i].Data
+    Data = Date(Data)
+    let Dataa = Data.setDate(Data - Time)
+    Data = DataAtual(Data)
+    }
+    /*  
+    ipcRenderer.send('Verificar', ListaDeRequisicao)
+
+   AdicionarNumeroPedido()
+
+   //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
   
-  ipcRenderer.send('Requsição', ListaDeRequisicao)
+   //ipcRenderer.send('Requsição', ListaDeRequisicao)
 
-  //Recebe  Mensagem no Main 
-  ipcRenderer.on('Mensagem', (event, arg) => {
+    ipcRenderer.on('Verificado', (event, arg)=>{
+      console.log(arg)
+
+    })
+
+   //Recebe  Mensagem no Main 
+   ipcRenderer.on('Mensagem', (event, arg) => {
     ModelMenssagem(arg)
-  })
+   })
 
    RemoveTudo(true)
+   */
   }
+  
 })
 
 

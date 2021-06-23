@@ -9,6 +9,23 @@ const {SalvarBanco, RegistrarUsuario, EnviarEmail} = require('./Banco');
 const Email = require("nodemailer")
 
 
+// Tras a data atual formadata "00/00/0000"
+function DataTime(Data) {
+  let DataA = Data
+  return `${adicionaZero(DataA.getDate().toString())}/${adicionaZero(DataA.getMonth() + 1).toString()}/${DataA.getFullYear()}`
+}
+
+//Adiona 0 na Frente se o numero for menor que 10 
+function adicionaZero(numero) {
+  if (numero <= 9)
+      return "0" + numero;
+  else
+      return numero;
+}
+
+
+
+
 //enviar o email e salva a requisiçao
 ipcMain.on('Requsição', (event, args) => {
   //Obj = JSON.stringify(args)
@@ -21,6 +38,49 @@ ipcMain.on('Requsição', (event, args) => {
 
 })
 
+ipcMain.on('Verificar', (event, arg)=>{
+
+  
+  let Lista = new Array()
+
+  Obj = arg
+
+  if (Obj) {
+      let i = 0
+      let Tamanho = Obj.length
+      while (i < Tamanho) {
+        let Time = Obj[i].Time
+        let Data = Obj[i].Data
+        Data = Date.parse(Data)
+        Data = Data - Time
+        Data = DataTime(Data)
+        
+        
+        let SQL = `SELECT Data FROM RequisicaoAlmox WHERE ID LIKE = ? AND Data > ?`
+        let Banco = new SQLite.Database("LocalJob")
+        Banco.all(SQL, [`%${Obj[i].Chapa}${Obj[i].Material}%`, Data], (err,rows)=>{
+
+          if (err) {
+            throw err;
+          } else {
+
+            rows.forEach((row) => {
+              let TData = row.Data
+            })
+
+            let busca = new Object()
+            Lista.push(
+             busca = {
+             DATA : TData,
+             ID : Obj[i].ID
+            }
+            )
+          }
+       })
+      }
+      event.sender.send("Verificado", Lista)
+  }
+})
 
 ipcMain.on("Usuario", (event, arg) => {
 
