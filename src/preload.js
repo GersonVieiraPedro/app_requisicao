@@ -10,7 +10,7 @@ const LocalStorage = path.resolve(__dirname, "components/Db/", nomebdLocal)
 const LocalJob = 'C:/Users/gvieira-sbj/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db'
 const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/src/components/Db/DB_RequisicaoAlmox.db"
 const LocalHost = "//bbrdskadm13/host/05-Bancos De Dados/DB_RequisicaoAlmox.db"
-const {Produto,Colaborador} = require("./components/js/Classe.js")
+const { Produto, Colaborador } = require("./components/js/Classe.js")
 
 
 let Produtos = new Produto()
@@ -72,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-
     //Fecha o Banco
     db.close((err) => {
         if (err) {
@@ -81,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Banco de dados fechado.');
 
     });
-
 
 
     let Local = new SQLite.Database(LocalStorage, (err) => {

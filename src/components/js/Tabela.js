@@ -1,16 +1,17 @@
 const {TouchBar} = require("electron")
-const {ipcRenderer } = require('electron')
+const {ipcRenderer} = require('electron')
 const path = require("path")
 
-//
-
-document.getElementById('current').addEventListener('click', ()=> {
+/*
+document.getElementById('current').addEventListener('click', () => {
 
   ipcRenderer.send("print", "print")
-})
 
+})
+*/
 //Criando a Lista de requisição 
 let ListaDeRequisicao = new Array()
+
 
 //|||||||||||||||||||||||||||||||||||||||||--PAINEL--|||||||||||||||||||||||||||||||||||||||||||||
 
@@ -95,51 +96,96 @@ document.getElementById('btn-Add').addEventListener('click', () => {
 })
 
 //Envia um Mensagem para o main para Finalizar a Aplicação
-function CloseWindow (){
-  ipcRenderer.send('CloseWindow',"Close")
+function CloseWindow() {
+  ipcRenderer.send('CloseWindow', "Close")
+}
+
+function DateUTP8(DataSting) {
+  return new Date(`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)} `)
 }
 
 
 //Escuta o Botão Solicitar
 document.getElementById('btn-Send').addEventListener('click', () => {
-  
 
 
-  if(ListaDeRequisicao !="" ){
+  if (ListaDeRequisicao != "") {
 
-    let Obj = ListaDeRequisicao
-    let i = 0
-    let Tamanho = Obj.length
-    while (i < Tamanho) {
-    let Time = Obj[i].Time
-    let Data = Obj[i].Data
-    Data = Date(Data)
-    let Dataa = Data.setDate(Data - Time)
-    Data = DataAtual(Data)
-    }
-    /*  
-    ipcRenderer.send('Verificar', ListaDeRequisicao)
 
-   AdicionarNumeroPedido()
-
-   //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
-  
-   //ipcRenderer.send('Requsição', ListaDeRequisicao)
-
-    ipcRenderer.on('Verificado', (event, arg)=>{
+    ipcRenderer.on('Verificado', (event, arg) => {
       console.log(arg)
 
+      
+      let ListaVerificada = arg
+      let i = 0
+      let Tamanho = ListaVerificada.length
+
+      while (i < Tamanho) {
+
+        //
+        let Mate = ListaVerificada[i].ID
+        Mate = Mate.substring(9, Mate.length)
+        let Produto = ListaDeRequisicao.filter(Produtos => Produtos.Material == Mate);
+
+        let DiasLimite = Produto[0].Time
+        let DataRegistro = ListaVerificada[i].Data + " "
+
+        DataRegistro = new Date(DataRegistro)
+
+        // let DataLimite = new Date(DataRegistro.setDate(DataRegistro.getDate() + DiasLimite))
+
+        let DataHoje = new Date()
+
+        let LeadTime = (DataHoje - DataRegistro)
+        LeadTime = (LeadTime / 1000 / 60 / 60 / 24).toFixed(0)
+        LeadTime = LeadTime - DiasLimite
+
+       // console.log(LeadTime)
+       // console.log("ID: " + ListaVerificada[i].ID + "  Material: " + ListaDeRequisicao[i].Material + "  Data Limite: " + DataAtual(DataHoje) + "  Data Registro: " + DataAtual(DataRegistro) + "  Time Limite: " + (LeadTime / 1000 / 60 / 60 / 24).toFixed(3))
+        let x = 2
+       while(x < (Tamanho + 2) ){
+        SKUMaterial = tabela.row[x].cells[0].innerHTML
+        NomeColaborador = tabela.row[x].cells[5].innerHTML
+
+        let Pessoa = ListaDeRequisicao.filter(Pessoa => Pessoa.Nome == NomeColaborador)
+        let Chapa = Pessoa[0].Chapa
+        let ID = Chapa + SKUMaterial
+        if (ID == ListaVerificada[i].ID ){
+
+          let CellLead = tabela.row[x].cells[6]
+          CellLead.innerHTML = LeadTime
+
+          if(LeadTime >= 0 ){
+            CellLead.style.background = 'green'
+          }else{
+            CellLead.style.background = 'red'
+          }
+        }
+        x = x + 1
+       }
+
+        i = i + 1
+      }
     })
 
-   //Recebe  Mensagem no Main 
-   ipcRenderer.on('Mensagem', (event, arg) => {
-    ModelMenssagem(arg)
-   })
+    ipcRenderer.send('Verificar', ListaDeRequisicao)
+    /*
+    AdicionarNumeroPedido()
 
-   RemoveTudo(true)
-   */
+    //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
+
+    ipcRenderer.send('Requsição', ListaDeRequisicao)
+
+
+    //Recebe  Mensagem no Main 
+    ipcRenderer.on('Mensagem', (event, arg) => {
+      ModelMenssagem(arg)
+    })
+
+    RemoveTudo(true)
+    */
   }
-  
+
 })
 
 
@@ -156,41 +202,41 @@ tabela.addEventListener('click', function (e) {
     removerLinha(Linha)
 
     let Valor = elem.tagName == "BUTTON" ?
-    elem.parentNode.parentNode.cells[4].innerHTML :
-    elem.parentNode.parentNode.parentNode.parentNode.cells[4].innerHTML 
+      elem.parentNode.parentNode.cells[4].innerHTML :
+      elem.parentNode.parentNode.parentNode.parentNode.cells[4].innerHTML
     Valor = Valor.substring(4, Valor.length)
     RemoverValorTotal(Valor)
-    
+
   }
 })
 
 // Ativa a animação de exibir os detalhes do Usuario 
-function UserDetalhes (){
+function UserDetalhes() {
   const Container = document.getElementById("UC");
   UserLogado(Container.value)
 
   const Detalhes = document.querySelector(".Detalhes")
 
   const Nome = document.querySelector(".UserNome").innerHTML
- 
+
   let Tamanho = Nome.length
 
   let tamanho = Container.style.width
-  if(tamanho == 60 || tamanho =="" || tamanho == "60px" ){
-    Container.style.animation =""
-    setTimeout(()=> Container.style.animation ="ExibirDetalhes 1s ease ")
+  if (tamanho == 60 || tamanho == "" || tamanho == "60px") {
+    Container.style.animation = ""
+    setTimeout(() => Container.style.animation = "ExibirDetalhes 1s ease ")
     Container.style.opacity = "1"
     //Container.style.visibility = "visible"
-    Container.style.width = "210px" 
-    Container.className ="UserConteiner"
-    if(Tamanho > 22){
+    Container.style.width = "210px"
+    Container.className = "UserConteiner"
+    if (Tamanho > 22) {
       Detalhes.style.marginTop = "5px"
     }
 
-  }else{
+  } else {
     const Container = document.getElementById("UC");
-    Container.style.animation =""
-    setTimeout(()=> Container.style.animation ="ExibirDetalhes 1s ease reverse")
+    Container.style.animation = ""
+    setTimeout(() => Container.style.animation = "ExibirDetalhes 1s ease reverse")
     Container.style.opacity = "0"
     //Container.style.visibility ="hidden"
     Container.style.width = "60px"
@@ -198,12 +244,13 @@ function UserDetalhes (){
   }
 }
 
+
 //Procura o nome e setor do usuario e insere no HTML
-function UserLogado (Chapa){
+function UserLogado(Chapa) {
   ArrayPessoas = document.getElementById('ListaDeNomes').Value
   let User = ArrayPessoas.filter(pessoa => pessoa.Chapa == Chapa);
 
- document.querySelector(".UserNome").innerHTML = User[0].Nome
- document.querySelector(".Setor").innerHTML = User[0].Setor  
+  document.querySelector(".UserNome").innerHTML = User[0].Nome
+  document.querySelector(".Setor").innerHTML = User[0].Setor
 
 }

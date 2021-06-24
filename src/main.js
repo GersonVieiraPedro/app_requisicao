@@ -10,7 +10,7 @@ const Email = require("nodemailer")
 
 
 // Tras a data atual formadata "00/00/0000"
-function DataTime(Data) {
+function FormatData(Data) {
   let DataA = Data
   return `${adicionaZero(DataA.getDate().toString())}/${adicionaZero(DataA.getMonth() + 1).toString()}/${DataA.getFullYear()}`
 }
@@ -23,6 +23,12 @@ function adicionaZero(numero) {
       return numero;
 }
 
+function DateUTP8(DataSting){
+  return new Date(`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)} `)
+}
+function DateUTP8Format(DataSting){
+  return (`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)}`)
+}
 
 
 
@@ -38,47 +44,65 @@ ipcMain.on('Requsição', (event, args) => {
 
 })
 
-ipcMain.on('Verificar', (event, arg)=>{
+ipcMain.on('Verificar', (event, arg) => {
 
-  
+
   let Lista = new Array()
 
   Obj = arg
 
   if (Obj) {
-      let i = 0
-      let Tamanho = Obj.length
-      while (i < Tamanho) {
-        let Time = Obj[i].Time
-        let Data = Obj[i].Data
-        Data = Date.parse(Data)
-        Data = Data - Time
-        Data = DataTime(Data)
-        
-        
-        let SQL = `SELECT Data FROM RequisicaoAlmox WHERE ID LIKE = ? AND Data > ?`
-        let Banco = new SQLite.Database("LocalJob")
-        Banco.all(SQL, [`%${Obj[i].Chapa}${Obj[i].Material}%`, Data], (err,rows)=>{
+    let i = 0
+    let Tamanho = Obj.length
+    while (i < Tamanho) {
+      let Time = Obj[i].Time
+      let Data = Obj[i].Data
 
-          if (err) {
-            throw err;
-          } else {
+      Data = DateUTP8(Data)
+      Data = new Date(Data.setDate(Data.getDate() - Time))
+      Data = FormatData(Data)
+      Data = DateUTP8Format(Data)
 
-            rows.forEach((row) => {
-              let TData = row.Data
-            })
+      let SQL = `SELECT Data, Chapa, Material FROM RequsicaoAlmox WHERE ID = ? AND Data > ?`
+      let Banco = new SQLite.Database(LocalJob)
 
-            let busca = new Object()
-            Lista.push(
-             busca = {
-             DATA : TData,
-             ID : Obj[i].ID
+      //console.log(`ID: ${Obj[i].Chapa}${Obj[i].Material}` + "  &  Data Where: "+ Data)
+
+      Banco.all(SQL, [`${Obj[i].Chapa}${Obj[i].Material}`, Data], (err, rows) => {
+
+        if (err) {
+          throw err;
+        } else {
+
+          let TData = ''
+          let ID = ''
+
+          rows.forEach((row) => {
+            TData = row.Data
+            ID = `${row.Chapa}${row.Material}`
+          })
+
+          let busca = new Object()
+
+          Lista.push(
+            busca = {
+              Data: TData,
+              ID: ID
             }
-            )
+          )
+
+          if (Lista.length == Tamanho) {
+            event.sender.send("Verificado", Lista)
           }
-       })
-      }
-      event.sender.send("Verificado", Lista)
+
+        }
+      })
+
+      Banco.close()
+      i = i + 1
+    }
+
+
   }
 })
 
