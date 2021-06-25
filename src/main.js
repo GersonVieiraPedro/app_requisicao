@@ -59,7 +59,7 @@ ipcMain.on('Verificar', (event, arg) => {
       let Data = Obj[i].Data
 
       Data = DateUTP8(Data)
-      Data = new Date(Data.setDate(Data.getDate() - Time))
+      Data = new Date(Data.setDate(Data.getDate() - (Time * 2)))
       Data = FormatData(Data)
       Data = DateUTP8Format(Data)
 
@@ -81,6 +81,10 @@ ipcMain.on('Verificar', (event, arg) => {
             TData = row.Data
             ID = `${row.Chapa}${row.Material}`
           })
+
+          if(ID == ""){
+            ID = "@"
+          }
 
           let busca = new Object()
 
@@ -179,6 +183,7 @@ function Pages() {
     frame: false,
     transparent: true,
     show: false,
+    backgroundColor: 'white',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

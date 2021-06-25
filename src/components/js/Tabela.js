@@ -13,13 +13,54 @@ document.getElementById('current').addEventListener('click', () => {
 let ListaDeRequisicao = new Array()
 
 
-//|||||||||||||||||||||||||||||||||||||||||--PAINEL--|||||||||||||||||||||||||||||||||||||||||||||
+//Resolver o LOOP desnecessario ao digitar para selecionar o item 
+function CriarListasNomes() {
 
-//=================================== COMPOS INPUT ====================================================
+      //Pega o Array de Objetos do elemento Escondido no HTML
+      let ArryCompletoProdutos = document.getElementById('ListaDeProdutos').Value
+      let ArryCompletoNomes = document.getElementById('ListaDeNomes').Value
+      let NomeProdutos = document.getElementById('NomesProdutos')
+      let NomePessoas = document.getElementById('NomesPessoas')
+
+      if(NomePessoas.value == "" || NomePessoas.value == undefined || NomePessoas.value == null ){
+      //Criando estrutura para a extração e criação de um array so de nomes.
+      let ArrNomes = new Array()
+      let Tamanho = ArryCompletoProdutos.length;
+      let indice = 0;
+  
+      //Criando o Array de Nomes.
+      while (indice < Tamanho) {
+          let ObjetoProdutos = ArryCompletoProdutos[indice]
+          if (indice <= Tamanho) {
+              ArrNomes.push(ObjetoProdutos.Prod)
+          }
+          indice = indice + 1
+      }
+
+      NomeProdutos.Value = ArrNomes
+
+      let ArrNomesPessoas = new Array()
+      let TamanhoN = ArryCompletoNomes.length;
+      let indiceN = 0;
+  
+      //Criando o Array de Nomes.
+      while (indiceN < TamanhoN) {
+          let ObjetoNome = ArryCompletoNomes[indiceN]
+          if (indiceN <= TamanhoN) {
+            ArrNomesPessoas.push(ObjetoNome.Nome)
+          }
+          indiceN = indiceN + 1
+      }
+
+      NomePessoas.Value = ArrNomesPessoas
+    }
+}
+
 
 
 //Escuta o imput de colaborador 
 document.getElementById('Colaborador').addEventListener('keypress', () => {
+  CriarListasNomes()
 
   //Define os elemente do DOM em variaveis 
   const campo = document.getElementById('Colaborador')
@@ -35,7 +76,7 @@ document.getElementById('Colaborador').addEventListener('keypress', () => {
     if (dadosDoCampo == "0" || dadosDoCampo == " " || dadosDoCampo == null) {
       return
     } else {
-      if (dadosDoCampo.length) {
+      if (dadosDoCampo.length > 1) {
 
         const autoCompleteValores = autoCompleteNomes(dadosDoCampo)
         sugestoes.innerHTML = `${
@@ -52,6 +93,7 @@ document.getElementById('Colaborador').addEventListener('keypress', () => {
 //Escuta o imput de Produtos 
 document.getElementById('Produto').addEventListener('keypress', () => {
 
+  CriarListasNomes()
   //Define os elemente do DOM em variaveis 
   const campo = document.getElementById('Produto')
   const sugestoes = document.getElementById('ProdutoList')
@@ -100,92 +142,72 @@ function CloseWindow() {
   ipcRenderer.send('CloseWindow', "Close")
 }
 
+
+//botão para confirmar a solicitação caso o lead time estoure
+document.getElementById('ConfimarSolicitacao').addEventListener('click', () => {
+  
+  let TxtJustificativa = document.getElementById("TxtJustificativa").value
+  let T = TxtJustificativa.length
+  
+  if(T > 30){
+    
+    EnviarRequisicao(true)
+
+  }
+
+})
+
+//Exibe a quantidade de caracter na justificativa
+document.getElementById('TxtJustificativa').addEventListener('keypress', () => {
+ 
+  let Status = document.getElementById("Tamanho")
+
+  let TamanhoResposta = document.getElementById("TxtJustificativa").value
+      TamanhoResposta = TamanhoResposta.length
+
+      if(TamanhoResposta > 30){
+        Status.innerHTML = `${TamanhoResposta}/30`
+        Status.style.color = "green"
+        Status.style.fontWeight = 'bold'
+      }else{
+        Status.innerHTML = `${TamanhoResposta}/30`
+        Status.style.color = "red"
+        Status.style.fontWeight = 'bold'
+      }
+
+})
+
+
+//formata a data 
 function DateUTP8(DataSting) {
   return new Date(`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)} `)
 }
 
 
-//Escuta o Botão Solicitar
+//Envia a lista de Requisição Para o Main solicitando uma verificação dos item para LEAD TIME
 document.getElementById('btn-Send').addEventListener('click', () => {
-
 
   if (ListaDeRequisicao != "") {
 
-
-    ipcRenderer.on('Verificado', (event, arg) => {
-      console.log(arg)
-
-      
-      let ListaVerificada = arg
-      let i = 0
-      let Tamanho = ListaVerificada.length
-
-      while (i < Tamanho) {
-
-        //
-        let Mate = ListaVerificada[i].ID
-        Mate = Mate.substring(9, Mate.length)
-        let Produto = ListaDeRequisicao.filter(Produtos => Produtos.Material == Mate);
-
-        let DiasLimite = Produto[0].Time
-        let DataRegistro = ListaVerificada[i].Data + " "
-
-        DataRegistro = new Date(DataRegistro)
-
-        // let DataLimite = new Date(DataRegistro.setDate(DataRegistro.getDate() + DiasLimite))
-
-        let DataHoje = new Date()
-
-        let LeadTime = (DataHoje - DataRegistro)
-        LeadTime = (LeadTime / 1000 / 60 / 60 / 24).toFixed(0)
-        LeadTime = LeadTime - DiasLimite
-
-       // console.log(LeadTime)
-       // console.log("ID: " + ListaVerificada[i].ID + "  Material: " + ListaDeRequisicao[i].Material + "  Data Limite: " + DataAtual(DataHoje) + "  Data Registro: " + DataAtual(DataRegistro) + "  Time Limite: " + (LeadTime / 1000 / 60 / 60 / 24).toFixed(3))
-        let x = 2
-       while(x < (Tamanho + 2) ){
-        SKUMaterial = tabela.row[x].cells[0].innerHTML
-        NomeColaborador = tabela.row[x].cells[5].innerHTML
-
-        let Pessoa = ListaDeRequisicao.filter(Pessoa => Pessoa.Nome == NomeColaborador)
-        let Chapa = Pessoa[0].Chapa
-        let ID = Chapa + SKUMaterial
-        if (ID == ListaVerificada[i].ID ){
-
-          let CellLead = tabela.row[x].cells[6]
-          CellLead.innerHTML = LeadTime
-
-          if(LeadTime >= 0 ){
-            CellLead.style.background = 'green'
-          }else{
-            CellLead.style.background = 'red'
-          }
-        }
-        x = x + 1
-       }
-
-        i = i + 1
-      }
-    })
-
     ipcRenderer.send('Verificar', ListaDeRequisicao)
-    /*
-    AdicionarNumeroPedido()
 
-    //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
-
-    ipcRenderer.send('Requsição', ListaDeRequisicao)
-
-
-    //Recebe  Mensagem no Main 
-    ipcRenderer.on('Mensagem', (event, arg) => {
-      ModelMenssagem(arg)
-    })
-
-    RemoveTudo(true)
-    */
   }
 
+})
+
+
+//Recebe uma lista de item verificados com as datas de ultima solicitação no banco 
+ipcRenderer.on('Verificado', (event, arg) => {
+  console.log(arg)
+
+  VerificarLeadTime(arg)
+
+})
+
+
+//Recebe  Mensagem no Main 
+ipcRenderer.on('Mensagem', (event, arg) => {
+ModelMenssagem(arg)
 })
 
 
@@ -254,3 +276,144 @@ function UserLogado(Chapa) {
   document.querySelector(".Setor").innerHTML = User[0].Setor
 
 }
+
+
+
+//Logica de leadTime
+function VerificarLeadTime(ListaDeDatas){
+
+  let ListaVerificada = ListaDeDatas
+  let i = 0
+  let Tamanho = ListaVerificada.length
+  let Status = "vazio"
+
+  while (i < Tamanho) {
+       
+    let Valid = ListaVerificada[i].ID
+    if (Valid != "@") {
+
+      let Mate = ListaVerificada[i].ID
+
+      Mate = Mate.substring(9, Mate.length)
+      let Produto = ListaDeRequisicao.filter(Produtos => Produtos.Material == Mate);
+
+      let DiasLimite = Produto[0].Time
+      let DataRegistro = ListaVerificada[i].Data + " "
+
+      DataRegistro = new Date(DataRegistro)
+
+
+      let DataHoje = new Date()
+
+      let LeadTime = (DataHoje - DataRegistro)
+      LeadTime = (LeadTime / 1000 / 60 / 60 / 24).toFixed(0)
+      LeadTime = LeadTime - DiasLimite
+
+      if( LeadTime < 0 && Status == "vazio" ){
+        Status = "Fora Do LeadTime"
+      }
+      
+
+      let x = 2
+      while (x < (Tamanho + 2)) {
+        SKUMaterial = tabela.rows[x].cells[0].innerHTML
+        NomeColaborador = tabela.rows[x].cells[5].innerHTML
+
+        let ItemRequisicao = ListaDeRequisicao.filter(Pedido => Pedido.Nome == NomeColaborador && Pedido.Material == SKUMaterial)
+        ItemRequisicao[0].Dias = LeadTime
+
+        let Chapa = ItemRequisicao[0].Chapa
+
+        let ID = Chapa + SKUMaterial
+
+        if (ID == ListaVerificada[i].ID) {
+
+          let CellLead = tabela.rows[x].cells[6]
+          CellLead.innerHTML = LeadTime
+
+
+          if (LeadTime >= 0) {
+            //Celulas Positivas VERDE
+            CellLead.style.background = '#7bff99'
+            CellLead.style.fontWeight = 'bold'
+            break
+          } else {
+            //Celulas Negativa VERMELHO
+            CellLead.style.background = '#ff6e7c'
+            CellLead.style.fontWeight = 'bold'
+            break
+          }
+        }
+        x = x + 1
+      }
+    }
+    i = i + 1
+  }
+
+  i = 2
+  while (i < (Tamanho + 2)) {
+    VLead = tabela.rows[i].cells[6].innerHTML
+
+    if (VLead == '@') {
+
+      M = tabela.rows[i].cells[0].innerHTML
+      N = tabela.rows[i].cells[5].innerHTML
+
+      let ListReq = ListaDeRequisicao.filter(P => P.Nome == N && P.Material == M)
+      ListReq[0].Dias = 'New'
+
+      Lead = tabela.rows[i].cells[6]
+      Lead.style.background = '#78c0fd'
+      Lead.innerHTML = 'New'
+    }
+    i = i + 1
+  }
+
+  if(Status == "Fora Do LeadTime"){
+
+    let PainelJustificativa = document.getElementById("Justificativa")
+    
+    PainelJustificativa.style.visibility = "visible"
+  }else{
+
+    EnviarRequisicao(true)
+  }
+
+}
+
+//envia a requisição para o main
+function EnviarRequisicao(validar){
+
+  if(validar == true){
+
+    AdicionarHeader()
+
+    AdicionarNumeroPedido()
+
+    //Envia um mensagem para o receptor "Main.js", no canal "Requisição", Msg = Array de Objeto requisição
+    ipcRenderer.send('Requsição', ListaDeRequisicao)
+
+    
+
+    //RemoveTudo(true)
+
+  }
+}
+
+//apos imprimir remove tudo 
+function myFunction() {
+  alert("Pagina foi Impressa");
+  RemoveTudo(true)
+
+}
+
+var modal = document.getElementById("myModal");
+
+
+//botão de X close do model e manda para o main exibir o painel de impressao
+document.getElementById('close').addEventListener('click', () => {
+  let modal = document.getElementById("myModal");
+  modal.style.display = "none";
+
+  ipcRenderer.send("print", "print")
+})

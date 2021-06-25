@@ -37,7 +37,7 @@ function Colaborador(){
 //Objeto de requisição 
 function Requisicao() {
 
-  this.Add = (Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Time) => {
+  this.Add = (Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Time, Dias) => {
 
     let Req = new Object()
     Req = {
@@ -57,7 +57,8 @@ function Requisicao() {
       Vistoria: Vistoria,
       Username: Username,
       Motivo: Motivo,
-      Time: Time
+      Time: Time,
+      Dias: Dias 
     }
     return (Req)
   }

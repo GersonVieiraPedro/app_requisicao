@@ -5,6 +5,12 @@ function removerLinha(Linha) {
     //console.log(ListaDeRequisicao)
 }
 
+//Formata a data "20/09/2021" em 2021-09-20
+function DateUTP8Format(DataSting){
+    return (`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)}`)
+  }
+  
+
 //pega o elemento clicado na tela por nome de classe
 function temClasse(elem, className) {
 
@@ -24,53 +30,16 @@ function Username(){
     return username
 }
 
-
+//Adiciona as informações no header oculto
 function AdicionarHeader (){
  
-    let Solicitante = document.getElementById("")
-    let Setor = document.getElementById("")
+    let Solicitante = document.getElementById("Solicitante")
+    let Setor = document.getElementById("Setor")
 
-    
-
+    Solicitante.innerHTML = ListaDeRequisicao[0].Nome
+    Setor.innerHTML = ListaDeRequisicao[0].Setor
 }
-/*
-function MaxOuMin(){
- let card = document.getElementById("card")
- let bCard = document.getElementById("bcard")
- let titulo = document.getElementById("titulo")
- let logo = document.getElementById("logo")
- let Expandi = document.getElementById("ButtonExpandi")
- let Recolher = document.getElementById("ButtoRecolher")
- 
 
-    if(card.className == "cardHidden" ){
-
-        card.style.animation = ""
-        setTimeout(() => card.style.animation = "MinimizaPainel 1s reverse")
-        card.style.height = "278.16px" 
-        card.className = "card-body border position-static rounded"
-        bCard.style.visibility = "visible"
-        titulo.className = "tMin"
-        logo.style.height = "22px"
-        Expandi.style.visibility = "hidden"
-        Recolher.style.visibility = "visible"
-
-    }else{
-
-        card.style.animation = ""
-        setTimeout(() => card.style.animation = "MinimizaPainel 1s")
-        card.style.height = "20px" 
-        card.className = "cardHidden"
-        bCard.style.visibility = "hidden"
-        titulo.className = "t"
-        logo.style.height = ""
-        Expandi.style.visibility = "visible"
-        Recolher.style.visibility = "hidden"
-
-    }
-
-}
-*/
 
 //Adiona um linha na tabela e no o Objeto Requisição
 function AdicionarLinha() {
@@ -130,24 +99,27 @@ function AdicionarLinha() {
         // inserindo valor nas celular criadas.
         CellMaterial.innerHTML = ProdutoSelecionado.Material
         CellProduto.innerHTML = Produto.toUpperCase()
+        CellProduto.style.textAlign = 'start'
         CellQtd.innerHTML = Qtd
         CellPreco.innerHTML = `R$: ${Preco}`
         CellValor.innerHTML = `R$: ${Valor}`
         CellCalaborador.innerHTML = Calocaborador.toUpperCase()
-        CellLedtime.innerHTML = 12 //led precisa vim da tabela req
+        CellCalaborador.style.textAlign = 'start'
+        CellLedtime.innerHTML = '@' //led precisa vim da tabela req
         CellMotivo.innerHTML = Motivo.substring(0, 1)
         CellButton.innerHTML = `<button onclick="" id="btnRemove" class="btn btn-id  bi icon-sm btn-icons-table btn-rounded btn-danger btn-sm" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 -2 16 18"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg></button>`
 
-        let UserLogado = document.querySelector(".H3User").value
+        let UserLogado = document.querySelector(".H3User").innerHTML
 
         AdicionarValorTotal(Valor)
 
         //Pegando o valor de Data e Hora do registro 
         let DataA = DataAtual()
+            DataA = DateUTP8Format(DataA)
         let Hora = HoraAtual()
 
         // Criando o ID para o led Time
-        let Id = DataA + PessoaSelecionado.Chapa + ProdutoSelecionado.Material
+        let Id = PessoaSelecionado.Chapa + ProdutoSelecionado.Material
 
         //Criando o Objeto requisição para salvar as informações da requsição
         let Requisicoes = new Requisicao()
@@ -168,7 +140,8 @@ function AdicionarLinha() {
             UserLogado, //Nome do Usuario que logar para fazer a requisição
             Username(),
             Motivo,
-            ProdutoSelecionado.Time
+            ProdutoSelecionado.Time,
+            0
         ));
         //console.log(ListaDeRequisicao)
 
@@ -214,28 +187,28 @@ function RemoveTudo(tudo) {
 }
 
 //AutoComplete do campo Produtos 
-function autoCompleteProduto(lista) {
+function autoCompleteProduto(lista) {   
 
-    //Pega o Array de Objetos do elemento Escondido no HTML
-    let Arr = document.getElementById('ListaDeProdutos').Value
+    // //Pega o Array de Objetos do elemento Escondido no HTML
+    let Arr = document.getElementById('NomesProdutos').Value
 
-    //Criando estrutura para a extração e criação de um array so de nomes.
-    let ArrNomes = new Array()
-    let Tamanho = Arr.length;
-    let indice = 0;
+    // //Criando estrutura para a extração e criação de um array so de nomes.
+    // let ArrNomes = new Array()
+    // let Tamanho = Arr.length;
+    // let indice = 0;
 
-    //Criando o Array de Nomes.
-    while (indice < Tamanho) {
-        let ObjetoProdutos = Arr[indice]
-        if (indice <= Tamanho) {
-            ArrNomes.push(ObjetoProdutos.Prod)
-        }
-        indice = indice + 1
-    }
+    // //Criando o Array de Nomes.
+    // while (indice < Tamanho) {
+    //     let ObjetoProdutos = Arr[indice]
+    //     if (indice <= Tamanho) {
+    //         ArrNomes.push(ObjetoProdutos.Prod)
+    //     }
+    //     indice = indice + 1
+    // }
 
     const listaMinusculo = lista.toUpperCase()
     //Procura o valor digitado no arrey e inputa na variavel
-    return ArrNomes.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
+    return Arr.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
 
 }
 
@@ -243,29 +216,29 @@ function autoCompleteProduto(lista) {
 //AutoComplete do campo Nomes 
 function autoCompleteNomes(lista) {
 
-    let DivEscondida = document.getElementById('ListaDeNomes')
+    let DivEscondida = document.getElementById('NomesPessoas')
     //const Arr = ['GERSON VIEIRA PEDRO','GERDSON CARLOS','GABRIELA DIAS','GILSON RODRIGUES', 'NIKOLAS MARTINS', 'PEDRO HENRIQUE', 'VITORIA RODRIGUES']
 
     //Pega o Array de Objetos do elemento Escondido no HTML
-    let Arr = DivEscondida.Value
+     let Arr = DivEscondida.Value
 
-    //Criando estrutura para a extração e criação de um array so de nomes.
-    let ArrNomes = new Array()
-    let Tamanho = Arr.length;
-    let indice = 0;
+    // //Criando estrutura para a extração e criação de um array so de nomes.
+    // let ArrNomes = new Array()
+    // let Tamanho = Arr.length;
+    // let indice = 0;
 
-    //Criando o Array de Nomes.
-    while (indice < Tamanho) {
-        let ObjetoColaborador = Arr[indice]
-        if (indice <= Tamanho) {
-            ArrNomes.push(ObjetoColaborador.Nome)
-        }
-        indice = indice + 1
-    }
+    // //Criando o Array de Nomes.
+    // while (indice < Tamanho) {
+    //     let ObjetoColaborador = Arr[indice]
+    //     if (indice <= Tamanho) {
+    //         ArrNomes.push(ObjetoColaborador.Nome)
+    //     }
+    //     indice = indice + 1
+    // }
 
     const listaMinusculo = lista.toUpperCase()
     //Procura o valor digitado no arrey e inputa na variavel
-    return ArrNomes.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
+    return Arr.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
 
 }
 

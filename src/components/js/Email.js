@@ -94,7 +94,7 @@ function PageEmail(ListaDePedido){
                                                                             <table cellpadding="0" cellspacing="0" width="100%">
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href><img class="adapt-img" src="https://lh5.googleusercontent.com/THb47Jj5xsYzEdRN_knX-VRHv7_bZZ3xkhvRrg0-fiKXdTcNd2H94fJUJQXmIvG6q_uy76k7-ZwRe4X7NyoP5K1s3xJ9Cc5DFAz-UNQhRQ_uAB2ZSQF2IXgfd7z4nwSS6g=w1280" alt style="display: block;" width="600"></a></td>
+                                                                                        <td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href><img class="adapt-img" src="https://lh4.googleusercontent.com/PqkrB8us-RLcZXZYFcK625MnHOAzhGNT89o0aFBk-tS6ZXoAhcTIZ3smxN-S4d7yPAziGhJt4NpjsNsxp5ZJRY0g2OS2rChZwnB0gDOP93jsGjIuwyWcarAc4U7IRXc2Yw=w1280" alt style="display: block;" width="600"></a></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>

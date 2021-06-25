@@ -14,7 +14,7 @@
   <title>requisição</title>
 </head>
 
-<body id="Corpo">
+<body id="Corpo"  onafterprint="myFunction()" >
   <div class="Fundo">
     <div class="Perfil">
       <div class="UserFotoContainer" style=" visibility: visible !important;">
@@ -39,9 +39,12 @@
 
         <input type="hidden" id="ListaDeNomes">
         <input type="hidden" id="ListaDeProdutos">
-        <input type="hidden" id="NumI">
+        <input type="hidden" id="NomesPessoas">
+        <input type="hidden" id="NomesProdutos">
 
-        <!--  
+
+        <!-- 
+           <input type="hidden" id="NumI">
         <button id="current">
           Print
         </button>
@@ -50,18 +53,24 @@
       </div>
 
       <div class="col-6">
+
         <div id="headerPrint" class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded headerPrint">
           <div id="cbody" class="card-body" style="margin-top: -30px;">
+
             <img id="logo" class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset="" height="50" width="60">
-            <h1 id="Titulo" class="t" style="margin-top: -80px;"> Requisição Almoxarifado</h1>
+            
+            <h1 id="Titulo" class="t" style="margin-top: -80px;">Requisição Almoxarifado</h1>
+            
             <div class="form-floating mb-3 w-75">
-              <input type="email" class="form-control" id="floatingInput">
-              <label for="floatingInput">Solicitante</label>
+              <input type="text" class="form-control" id="Solicitante">
+              <label for="Solicitante">Solicitante</label>
             </div>
+
             <div class="form-floating mb-3 w-25" style=" margin-left: 78%;margin-top: -73.8px;">
-            <input type="email" class="form-control" id="floatingInput">
-            <label for="floatingInput">Setor</label>
+              <input type="text" class="form-control"  id="Setor">
+              <label for="Setor">Setor</label>
             </div>
+
           </div>
         </div>
 
@@ -70,19 +79,6 @@
             height="50" width="60">
           <h1 id="Titulo" class="t"> Requisição Almoxarifado</h1>
 
-          <!-- <svg id="ButtoRecolher"  onclick="MaxOuMin()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-dash-square-fill ic" viewBox="0 0 16 16">
-            <path
-              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z">
-            </path>
-          </svg>
-
-          <svg id="ButtonExpandi" onclick="MaxOuMin()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-            class="bi bi-caret-down-square-fill ic" viewBox="0 0 16 16" style="visibility: hidden;">
-            <path
-              d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z">
-            </path>
-          </svg> -->
 
           <div id="cbody" class="card-body" style="margin-top: -30px;">
             <form action="">
@@ -104,7 +100,6 @@
                 <div class="col">
                   <div class="input-group input-group-sm ">
 
-                    <!-- <input type="text" id="Produto" class="form-control w-50" placeholder="Produto"> -->
                     <input class="form-control w-50" list="ProdutoList" id="Produto" placeholder="Produto" required>
                     <datalist id="ProdutoList">
                       <!-- <option value="PICANHA OURO">-->
@@ -112,7 +107,6 @@
 
                     <input type="number" id="Quantidade" class="form-control " placeholder="Qtd" required>
 
-                    <!-- <input type="text" id="Motivo" class="form-control w-10" placeholder="Motivo">  -->
 
                     <select id="Motivo" class="form-select w-25" required aria-placeholder="Motivo">
                       <option selected></option>
@@ -189,7 +183,7 @@
       </div>
 
       <div class="col position-static">
-        <div class="card position-static cardTabela">
+        <div class="card position-static cardTabela mb-3">
           <h4 class="c"><span id="TotalValor" class="badge bg-success TotalValor"></span></h4>
           <div class="card-body border position-static rounded">
             <table class="table table-hover table-sm position-static" id='TabelaReq'>
@@ -201,14 +195,14 @@
                   <th class="col-1" scope="col">Un. Preço</th>
                   <th class="col-1" scope="col">Valor</th>
                   <th class="col-3" scope="col">Colaborador</th>
-                  <th class="col-0" scope="col">Led Time</th>
+                  <th class="col-0" scope="col">Lead Time</th>
                   <th class="col-0 " scope="col">Motivo</th>
                   <th class="col-0 " scope="col"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-              <!-- 
+                  <!-- 
               <th scope="row">616175</th>
               <td>CARNE EM CUBOS SWIFT</td>
               <td>10</td>
@@ -224,25 +218,47 @@
             </table>
           </div>
         </div>
+
+        
+        <div id="Justificativa" class="card text-center border shadow-sm p-3 bg-body rounded Justificativa" style="height: 50%;">
+          <div class="card-body" style="margin-top: -15px;">
+            <h5 class="card-title"> Justifique </h5>
+            <p class="card-text">Para realizar uma requisição fora do Lead Time Precisa de uma justificativa !.</p>
+
+            <div class="input-group mb-3">
+              <input id="TxtJustificativa"class="form-control" type="text" placeholder="Justifique ..." required>
+            </div>
+
+            <div class="StatusJus">
+             <samp id="Tamanho" ></samp>
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button id="ConfimarSolicitacao" class="btn btn-primary" type="button">Confirmar Solicitação</button>
+            </div>
+          </div>
+
+        </div>
+
+
       </div>
 
       <div class="col">
+
         <!-- Coluna do lado Direito da parte Inferior  -->
       </div>
     </div>
 
-    <div class="divFooter" style="
-    text-align: center;
-    border-top: black;">
+    <div class="divFooter" style="text-align: center; border-top: black;">
 
       <div class="row">
 
-        <div class="col" >
+        <div class="col">
           <h3 class="titleFooter">Gestor Imediato</h3>
         </div>
 
         <div class="col">
-          <h3 class="titleFooter" >Solicitante</h3>
+          <h3 class="titleFooter">Solicitante</h3>
         </div>
 
         <div class="col">
@@ -250,21 +266,23 @@
         </div>
 
       </div>
-      <div>
-        <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
-        <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
-        <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-        <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
 
-        <script src="../components/Js/Tabela.js"></script>
-        <script src="../components/Js/Classe.js"></script>
-        <script src="../components/Js/Functions.js"></script>
-        <script src="../components/Js/Model.js"></script>
-      </div>
+    </div>
+    <div>
+      <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+      <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
+      <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+      <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
 
-      <style>
+      <script src="../components/Js/Tabela.js"></script>
+      <script src="../components/Js/Classe.js"></script>
+      <script src="../components/Js/Functions.js"></script>
+      <script src="../components/Js/Model.js"></script>
+    </div>
 
-      </style>
+    <style>
+
+    </style>
 
 </body>
 
