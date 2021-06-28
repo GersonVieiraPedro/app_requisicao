@@ -36,8 +36,8 @@ function AdicionarHeader (){
     let Solicitante = document.getElementById("Solicitante")
     let Setor = document.getElementById("Setor")
 
-    Solicitante.innerHTML = ListaDeRequisicao[0].Nome
-    Setor.innerHTML = ListaDeRequisicao[0].Setor
+    Solicitante.value = ListaDeRequisicao[0].Nome
+    Setor.value = ListaDeRequisicao[0].Setor
 }
 
 
@@ -115,11 +115,15 @@ function AdicionarLinha() {
 
         //Pegando o valor de Data e Hora do registro 
         let DataA = DataAtual()
-            DataA = DateUTP8Format(DataA)
+           // DataA = DateUTP8Format(DataA)
         let Hora = HoraAtual()
 
+        let PainelDataHora = document.getElementById('DataHora')
+
+        PainelDataHora.innerHTML = `${DataA} ${Hora.substring(0,5)}`
+
         // Criando o ID para o led Time
-        let Id = PessoaSelecionado.Chapa + ProdutoSelecionado.Material
+        let Id = `${PessoaSelecionado.Chapa}${ProdutoSelecionado.Material}`
 
         //Criando o Objeto requisição para salvar as informações da requsição
         let Requisicoes = new Requisicao()
@@ -292,7 +296,7 @@ function AdicionarValorTotal(valor){
         ValorAtual = ValorAtual.substring(4, ValorAtual.length)
         ValorAtual = Number.parseFloat(ValorAtual)
         ValorAtual = ValorAtual + Number.parseFloat(valor)
-        ValorAtual.toFixed(3)
+        ValorAtual = ValorAtual.toFixed(2)
         TotalValor.innerHTML = `R$: ${ValorAtual}`
     }
 }
@@ -306,7 +310,7 @@ function RemoverValorTotal(valor) {
     ValorAtual = ValorAtual.substring(4, ValorAtual.length)
     ValorAtual = Number.parseFloat(ValorAtual)
     ValorAtual = ValorAtual - Number.parseFloat(valor)
-    ValorAtual.toFixed(3)
+    ValorAtual = ValorAtual.toFixed(2)
     if(ValorAtual == 0 || ValorAtual == "0"){
         TotalValor.innerHTML = ""    
     }else{

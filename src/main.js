@@ -6,7 +6,8 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ipcMain} = require('electron');
 const {SalvarBanco, RegistrarUsuario, EnviarEmail} = require('./Banco');
-const Email = require("nodemailer")
+const Email = require("nodemailer");
+const { CONNREFUSED } = require('dns');
 
 
 // Tras a data atual formadata "00/00/0000"
@@ -132,12 +133,18 @@ ipcMain.on("Usuario", (event, arg) => {
         event.sender.send("Senha", row.Senha)
         event.sender.send("Chapa", [row.Chapa, User])
 
-        
+
       });
 
     });
 
-    Banco.close()
+    Banco.close((err) => {
+      if (err) {
+        console.error(`Erro ao fecha o banco :${err.message}`);
+      }
+      console.log('Banco de dados fechado.');
+
+    });
 
 
   }
@@ -146,6 +153,97 @@ ipcMain.on("Usuario", (event, arg) => {
 
 })
 
+ipcMain.on("VerificarChapaUsuarios", (event, arg) => {
+
+  let Chapa = Number.parseInt(arg)
+
+
+  let SQL2 = "SELECT Chapa FROM Usuarios WHERE Chapa = ? "
+  let BancoBD = new SQLite.Database(LocalJob, (err) => {
+    if (err) {
+      console.error(`Erro ao conectar :${err.message}`);
+      throw err
+    } else {
+      console.log('BancoBD Conectado ao banco de dados.');
+    }
+  });
+
+  BancoBD.all(SQL2, [Chapa], (err, rows) => {
+
+    if (err) {
+      event.sender.send("StatusChapaUsuarios", "ERRO")
+      console.log("Menssagem De Erro : Ao Procurar a Chapa,  " + err)
+    } else {
+      let Ch = ""
+      rows.forEach((row) => {
+        Ch = row.Chapa
+      })
+      if(Ch == null || Ch == "" || Ch == undefined){
+        event.sender.send("StatusChapaUsuarios", "Usuario Não Cadastrado")
+      }else{
+        event.sender.send("StatusChapaUsuarios", "Usuario Já Cadastrado")
+      }
+      console.log("Ch: " + `"${Ch}"`)
+    }
+  })
+
+  BancoBD.close((err) => {
+    if (err) {
+      console.error(`Erro ao fecha o banco :${err.message}`);
+    }
+    console.log(' BancoBD Banco de dados fechado.');
+
+  });
+
+})
+
+
+ipcMain.on("VerificaChapaPessoas", (event, arg) => {
+
+
+  let Chapas = Number.parseInt(arg)
+  let DB = new SQLite.Database(LocalJob, (err) => {
+    if (err) {
+      console.error(`Erro ao conectar :${err.message}`);
+      throw err
+    } else {
+      console.log('DB Conectado ao banco de dados.');
+    }
+  });
+
+  let SQL = `SELECT Chapa FROM Pessoas WHERE Chapa = ? AND Situacao = ?`
+  DB.all(SQL, [Chapas , "ATIVO"], (err, rows) => {
+
+    if (err) {
+      event.sender.send("StatusChapaPessoas", "Chapa Não Encontrada")
+      console.log("Menssagem De Erro : Ao Procurar a Chapa,  " + err)
+    } else {
+      let Cp = ""
+      rows.forEach((row) => {
+        Cp = row.Chapa
+      });
+      if(Cp == null || Cp == "" || Cp == undefined){
+        event.sender.send("StatusChapaPessoas", "Chapa Não Encontrada")
+       
+      }else{
+        event.sender.send("StatusChapaPessoas", Cp)
+      }
+      console.log("CP: " + `"${Cp}"`)
+      
+    }
+
+  })
+
+
+  DB.close((err) => {
+    if (err) {
+      console.error(`Erro ao fecha o banco :${err.message}`);
+    }
+    console.log(' DB Banco de dados fechado.');
+
+  });
+
+})
 
 /*
 ipcMain.on("Email", (event, arg)=>{

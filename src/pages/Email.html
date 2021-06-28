@@ -1,4 +1,29 @@
-<div class="card" style="width: 100%;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>OLa bem vindo ao email</h1>
+  <input type="hidden" id="ListaDeNomes">
+  <input type="hidden" id="ListaDeProdutos">
+  <div class="UserFotoContainer" style=" visibility: visible !important;">
+    <img onclick="UserDetalhes()" class="UserFoto" src="../components/Imagem/FotoUsuario.png">
+  </div>
+  <div class="Username" style=" visibility: visible !important;">
+    <h3 class="H3User"></h3>
+  </div>
+  <div id="UC" class="UserConteinerClose">
+    <div id="D" class="Detalhes">
+      <h3 class="UserNome"></h3>
+      <h5 class="Setor"></h5>
+    </div>
+  </div>
+</div>
+  <div class="card" style="width: 100%;">
     <div class="card-header">
       ${Titulo}
     </div>
@@ -12,3 +37,15 @@
     
   </ol>
     </div>
+
+    <style>
+      *{
+      background: white;
+      color: black;
+      }
+    </style>
+
+</body>
+</html>
+
+

@@ -104,9 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
              let Usuario = v.substring((T + 1), v.lenght)
              let Chapa = v.substring(0, T)
             
-             document.querySelector(".H3User").innerHTML = Usuario
-
-             document.getElementById("UC").value = Chapa
+             document.querySelector(".H3User").innerHTML = Usuario || "Username"
+             let FotoUser = document.querySelector(".UserFoto")  
+             document.getElementById("UC").value = Chapa || 11221332
+             FotoUser.setAttribute("src", `//bbrdskadm13/host/05-Bancos De Dados/Imagem/Banco de fotos/${Chapa}.jpg`)
            });  
         }
     });

@@ -8,6 +8,11 @@ const Email = require("nodemailer")
 const { PageEmail } = require("../src/components/js/Email")
 
 
+//Formata a data "20/09/2021" em 2021-09-20
+function DateUTP8Format(DataSting){
+  return (`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)}`)
+}
+
 //Salva o requisição mo banco de dados
 function SalvarBanco(Dado) {
 
@@ -18,7 +23,7 @@ function SalvarBanco(Dado) {
         let Tamanho = Obj.length
         while (i < Tamanho) {
             const Banco = new SQLite.Database(LocalJob);
-            Banco.run(`INSERT INTO RequsicaoAlmox(Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+            Banco.run(`INSERT INTO RequsicaoAlmox(Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Dias, Justificativa) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
                 [Obj[i].Pedido,
                     Obj[i].ID,
                     Obj[i].Material,
@@ -26,7 +31,7 @@ function SalvarBanco(Dado) {
                     Obj[i].Quantidade,
                     Obj[i].PrecoUn,
                     Obj[i].Valor,
-                    Obj[i].Data,
+                    DateUTP8Format(Obj[i].Data),
                     Obj[i].Hora,
                     Obj[i].Chapa,
                     Obj[i].Nome,
@@ -34,7 +39,9 @@ function SalvarBanco(Dado) {
                     Obj[i].Setor,
                     Obj[i].Vistoria,
                     Obj[i].Username,
-                    Obj[i].Motivo
+                    Obj[i].Motivo,
+                    Obj[i].Dias,
+                    Obj[i].Justificativa
                 ],
                 function (err) {
                     if (err) {

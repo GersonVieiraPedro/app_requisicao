@@ -21,7 +21,8 @@
       <img id='Imagebanner'
         src="https://www.swift.com.br/arquivos/banner-desk-itensate20-comcta.jpg?v=637570280800500000" alt="">
     </div>
-    <div class="Form">
+    <div  id="Login" class="Form">
+      <!-- Formulario de Login  -->
       <img src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" class="Logo" alt="">
       <h2>Login</h2>
       <div class="SpaceText">
@@ -29,16 +30,18 @@
       </div>
 
       <div class="SpaceText">
-        <div id="DivInfoErro" class="DivInfoErro" >                  
-          <spam  class="ErroInfo" >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon-fill" viewBox="0 0 16 16" >
+        <div id="DivInfoErro" class="DivInfoErro">
+          <spam class="ErroInfo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-exclamation-octagon-fill" viewBox="0 0 16 16">
               <path
                 d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
               </path>
             </svg>
             Senha ou Usuario Errado !</spam>
         </div>
-        <input type="password" onkeypress="EsconderErro()" name="Pwd" id="Pwd" class="TextBox" placeholder="°°°°°°°°°°°°" required>
+        <input type="password" onkeypress="EsconderErro()" name="Pwd" id="Pwd" class="TextBox"
+          placeholder="°°°°°°°°°°°°" required>
         <!-- </div class="buttonClose"> -->
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bibi-eye"
           viewBox="0 0 16 16" onclick="VerPwd()" id="OnOlho">
@@ -60,7 +63,7 @@
         <div class="SpaceButton">
           <input onclick="Logar()" type="button" value="Entrar" class="Button">
 
-          <a href="this">Registar</a>
+          <a href="#" onclick="VisibleLogin()">Registar</a>
           <a style="margin-left: 10px; margin-right: 10px;"> | </a>
           <a href="Email.html">Esqueceu a Senha ?</a>
           <!-- <input onclick="Email()" type="button" value="Enviar" class="Button">  -->
@@ -68,12 +71,91 @@
 
       </div>
     </div>
+
+
+    <div style="visibility: hidden;" id="Registrar" class="Form">
+      <!-- Formulario de Registrar  -->
+      <img src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" class="Logo" alt="">
+      <h2>Registrar</h2>
+      <div class="SpaceText">
+        <input type="text" name="NickName" id="RName" class="TextBox" placeholder="Usuario" required>
+      </div>
+      <div class="SpaceText">
+        <input type="text" name="NickName" id="RChapa" class="TextBox" placeholder="Chapa" required>
+      </div>
+      <div class="SpaceText" style="margin-top: -13px; margin-bottom: 24px;">
+        <div id="RDivInfoErro" class="DivInfoErro">
+          <spam class="ErroInfo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-exclamation-octagon-fill" viewBox="0 0 16 16">
+              <path
+                d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+              </path>
+            </svg>
+            Senha São Diferentes !</spam>
+        </div>
+        <input type="password" onkeypress="EsconderErro()" name="Pwd" id="RPass" class="TextBox" placeholder="Senha "
+          required>
+        <!-- </div class="buttonClose"> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bibi-eye"
+          viewBox="0 0 16 16" onclick="VerPwd()" id="OnOlho">
+          <path
+            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+          <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bibi-eye-slash"
+          viewBox="0 0 16 16" onclick="VerPwd()" id="OffOlho">
+          <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+          <path
+            d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+          <path
+            d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+          <path
+            d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172     8   l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+        </svg>
+      </div>
+
+      <div class="SpaceText">
+        <input type="password" onkeypress="EsconderErro()" name="Pwd" id="RPassConfirmar" class="TextBox"
+          placeholder="Confirmar Senha !" required>
+        <!-- </div class="buttonClose"> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bibi-eye"
+          viewBox="0 0 16 16" onclick="VerPwd()" id="OnOlho">
+          <path
+            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+          <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bibi-eye-slash"
+          viewBox="0 0 16 16" onclick="VerPwd()" id="OffOlho">
+          <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+          <path
+            d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
+          <path
+            d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+          <path
+            d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172     8   l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
+        </svg>
+      </div>
+      <div class="SpaceButton">
+        <input onclick="RegistrarNovoUsuario()" type="button" value="Registar" class="Button">
+
+        <a href="#" onclick="VisibleLogin()">Login</a>
+        <a style="margin-left: 10px; margin-right: 10px;"> | </a>
+        <a href="Email.html">Esqueceu a Senha ?</a>
+        <!-- <input onclick="Email()" type="button" value="Enviar" class="Button">  -->
+      </div>
+
+    </div>
+  </div>
+
+
   </div>
 
   <input type="hidden" id="ConfirmarSenha">
   <script src="../components/js/SeePwd.js"></script>
   <script src="../components/js/Galery.js"></script>
   <script src="../components/js/Login.js"></script>
+
 </body>
 
 </html>

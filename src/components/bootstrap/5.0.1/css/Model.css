@@ -64,7 +64,7 @@ body{
     margin: 5px;
     position: absolute;
     border-radius: 150px;
-    border: 2px solid #bb2c00;
+    border: 2px solid #920000;
     visibility: visible;
     opacity: 1;
     margin-left: 10px;
@@ -72,10 +72,10 @@ body{
   }
 
   .UserFotoContainer{
-    background: #e6e6e6;
+    background: #cecece;
     height: 60px;
     width: 60px;
-    border: 3px solid #bb2c00;
+    border: 3px solid #920000;
     border-radius: 150px;
     visibility: visible !important;
     margin: 5px;
@@ -90,6 +90,9 @@ body{
     border-radius: 50%;
     position: relative;
     margin-top: 2px;
+    width: 50px;
+    object-fit: cover;
+    object-position: center;
 
   }
   .Username{
@@ -272,7 +275,13 @@ input[type=number] {
 }
 
 @media print {
-
+  body { 
+    overflow-x: hidden; 
+    overflow: hidden;
+  }
+  div.container-lg{
+    height: 100%;
+  }
   div.divFooter {
     position: fixed;
     bottom: 0;
@@ -280,8 +289,16 @@ input[type=number] {
   div.painelReq {
     display: none;
   }
+
   div.cardTabela{
-    margin-top: 150px;
+    margin-top: 5px;
+    width: 100%;
+  }
+
+  div.headerPrint {
+    margin-top: 120px !important;
+    width: 600px !important;
+    margin-left: -55px !important;
   }
 }
 
@@ -304,4 +321,11 @@ input[type=number] {
     margin-top: -16px;
     font-size: 12px;
     margin-bottom: 8px;
+}
+
+#DataHora{
+  position: absolute;
+  margin-left: -100px;
+  width: 80px;
+  font-size: 12px;
 }

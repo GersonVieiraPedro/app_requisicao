@@ -146,14 +146,25 @@ function CloseWindow() {
 //botão para confirmar a solicitação caso o lead time estoure
 document.getElementById('ConfimarSolicitacao').addEventListener('click', () => {
   
-  let TxtJustificativa = document.getElementById("TxtJustificativa").value
-  let T = TxtJustificativa.length
-  
+  let TxtJustificativa = document.getElementById("TxtJustificativa")
+  let Texto = TxtJustificativa.value
+  let T = Texto.length
+  let PainelJustificativa = document.getElementById("Justificativa")
+    
   if(T > 30){
     
-    EnviarRequisicao(true)
+    let x = 0
+    while( x < ListaDeRequisicao.length){
 
-  }
+      ListaDeRequisicao[x].Justificativa = Texto
+
+      x++
+    }
+
+    EnviarRequisicao(true)
+    setTimeout(()=>{ PainelJustificativa.style.visibility = "hidden"} , 2000)
+  } 
+    
 
 })
 
@@ -272,8 +283,10 @@ function UserLogado(Chapa) {
   ArrayPessoas = document.getElementById('ListaDeNomes').Value
   let User = ArrayPessoas.filter(pessoa => pessoa.Chapa == Chapa);
 
+  let FotoUser = document.querySelector(".UserFoto")
   document.querySelector(".UserNome").innerHTML = User[0].Nome
   document.querySelector(".Setor").innerHTML = User[0].Setor
+  FotoUser.setAttribute("src", `//bbrdskadm13/host/05-Bancos De Dados/Imagem/Banco de fotos/${Chapa}.jpg`)
 
 }
 
@@ -320,7 +333,10 @@ function VerificarLeadTime(ListaDeDatas){
         NomeColaborador = tabela.rows[x].cells[5].innerHTML
 
         let ItemRequisicao = ListaDeRequisicao.filter(Pedido => Pedido.Nome == NomeColaborador && Pedido.Material == SKUMaterial)
-        ItemRequisicao[0].Dias = LeadTime
+        
+        let index = ListaDeRequisicao.indexOf(ItemRequisicao[0])
+        ListaDeRequisicao[index].Dias = LeadTime
+        
 
         let Chapa = ItemRequisicao[0].Chapa
 
@@ -360,7 +376,9 @@ function VerificarLeadTime(ListaDeDatas){
       N = tabela.rows[i].cells[5].innerHTML
 
       let ListReq = ListaDeRequisicao.filter(P => P.Nome == N && P.Material == M)
-      ListReq[0].Dias = 'New'
+      let I = ListaDeRequisicao.indexOf(ListReq[0])
+      ListaDeRequisicao[I].Dias = 0
+      
 
       Lead = tabela.rows[i].cells[6]
       Lead.style.background = '#78c0fd'
@@ -417,3 +435,50 @@ document.getElementById('close').addEventListener('click', () => {
 
   ipcRenderer.send("print", "print")
 })
+
+
+
+
+
+function VerificarChapa(Chapa) {
+
+  ipcRenderer.send("VerificarChapa", Chapa)
+
+  ipcRenderer.on("StatusChapa", (event, arg) => {
+      return arg
+  })
+}
+
+function RegistrarNovoUsuario() {
+  let Chapa = document.getElementById("RChapa").value
+  let Status = VerificarChapa(Chapa)
+  let Senha = document.getElementById("RPass").value
+  let ConfSenha = document.getElementById("RPassConfirmar").value
+  let Usuario = document.getElementById("RName").value
+  let info = document.getElementById("RDivInfoErro")
+
+
+
+  if (Status == "Chapa Não Encontrada") {
+      alert(Status + "/n Provalmente a Chapa foi digitada errad ! /n Procute o Setor de RH para validar Chapa")
+
+  } else if (Status == "Usuario Já Cadastrado") {
+      alert(Status + "/n Chapa encontrada nos Registro, Verifique que a Chapa não está Errada")
+
+  } else {
+
+      if (Senha == ConfSenha) {
+          let User = {
+          Nome: Usuario,
+          Senha: Senha,
+          Chapa: Chapa
+          }
+
+
+          ipcRenderer.send("RegistrarUsuario", User )
+      } else {
+          info.style.visibility = "Visible"
+      }
+  }
+
+}
