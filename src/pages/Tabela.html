@@ -14,7 +14,7 @@
   <title>requisição</title>
 </head>
 
-<body id="Corpo"  onafterprint="myFunction()" >
+<body id="Corpo" onafterprint="myFunction()">
   <div class="Fundo">
     <div class="Perfil">
       <div class="UserFotoContainer" style=" visibility: visible !important;">
@@ -32,257 +32,399 @@
     </div>
     <div class="WindowClose" onclick="CloseWindow()"><samp id="DataHora"></samp> &#10006; </div>
   </div>
+
+  <div class="d-flex flex-column flex-shrink-0 bg-light navbarCuston">
+
+    <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+
+      <li>
+        <div id="ButtonSoliRequisições" class=" p-3 border-bottom rounded-3" onclick="Sidebar(this)">
+          <img class="imgTooltip" src="../components/icons/table.svg" alt="">
+          <div class="shadow" id="tooltip">Solicitar Requisições</div>
+        </div>
+      </li>
+
+      <li>
+        <div id="ButtonAtualizar" class=" p-3 border-bottom rounded-3"  onclick="Sidebar(this)">
+          <img class="imgTooltip" src="../components/icons/cloud-arrow-up-fill.svg" alt="">
+          <div class="shadow" id="tooltip">Atualizar</div>
+        </div>
+      </li>
+
+      <li>
+        <div id="ButtonRequisições" class=" p-3 border-bottom rounded-3" onclick="Sidebar(this)">
+          <img class="imgTooltip" src="../components/icons/card-checklist.svg" alt="">
+          <div class="shadow" id="tooltip">Requisições</div>
+        </div>
+      </li>
+
+      <li>
+        <div id="ButtonUsuarios" class="p-3 border-bottom rounded-3" onclick="Sidebar(this)">
+          <img class="imgTooltip" src="../components/icons/people-fill.svg" alt="">
+          <div class="shadow" id="tooltip">Usuarios</div>
+        </div>
+      </li>
+
+    </ul>
+
+  </div>
+
   <div class="container-lg ">
-    <div class="row">
-
-      <div class="col-3">
-
-        <input type="hidden" id="ListaDeNomes">
-        <input type="hidden" id="ListaDeProdutos">
-        <input type="hidden" id="NomesPessoas">
-        <input type="hidden" id="NomesProdutos">
-
-
-        <!-- 
-           <input type="hidden" id="NumI">
-        <button id="current">
-          Print
-        </button>
-        Coluna Lateral Esquenda
-        -->
-      </div>
-
-      <div class="col-6">
-
-        <div id="headerPrint" class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded headerPrint">
-          <div id="cbody" class="card-body" style="margin-top: -30px;">
-
-            <img  id="logo" class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset="" height="50" width="60">
-            
-            <h1 id="Titulo" class="t" style="margin-top: -80px;">Requisição Almoxarifado</h1>
-            
-            <div class="form-floating mb-3 w-75">
-              <input type="text" class="form-control" id="Solicitante">
-              <label for="Solicitante">Solicitante</label>
-            </div>
-
-            <div class="form-floating mb-3 w-25" style=" margin-left: 78%;margin-top: -73.8px;">
-              <input type="text" class="form-control"  id="Setor">
-              <label for="Setor">Setor</label>
-            </div>
-
-          </div>
-        </div>
-
-        <div id="card" class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded painelReq ">
-          <img id="logo" class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt="" srcset=""
-            height="50" width="60">
-          <h1 id="Titulo" class="t"> Requisição Almoxarifado</h1>
-
-
-          <div id="cbody" class="card-body" style="margin-top: -30px;">
-            <form action="">
-              <div class="row">
-                <div class="col">
-                  <div class="input-group input-group-sm mb-3 ">
-
-                    <input class="form-control" list="ColaboradorList" id="Colaborador" placeholder="Colaborador"
-                      aria-describedby="validationTooltipUsernamePrepend" required>
-
-                    <datalist id="ColaboradorList">
-                      <!-- <option value="San Francisco">-->
-                    </datalist>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mb-3 ">
-                <div class="col">
-                  <div class="input-group input-group-sm ">
-
-                    <input class="form-control w-50" list="ProdutoList" id="Produto" placeholder="Produto" required>
-                    <datalist id="ProdutoList">
-                      <!-- <option value="PICANHA OURO">-->
-                    </datalist>
-
-                    <input type="number" id="Quantidade" class="form-control " placeholder="Qtd" required>
-
-
-                    <select id="Motivo" class="form-select w-25" required aria-placeholder="Motivo">
-                      <option selected></option>
-                      <option value="A">A = Admissão</option>
-                      <option value="V">V = Substituição Por Vida Útil</option>
-                      <option value="Q">Q = Substituição Por Quebra</option>
-                      <option value="P">P = Substituição Por Perda</option>
-                      <option value="U">U = Consumos e Usos</option>
-                    </select>
-
-                  </div>
-                </div>
-              </div>
-              <div class="row mt-3">
-                <div class="col-4">
-                  <button class="btn btn-primary btn-rounded btn-fw btn-sm " id="btn-Send" type="submit"
-                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar a Requisição"> Solicitar
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor"
-                      class="bi bi-cursor-fill" viewBox="-14 1 16 16">
-                      <path
-                        d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="col-2"></div>
-                <div class="col-3"></div>
-
-                <div class="col-3-buton">
-                  <button class="btn btn-icons btn-rounded btn-outline-success btn-sm Icon-lg" id="btn-Add"
-                    type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Adicionar Item a Lista">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                      <path
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                    </svg>
-                  </button>
-
-                  <button class="btn btn-icons btn-rounded btn-outline-danger btn-sm Icon-lg" id="btn-Remove"
-                    type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Limpar Toda a Lista">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                      class="bi bi-trash-fill" viewBox="0 0 16 16">
-                      <path
-                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-auto">
-        <!-- Coluna do lado Direito da parte Superior  -->
-        <div id="myModal" class="modal">
-          <!-- Modal content -->
-          <div class="modal-content">
-            <span id="close" class="close">&times;</span>
-            <div id="icon"></div>
-            <p id="text"></p>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-
-      </div>
-
-      <div class="col position-static">
-        <div class="card position-static cardTabela mb-3">
-          <h4 class="c"><span id="TotalValor" class="badge bg-success TotalValor"></span></h4>
-          <div class="card-body border position-static rounded">
-            <table class="table table-hover table-sm position-static" id='TabelaReq'>
-              <thead class="table-warning">
-                <tr>
-                  <th class="col-1 w-25" scope="col">Material</th>
-                  <th class="col-3" scope="col">Produto</th>
-                  <th class="col-1" scope="col">Qtd</th>
-                  <th class="col-1" scope="col">Un. Preço</th>
-                  <th class="col-1" scope="col">Valor</th>
-                  <th class="col-3" scope="col">Colaborador</th>
-                  <th class="col-0" scope="col">Lead Time</th>
-                  <th class="col-0 " scope="col">Motivo</th>
-                  <th class="col-0 " scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <!-- 
-              <th scope="row">616175</th>
-              <td>CARNE EM CUBOS SWIFT</td>
-              <td>10</td>
-              <td>15,75</td>
-              <td>157,50</td>
-              <td>GERSON VIEIRA PEDRO</td>
-              <td>0</td>
-              <td>U</td>
-              <td><button onclick="removerLinha(this)" id="btnRemove" class="btn btn-danger btn-sm" type="button">X</button></td> 
-                  -->
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        
-        <div id="Justificativa" class="card text-center border shadow-sm mb-5 p-3 bg-body rounded Justificativa" style="height: 220px;">
-          <div class="card-body" style="margin-top: -15px;">
-            <h5 class="card-title"> Justifique </h5>
-            <p class="card-text">Para realizar uma requisição fora do Lead Time Precisa de uma justificativa !.</p>
-
-            <div class="input-group mb-3">
-              <input id="TxtJustificativa"class="form-control" type="text" placeholder="Justifique ..." required>
-            </div>
-
-            <div class="StatusJus">
-             <samp id="Tamanho" ></samp>
-            </div>
-
-            <div class="d-grid gap-2 col-6 mx-auto">
-              <button id="ConfimarSolicitacao" class="btn btn-primary" type="button">Confirmar Solicitação</button>
-            </div>
-          </div>
-
-        </div>
-
-
-      </div>
-
-      <div class="col">
-
-        <!-- Coluna do lado Direito da parte Inferior  -->
-      </div>
-    </div>
-
-    <div class="divFooter" style="text-align: center; border-top: black;">
-
+    <div id="ContainerRequisicao" class="container-lg Page ">
       <div class="row">
 
+        <div class="col-3">
+
+          <input type="hidden" id="ListaDeNomes">
+          <input type="hidden" id="ListaDeProdutos">
+          <input type="hidden" id="NomesPessoas">
+          <input type="hidden" id="NomesProdutos">
+
+        </div>
+
+        <div class="col-6">
+
+          <div id="headerPrint" class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded headerPrint">
+            <div id="cbody" class="card-body" style="margin-top: -30px;">
+
+              <img id="logo" class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt=""
+                srcset="" height="50" width="60">
+
+              <h1 id="Titulo" class="t" style="margin-top: -80px;">Requisição Almoxarifado</h1>
+
+              <div class="form-floating mb-3 w-75">
+                <input type="text" class="form-control" id="Solicitante">
+                <label for="Solicitante">Solicitante</label>
+              </div>
+
+              <div class="form-floating mb-3 w-25" style=" margin-left: 78%;margin-top: -73.8px;">
+                <input type="text" class="form-control" id="Setor">
+                <label for="Setor">Setor</label>
+              </div>
+
+            </div>
+          </div>
+
+          <div id="card" class="card border shadow-sm p-3 mb-3 mt-5 bg-body rounded painelReq ">
+            <img id="logo" class="logou" src="https://swift-static.online.pro.br/arquivos/swift-logo.svg" alt=""
+              srcset="" height="50" width="60">
+            <h1 id="Titulo" class="t"> Requisição Almoxarifado</h1>
+
+
+            <div id="cbody" class="card-body" style="margin-top: -30px;">
+              <form action="">
+                <div class="row">
+                  <div class="col">
+                    <div class="input-group input-group-sm mb-3 ">
+
+                      <input class="form-control" list="ColaboradorList" id="Colaborador" placeholder="Colaborador"
+                        aria-describedby="validationTooltipUsernamePrepend" required>
+
+                      <datalist id="ColaboradorList">
+                        <!-- <option value="San Francisco">-->
+                      </datalist>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3 ">
+                  <div class="col">
+                    <div class="input-group input-group-sm ">
+
+                      <input class="form-control w-50" list="ProdutoList" id="Produto" placeholder="Produto" required>
+                      <datalist id="ProdutoList">
+                        <!-- <option value="PICANHA OURO">-->
+                      </datalist>
+
+                      <input type="number" id="Quantidade" class="form-control " placeholder="Qtd" required>
+
+                      <select id="Motivo" class="form-select w-25" required aria-placeholder="Motivo">
+                        <option selected></option>
+                        <option value="A">A = Admissão</option>
+                        <option value="V">V = Substituição Por Vida Útil</option>
+                        <option value="Q">Q = Substituição Por Quebra</option>
+                        <option value="P">P = Substituição Por Perda</option>
+                        <option value="U">U = Consumos e Usos</option>
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-4">
+                    <button class="btn btn-primary btn-rounded btn-fw btn-sm " id="btn-Send" type="submit"
+                      data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar a Requisição"> Solicitar
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="16" fill="currentColor"
+                        class="bi bi-cursor-fill" viewBox="-14 1 16 16">
+                        <path
+                          d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="col-2"></div>
+                  <div class="col-3"></div>
+
+                  <div class="col-3-buton">
+
+                    <button class="btn btn-icons btn-rounded btn-outline-success btn-sm Icon-lg" id="btn-Add"
+                      type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Adicionar Item a Lista">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path
+                          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                      </svg>
+                    </button>
+
+                    <button class="btn btn-icons btn-rounded btn-outline-danger btn-sm Icon-lg" id="btn-Remove"
+                      type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Limpar Toda a Lista">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path
+                          d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                      </svg>
+                    </button>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-auto">
+
+          <!-- Coluna do lado Direito da parte Superior  -->
+
+          <div id="myModal" class="modal">
+            <!-- Modal content -->
+
+            <div class="modal-content">
+              <span id="close" class="close">&times;</span>
+              <div id="icon"></div>
+              <p id="text"></p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col">
-          <h3 class="titleFooter">Gestor Imediato</h3>
+
+        </div>
+
+        <div class="col position-static">
+          <div class="card position-static cardTabela mb-3">
+            <h4 class="c"><span id="TotalValor" class="badge bg-success TotalValor"></span></h4>
+            <div class="card-body border position-static rounded">
+              <table class="table table-hover table-sm position-static" id='TabelaReq'>
+                <thead class="table-warning">
+                  <tr>
+                    <th class="col-1 w-25" scope="col">Material</th>
+                    <th class="col-3" scope="col">Produto</th>
+                    <th class="col-1" scope="col">Qtd</th>
+                    <th class="col-1" scope="col">Un. Preço</th>
+                    <th class="col-1" scope="col">Valor</th>
+                    <th class="col-3" scope="col">Colaborador</th>
+                    <th class="col-0" scope="col">Lead Time</th>
+                    <th class="col-0 " scope="col">Motivo</th>
+                    <th class="col-0 " scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="Justificativa" class="card text-center border shadow-sm mb-5 p-3 bg-body rounded Justificativa"
+            style="height: 220px;">
+            <div class="card-body" style="margin-top: -15px;">
+
+              <h5 class="card-title"> Justifique </h5>
+              <p class="card-text">Para realizar uma requisição fora do Lead Time Precisa de uma justificativa !.</p>
+
+              <div class="input-group mb-3">
+                <input id="TxtJustificativa" class="form-control" type="text" placeholder="Justifique ..." required>
+              </div>
+
+              <div class="StatusJus">
+                <samp id="Tamanho"></samp>
+              </div>
+
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button id="ConfimarSolicitacao" class="btn btn-primary" type="button">Confirmar Solicitação</button>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
 
         <div class="col">
-          <h3 class="titleFooter">Solicitante</h3>
-        </div>
 
-        <div class="col">
-          <h3 class="titleFooter">Separador</h3>
+          <!-- Coluna do lado Direito da parte Inferior  -->
         </div>
 
       </div>
 
+      <div class="divFooter" style="text-align: center; border-top: black;">
+
+        <div class="row">
+
+          <div class="col">
+            <h3 class="titleFooter">Gestor Imediato</h3>
+          </div>
+
+          <div class="col">
+            <h3 class="titleFooter">Solicitante</h3>
+          </div>
+
+          <div class="col">
+            <h3 class="titleFooter">Separador</h3>
+          </div>
+
+        </div>
+
+      </div>
     </div>
-    <div>
-      <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
-      <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
-      <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-      <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
 
-      <script src="../components/Js/Tabela.js"></script>
-      <script src="../components/Js/Classe.js"></script>
-      <script src="../components/Js/Functions.js"></script>
-      <script src="../components/Js/Model.js"></script>
+    <div id="ContainerHome" class="container-lg " style=" position: absolute;">
+      <div class="row" style="height: 90px;">
+
+      </div>
+      <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-header">
+              <p class="card-titulo">Bem Vindo, Novo sistema de requisição !</p>
+            </div>
+            <div class="card-body">
+              <h1>HOME</h1>
+              <img src="../components/Imagem/User.png" alt="" class="card-img">
+            </div>
+          </div>
+
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
     </div>
 
-    <style>
+    <div id="ContainerListaRequisicao" class="container-lg Page">
 
-    </style>
+      <div class="row" style="height: 90px;">
+
+      </div>
+      <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-header">
+              <p class="card-titulo">Bem Vindo, Novo sistema de requisição !</p>
+            </div>
+            <div class="card-body">
+              <h1>LISTA REQUISIÇÂO</h1>
+              <img src="../components/Imagem/User.png" alt="" class="card-img">
+            </div>
+          </div>
+
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
+
+    </div>
+
+    <div id="ContainerAtualizar" class="container-lg Page">
+
+      <div class="row" style="height: 90px;">
+
+      </div>
+      <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-header">
+              <p class="card-titulo">Bem Vindo, Novo sistema de requisição !</p>
+            </div>
+            <div class="card-body">
+              <h1>ATUALIZAR</h1>
+              <img src="../components/Imagem/User.png" alt="" class="card-img">
+            </div>
+          </div>
+
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
+
+    </div>
+
+    <div id="ContainerUsuarios" class="container-lg Page">
+
+      <div class="row" style="height: 90px;">
+
+      </div>
+      <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-header">
+              <p class="card-titulo">Bem Vindo, Novo sistema de requisição !</p>
+            </div>
+            <div class="card-body">
+              <h1>USUARIOS</h1>
+              <img src="../components/Imagem/User.png" alt="" class="card-img">
+            </div>
+          </div>
+
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/src/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
+    <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
+
+    <script src="../components/Js/Tabela.js"></script>
+    <script src="../components/Js/Classe.js"></script>
+    <script src="../components/Js/Functions.js"></script>
+    <script src="../components/Js/Model.js"></script>
+  </div>
+
+
 
 </body>
 

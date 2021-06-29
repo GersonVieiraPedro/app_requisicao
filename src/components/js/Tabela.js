@@ -2,15 +2,49 @@ const {TouchBar} = require("electron")
 const {ipcRenderer} = require('electron')
 const path = require("path")
 
-/*
-document.getElementById('current').addEventListener('click', () => {
 
-  ipcRenderer.send("print", "print")
 
-})
-*/
 //Criando a Lista de requisição 
 let ListaDeRequisicao = new Array()
+
+
+function Sidebar(button){
+  
+let itemSelecionado = button
+let ClassName = itemSelecionado.className
+let ButtonSelecionado = itemSelecionado.id
+let Identifica = ClassName.indexOf("Categoria") < 0 ? "Desabilitado" : "Habilitado";
+
+
+let Pages = ["ContainerHome", "ContainerRequisicao", "ContainerAtualizar", "ContainerListaRequisicao", "ContainerUsuarios"]
+let botoes = [0, "ButtonSoliRequisições", "ButtonAtualizar", "ButtonRequisições", "ButtonUsuarios"]
+
+let x = 0
+
+let B = botoes.indexOf(ButtonSelecionado)
+
+
+while (x < Pages.length) {
+  let PageSelect = document.getElementById(Pages[x])
+
+  if (Identifica == "Habilitado") {
+
+    if (B != x) {
+      PageSelect.style.visibility = "hidden"
+    } else {
+      PageSelect.style.visibility = "visible"
+    }
+
+  } else {
+    PageSelect.style.visibility = "hidden"
+    document.getElementById(Pages[0]).style.visibility = "visible"
+  }
+
+
+  x++
+}
+
+}
 
 
 //Resolver o LOOP desnecessario ao digitar para selecionar o item 
@@ -132,10 +166,13 @@ document.getElementById('btn-Remove').addEventListener('click', () => {
   RemoveTudo()
 })
 
+
+
 //Escuta o botão Romove Tudo
 document.getElementById('btn-Add').addEventListener('click', () => {
   AdicionarLinha()
 })
+
 
 //Envia um Mensagem para o main para Finalizar a Aplicação
 function CloseWindow() {
@@ -269,7 +306,7 @@ function UserDetalhes() {
   } else {
     const Container = document.getElementById("UC");
     Container.style.animation = ""
-    setTimeout(() => Container.style.animation = "ExibirDetalhes 1s ease reverse")
+    setTimeout(() => Container.style.animation = "EsconderDetalhes 1s ease")
     Container.style.opacity = "0"
     //Container.style.visibility ="hidden"
     Container.style.width = "60px"
@@ -448,6 +485,7 @@ function VerificarChapa(Chapa) {
       return arg
   })
 }
+
 
 function RegistrarNovoUsuario() {
   let Chapa = document.getElementById("RChapa").value

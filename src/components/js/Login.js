@@ -101,6 +101,12 @@ ipcRenderer.on("StatusChapaUsuarios", (event, arg) => {
 
 })
 
+ipcRenderer.on("MsgNovoUsuario", (event, arg)=>{
+
+    alert(arg)
+
+})
+
 function RegistrarNovoUsuario() {
     let Chapa = document.getElementById("RChapa").value
     let Senha = document.getElementById("RPass").value
@@ -108,22 +114,33 @@ function RegistrarNovoUsuario() {
     let Usuario = document.getElementById("RName").value
     let info = document.getElementById("RDivInfoErro")
 
-    VerificarChapa(Chapa)
+    Usuario = Usuario.toUpperCase()
+    Tamanho = Senha.length 
+    
+    if ( Tamanho >= 7) {
+        if (Senha == ConfSenha) {
+            VerificarChapa(Chapa)
+            setTimeout(() => {
+                if (EssaChapaExiste == true && UsuarioJaCadastrado == false) {
 
-        if(EssaChapaExiste == true && UsuarioJaCadastrado == false){
-            if (Senha == ConfSenha) {
-                let User = {
-                Nome: Usuario,
-                Senha: Senha,
-                Chapa: Chapa
+                    let User = {
+                        Nome: Usuario,
+                        Senha: Senha,
+                        Chapa: Chapa
+                    }
+
+
+                    ipcRenderer.send("RegistrarUsuario", User)
+
                 }
-    
-    
-                ipcRenderer.send("RegistrarUsuario", User )
-            } else {
-                info.style.visibility = "Visible"
-            }
+
+            }, 1000)
+
+        } else {
+            info.style.visibility = "Visible"
         }
 
+    } else {
+        alert("Senha Muito Curta")
     }
-
+}

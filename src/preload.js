@@ -101,14 +101,49 @@ document.addEventListener('DOMContentLoaded', () => {
                let v =  row.Valor
               
              let T = v.indexOf(",")
-             let Usuario = v.substring((T + 1), v.lenght)
+             let T2 = v.indexOf(",", (T + 1))
+             let Usuario = v.substring((T + 1), T2)
+             let Grupo = v.substring((T2 + 1), v.lenght)
              let Chapa = v.substring(0, T)
             
+             let ButtonRequisições = document.getElementById("ButtonRequisições")
+             let ButtonAtualizar = document.getElementById("ButtonAtualizar")   
+             let ButtonSoliRequisições = document.getElementById("ButtonSoliRequisições")
+             let ButtonUsuarios = document.getElementById("ButtonUsuarios")
+                
+             if(Grupo == "ADMIN"){
+                ButtonRequisições.className = ButtonRequisições.className + " Categoria "
+                ButtonAtualizar.className = ButtonAtualizar.className + " Categoria "
+                ButtonSoliRequisições.className = ButtonSoliRequisições.className + " Categoria "
+                ButtonUsuarios.className = ButtonUsuarios.className + " Categoria "
+             }else if(Grupo == "USER"){
+                ButtonRequisições.className = ButtonRequisições.className + " Desabilitado "
+                ButtonAtualizar.className = ButtonAtualizar.className + " Desabilitado "
+                ButtonSoliRequisições.className = ButtonSoliRequisições.className + "Categoria "
+                ButtonUsuarios.className = ButtonUsuarios.className + " Desabilitado "
+             }else if(Grupo == "RH"){
+                ButtonRequisições.className = ButtonRequisições.className + " Desabilitado "
+                ButtonAtualizar.className = ButtonAtualizar.className + " Categoria "
+                ButtonSoliRequisições.className = ButtonSoliRequisições.className + " Categoria "
+                ButtonUsuarios.className = ButtonUsuarios.className + " Desabilitado "
+             }else if(Grupo == "SEPARADOR"){
+                ButtonRequisições.className = ButtonRequisições.className + " Categoria "
+                ButtonAtualizar.className = ButtonAtualizar.className + " Categoria "
+                ButtonSoliRequisições.className = ButtonSoliRequisições.className + " Desabilitado "
+                ButtonUsuarios.className = ButtonUsuarios.className + " Desabilitado "
+             }
+
+
+
+
              document.querySelector(".H3User").innerHTML = Usuario || "Username"
              let FotoUser = document.querySelector(".UserFoto")  
              document.getElementById("UC").value = Chapa || 11221332
              FotoUser.setAttribute("src", `//bbrdskadm13/host/05-Bancos De Dados/Imagem/Banco de fotos/${Chapa}.jpg`)
-           });  
+            
+             
+                
+            });  
         }
     });
 

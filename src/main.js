@@ -5,7 +5,7 @@ const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/s
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const {ipcMain} = require('electron');
-const {SalvarBanco, RegistrarUsuario, EnviarEmail} = require('./Banco');
+const {SalvarBanco, RegistrarUsuario, EnviarEmail, RegistrarNovoUsuario} = require('./Banco');
 const Email = require("nodemailer");
 const { CONNREFUSED } = require('dns');
 
@@ -39,7 +39,7 @@ ipcMain.on('Requsição', (event, args) => {
 
   let Msg = SalvarBanco(args)
 
-  EnviarEmail(args, args[0].Gestor)
+  EnviarEmail(args, args[0].Gestor, "Requisição")
 
   event.sender.send('Mensagem', Msg)
 
@@ -126,12 +126,12 @@ ipcMain.on("Usuario", (event, arg) => {
       }
     });
 
-    let SQL = `SELECT Senha, Chapa FROM Usuarios WHERE Username = "${User}"`
+    let SQL = `SELECT Senha, Chapa, Grupo FROM Usuarios WHERE Username = "${User}" AND Situacao = "TRUE"`
     Banco.all(SQL, [], (err, rows) => {
       rows.forEach((row) => {
 
         event.sender.send("Senha", row.Senha)
-        event.sender.send("Chapa", [row.Chapa, User])
+        event.sender.send("Chapa", [row.Chapa, User , row.Grupo])
 
 
       });
@@ -243,6 +243,17 @@ ipcMain.on("VerificaChapaPessoas", (event, arg) => {
 
   });
 
+})
+
+ipcMain.on("RegistrarUsuario", (event, arg)=>{
+
+  RegistrarNovoUsuario(arg)
+
+  let Msg = "Usuario Criado Com Sucesso, /n aguarde o desenvolvedor aprovar o usuario "
+    event.sender.send("MsgNovoUsuario", Msg)
+    arg.Menssagem = Msg
+    EnviarEmail(arg,"","NovoUsuario")
+ 
 })
 
 /*

@@ -67,7 +67,7 @@ body{
     border: 2px solid #920000;
     visibility: visible;
     opacity: 1;
-    margin-left: 10px;
+    margin-left: 20px;
 
   }
 
@@ -81,7 +81,7 @@ body{
     margin: 5px;
     position: absolute;
     z-index: 1;
-    margin-left: 10px;
+    margin-left: 15px;
   }
 
   .UserFoto{
@@ -96,22 +96,26 @@ body{
 
   }
   .Username{
-    background: #292929ab;
+    background: transparent;
     height: 15px;
     font-size: 10px;
-    width: 60px;
     border-radius: 10px;
     visibility: visible !important;
     position: absolute;
     margin: 10px;
+    margin-left: 0.2%;
     margin-top: 67px;
   }
   .H3User{
     font-size: 12px;
     font-weight: bold;
-    padding: 1px;
-    padding-left: 2.5px;
+    padding-left: 8px;
+    padding-right: 8px;
     color: white;
+    background: #292929ab;
+    width: 100%;
+    position: relative;
+    border-radius: 8px;
   }
   .Detalhes{
     background: transparent;
@@ -140,6 +144,19 @@ body{
     width: 200px;
     }
 }
+@keyframes EsconderDetalhes{
+  0%{
+  
+    opacity: 1;
+    width: 200px;
+    }
+  100%{
+  
+    opacity: 0;
+    width: 60px;
+    }
+}
+  
   
 
 .UserConteinerClose {
@@ -151,7 +168,7 @@ body{
   border-radius: 150px;
   opacity: 0;
   border: 2px solid #bb2c00;
-  margin-left: 10px;
+  margin-left: 20px;
 
 }
 .border {
@@ -328,4 +345,72 @@ input[type=number] {
   margin-left: -100px;
   width: 80px;
   font-size: 12px;
+}
+
+#tooltip{
+  margin-left: 70px;
+  margin-top: -22px;
+  position: fixed;
+  color: white;
+  background: orangered;
+  font-weight: bold;
+  padding: 0px 10px 0px 10px;
+  border-radius: 8pc;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.areaTooltip{
+  height: 30px;
+  width: 40px;
+  margin: 0px !important;
+  opacity: 0;
+  transition: 0.5s;
+  background: transparent;
+  position: absolute;
+}
+
+
+
+.imgTooltip{
+    z-index: 1 !important;
+    position: relative;
+}
+
+.Categoria{
+  transition: 0.7s;
+}
+
+.Categoria:hover{
+  background: orangered;
+}
+
+.Categoria:hover #tooltip {
+  opacity: 1;
+  font-size: 14px;
+  margin-left: 75px;
+}
+
+
+.Categoria:hover img{
+ height: 30px;  
+ width: 30px;
+ filter: invert(100%);
+}
+
+.Desabilitado{
+  background: #808080bd;
+}
+
+.navbarCuston{
+  width: 5rem;
+  position: absolute;
+  margin-top: 86px;
+  height: 120%;
+  background: #f98a62 !important;
+}
+
+.Page{
+    visibility: hidden;
+    position: absolute;
 }
