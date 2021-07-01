@@ -49,3 +49,211 @@
 </html>
 
 
+
+
+<div class="accordion-item">
+  <h2 class="accordion-header" id="heading${Indice}">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${Indice}" aria-expanded="false" aria-controls="collapse${Indice}">
+      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              <h5 class="mb-1">${Pedidos[0].Pedido}</h5>
+            </label>
+          </div>
+          <small>0 Dias</small>
+        </div>
+        <p class="mb-1">${Pedidos[0].Nome}</p>
+      </a>
+    </button>
+  </h2>
+
+  <div id="collapse${Indice}" class="accordion-collapse collapse" aria-labelledby="heading${Indice}" data-bs-parent="#ListaReq">
+
+    <div class="accordion-body">
+      <table class="table table-hover table-sm position-static" id='TabelaReq'>
+        <thead class="table-warning">
+          <tr>
+            <th class="col-auto" scope="col">Material</th>
+            <th class="col-auto" scope="col">Produto</th>
+            <th class="col-auto" scope="col">Qtd</th>
+            <th class="col-auto" scope="col">Colaborador</th>
+            <th class="col-auto" scope="col">Atendido</th>
+            <th class="col-auto" scope="col" style="width: 17px;">Nº SAP</th>
+            <th class="col-auto" scope="col">Motivo</th>
+            <th class="col-auto" scope="col">Separador</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="accordion-item">
+  <h2 class="accordion-header" id="headingOne">
+
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+      <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              <h5 class="mb-1">290060202138100031612055</h5>
+            </label>
+          </div>
+
+          <small>0 Dias</small>
+        </div>
+        <p class="mb-1">GERSON VIEIRA PEDRO  |  INDICADORES </p>
+      </a>
+    </button>
+    
+  </h2>
+  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#ListaReq">
+    <div class="accordion-body">
+
+      <table class="table table-hover table-sm position-static" id='TabelaReq'>
+        <thead class="table-warning">
+          <tr>
+            <th class="col-auto" scope="col">Material</th>
+            <th class="col-auto" scope="col">Produto</th>
+            <th class="col-auto" scope="col">Qtd</th>
+            <th class="col-auto" scope="col">Colaborador</th>
+            <th class="col-auto" scope="col">Atendido</th>
+            <th class="col-auto" scope="col" style="width: 17px;">Nº SAP</th>
+            <th class="col-auto" scope="col">Motivo</th>
+            <th class="col-auto" scope="col">Separador</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>221341</td>
+            <td>PINCEL MARCA TEXTO AMARELO</td>
+            <td>2</td>
+            <td>GERSON VIEIRA PEDRO</td>
+            <td>
+              <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              </div>
+            </td>
+            <td>
+              <input type="number" name="" id="">
+            </td>
+            <td>
+              <select id="Motivo" required aria-placeholder="Motivo">
+                <option selected></option>
+                <option value="A">A</option>
+                <option value="V">V</option>
+                <option value="Q">Q</option>
+                <option value="P">P</option>
+                <option value="U">U</option>
+              </select>
+            </td>
+            <td>
+              <select aria-label="Default select example">
+                <option selected></option>
+                <option value="1">Gustavo</option>
+                <option value="2">Douglas</option>
+                <option value="3">Maria</option>
+                <option value="4">Joice</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>221341</td>
+            <td>PINCEL MARCA TEXTO AMARELO</td>
+            <td>2</td>
+            <td>GERSON VIEIRA PEDRO</td>
+            <td>
+              <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              </div>
+            </td>
+            <td>R</td>
+            <td>DOUGLAS</td>
+          </tr>
+          <tr>
+            <td>221341</td>
+            <td>PINCEL MARCA TEXTO AMARELO</td>
+            <td>2</td>
+            <td>GERSON VIEIRA PEDRO</td>
+            <td>
+              <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              </div>
+            </td>
+            <td>R</td>
+            <td>DOUGLAS</td>
+          </tr>
+          <tr>
+            <td>221341</td>
+            <td>PINCEL MARCA TEXTO AMARELO</td>
+            <td>2</td>
+            <td>GERSON VIEIRA PEDRO</td>
+            <td>
+              <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              </div>
+            </td>
+            <td>R</td>
+            <td>DOUGLAS</td>
+          </tr>
+          <tr>
+            <td>221341</td>
+            <td>PINCEL MARCA TEXTO AMARELO</td>
+            <td>2</td>
+            <td>GERSON VIEIRA PEDRO</td>
+            <td>
+              <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+              </div>
+            </td>
+            <td>R</td>
+            <td>DOUGLAS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header" id="H2">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#C2" aria-expanded="false" aria-controls="C2">
+      Accordion Item #2
+    </button>
+  </h2>
+  <div id="C2" class="accordion-collapse collapse" aria-labelledby="H2" data-bs-parent="#ListaReq">
+    <div class="accordion-body">
+      <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+    </div>
+  </div>
+</div>
+<div class="accordion-item">
+  <h2 class="accordion-header" id="H3">
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#C3" aria-expanded="false" aria-controls="C3">
+      Accordion Item #3
+    </button>
+  </h2>
+  <div id="C3" class="accordion-collapse collapse" aria-labelledby="H3" data-bs-parent="#ListaReq">
+    <div class="accordion-body">
+      <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+    </div>
+  </div>
+</div>

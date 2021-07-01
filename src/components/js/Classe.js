@@ -16,6 +16,23 @@ function Produto() {
 
 }
 
+function ListaDeRequisicoes(){
+
+  this.Add = (Pedido, Material, Descricao, Qtd, Solicitante, Data) =>{
+    let Req = new Object()
+    Req = {
+      Pedido: Pedido,
+      Material:Material, 
+      Descricao:Descricao, 
+      Qtd:Qtd, 
+      Solicitante:Solicitante, 
+      Data:Data
+    }
+    return(Req)
+  }
+
+}
+
 //Criando o Objeto colaborador 
 function Colaborador(){
 
@@ -71,6 +88,7 @@ function Requisicao() {
 module.exports ={
     Produto,
     Colaborador,
-    Requisicao
+    Requisicao,
+    ListaDeRequisicoes
    
 }

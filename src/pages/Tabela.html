@@ -304,13 +304,12 @@
         </div>
         <div class="col-6">
 
-          <div class="card">
+          <div class="card border shadow-sm card-acordeon">
             <div class="card-header">
-              <p class="card-titulo">Bem Vindo, Novo sistema de requisição !</p>
+              <h4 class="card-titulo" style="font-weight: bold; color: #ab2e00;">Bem Vindo, Novo sistema de requisição ! </h4> 
             </div>
             <div class="card-body">
-              <h1>HOME</h1>
-              <img src="../components/Imagem/User.png" alt="" class="card-img">
+              <img src="../components/Imagem/Banner/banner-mobile-kits-exclusivos-cta.jpg" alt="" class="card-img">
             </div>
           </div>
 
@@ -327,23 +326,36 @@
 
       </div>
       <div class="row">
-        <div class="col-3">
+        <div class="col-auto">
 
         </div>
-        <div class="col-6">
+        <div class="col">
 
-          <div class="card">
+          <div class="card border shadow-sm card-Requisicoes">
             <div class="card-header">
-              <p class="card-titulo">Bem Vindo, Novo sistema de requisição !</p>
+              <h5 class="card-title" style="position: absolute; font-size: 22px; font-weight: bold; color: #ab2e00;">
+                Lista de Requisições
+              </h5>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-success me-md-2" type="button"> Salvar
+                  <img src="../components/icons/check-circle.svg" alt="" srcset="">
+                </button>
+                <button class="btn btn-primary" type="button"> Atualizar
+                  <img src="../components/icons/arrow-repeat.svg" alt="" srcset="">
+                </button>
+              </div>
             </div>
             <div class="card-body">
-              <h1>LISTA REQUISIÇÂO</h1>
-              <img src="../components/Imagem/User.png" alt="" class="card-img">
+
+              <div class="accordion" id="ListaReq">
+
+              </div>
+              
             </div>
           </div>
 
         </div>
-        <div class="col-3">
+        <div class="col-auto">
 
         </div>
       </div>
@@ -417,7 +429,7 @@
     <script src="../components/bootstrap/5.0.1/js/bootstrap.bundle.js"></script>
     <script src="../components/bootstrap/5.0.1/js/bootstrap.min.js"></script>
     <script src="../components/bootstrap/5.0.1/js/bootstrap.js"></script>
-
+    <script src="../components/js/ListaRequisicaos.js"></script>
     <script src="../components/Js/Tabela.js"></script>
     <script src="../components/Js/Classe.js"></script>
     <script src="../components/Js/Functions.js"></script>

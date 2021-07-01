@@ -358,6 +358,7 @@ input[type=number] {
   border-radius: 8pc;
   font-size: 12px;
   opacity: 0;
+  z-index: 1;
 }
 
 .areaTooltip{
@@ -414,3 +415,68 @@ input[type=number] {
     visibility: hidden;
     position: absolute;
 }
+
+ td select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: clip;
+  text-align: center;
+  border: transparent;
+  width: auto;
+  height: 100%;
+  position: relative;
+  padding: 5px;
+  line-height: normal;
+  background: transparent;
+}
+
+td input {
+text-align: center;
+border: transparent;
+height: 100%;
+position: relative;
+line-height: normal;
+background: transparent;
+width: 100%;
+}
+
+td .form-check{
+  margin-left: 15px;
+}
+
+.accordion-button{
+  padding: 5px 15px 5px 13px;
+}
+
+.accordion-button .list-group-item-action{
+  background: transparent;
+  border: transparent;
+  padding: 0px 20px 0px 15px;
+}
+
+.list-group-item-action .w-100 {
+  padding-left: 10px;
+}
+
+.w-100 .form-check{
+
+  padding: 0px;
+  margin: 0px;
+}
+
+.form-check-label h5 {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.list-group-item-action p {
+  margin-left: 20px;
+  font-size: 10px;
+}
+
+
+.card-Requisicoes{
+  margin-top: -35px;
+}
+

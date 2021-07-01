@@ -44,8 +44,27 @@ while (x < Pages.length) {
   x++
 }
 
+  if(B == 3 && Identifica == "Habilitado"){
+
+    ChamarListaDeRequisicoes()
+  }
+
 }
 
+
+
+function ChamarListaDeRequisicoes(){
+
+  ipcRenderer.send("ListaDeRequisicoes",HoraAtual())
+}
+
+ipcRenderer.on("ArrayDeRequisicoes", (event, arg)=>{
+  
+  CriarListaDeRequisicao(arg)
+
+  console.log(arg)
+  
+})
 
 //Resolver o LOOP desnecessario ao digitar para selecionar o item 
 function CriarListasNomes() {

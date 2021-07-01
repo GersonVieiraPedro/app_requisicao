@@ -12,6 +12,7 @@ const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/s
 const LocalHost = "//bbrdskadm13/host/05-Bancos De Dados/DB_RequisicaoAlmox.db"
 const { Produto, Colaborador } = require("./components/js/Classe.js")
 
+let DominoDatabase = LocalHome
 
 let Produtos = new Produto()
 let Colaboradores = new Colaborador()
@@ -21,7 +22,7 @@ let Colaboradores = new Colaborador()
    para que possa executar as informações de carregamento. */
 document.addEventListener('DOMContentLoaded', () => {
     //Abre o Banco
-    let db = new SQLite.Database(LocalJob, (err) => {
+    let db = new SQLite.Database(DominoDatabase, (err) => {
         if (err) {
             console.error(`Erro ao conectar :${err.message}`);
             throw err
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //Armazena o Array criando no elemento Hidder la no HTML
             document.getElementById('ListaDeProdutos').Value = ''
             document.getElementById('ListaDeProdutos').Value = ListaProdutos
-            // console.log(ListaProdutos)
+            console.log(ListaProdutos)
         }
     });
 

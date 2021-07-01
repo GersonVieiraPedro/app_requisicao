@@ -268,13 +268,20 @@ function adicionaZero(numero) {
 
 //Adiciona um ID de pedido em todos os OBJ requisição
 function AdicionarNumeroPedido(){
+
     let i = 0
     let hora = HoraAtual().substring(0,5)
+        h = hora.substring(0,2)
+        m = hora.substring(3,5)
     while(i < ListaDeRequisicao.length){
       let Code = ""
       Code = ListaDeRequisicao[i].Data
-      Code = Code + ListaDeRequisicao[i].Chapa
-      Code = Code + hora
+      Code = Code.replace("/","0")
+      Code = Code.replace("/","0")
+      Code = `${Code}${ListaDeRequisicao[i].Chapa}`
+      Code = `${Code}${h}`
+      Code = `${Code}-${m}`
+      Code = Code
       ListaDeRequisicao[i].Pedido = Code
       i = i + 1
     }
@@ -318,5 +325,6 @@ function RemoverValorTotal(valor) {
     }
     
 }
+
 
 

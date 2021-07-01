@@ -8,6 +8,7 @@ const {ipcMain} = require('electron');
 const {SalvarBanco, RegistrarUsuario, EnviarEmail, RegistrarNovoUsuario} = require('./Banco');
 const Email = require("nodemailer");
 const { CONNREFUSED } = require('dns');
+const { ListaDeRequisicoes } = require('./components/js/Classe');
 
 
 // Tras a data atual formadata "00/00/0000"
@@ -65,7 +66,7 @@ ipcMain.on('Verificar', (event, arg) => {
       Data = DateUTP8Format(Data)
 
       let SQL = `SELECT Data, Chapa, Material FROM RequsicaoAlmox WHERE ID = ? AND Data > ?`
-      let Banco = new SQLite.Database(LocalJob)
+      let Banco = new SQLite.Database(LocalHome)
 
       //console.log(`ID: ${Obj[i].Chapa}${Obj[i].Material}` + "  &  Data Where: "+ Data)
 
@@ -117,7 +118,7 @@ ipcMain.on("Usuario", (event, arg) => {
 
   function ValidarUsuario(User) {
 
-    let Banco = new SQLite.Database(LocalJob, (err) => {
+    let Banco = new SQLite.Database(LocalHome, (err) => {
       if (err) {
         console.error(`Erro ao conectar :${err.message}`);
         throw err
@@ -159,7 +160,7 @@ ipcMain.on("VerificarChapaUsuarios", (event, arg) => {
 
 
   let SQL2 = "SELECT Chapa FROM Usuarios WHERE Chapa = ? "
-  let BancoBD = new SQLite.Database(LocalJob, (err) => {
+  let BancoBD = new SQLite.Database(LocalHome, (err) => {
     if (err) {
       console.error(`Erro ao conectar :${err.message}`);
       throw err
@@ -197,12 +198,11 @@ ipcMain.on("VerificarChapaUsuarios", (event, arg) => {
 
 })
 
-
 ipcMain.on("VerificaChapaPessoas", (event, arg) => {
 
 
   let Chapas = Number.parseInt(arg)
-  let DB = new SQLite.Database(LocalJob, (err) => {
+  let DB = new SQLite.Database(LocalHome, (err) => {
     if (err) {
       console.error(`Erro ao conectar :${err.message}`);
       throw err
@@ -256,6 +256,39 @@ ipcMain.on("RegistrarUsuario", (event, arg)=>{
  
 })
 
+
+ipcMain.on("ListaDeRequisicoes", (event, arg)=>{
+  
+  let Data = arg
+
+  Data = DateUTP8(Data)
+  Data = new Date(Data.setDate(Data.getDate() - 60))
+  Data = FormatData(Data)
+  Data = DateUTP8Format(Data)
+
+  let Banco = new SQLite.Database(LocalHome)
+
+  let SQL = "SELECT Pedido, Material, Descricao, Qtd, Data, Nome FROM RequsicaoAlmox"
+  let Arr = new Array()
+  let ObjLista = new ListaDeRequisicoes()
+  Banco.all(SQL,[], (err, rows) => {
+
+
+    if (err) {
+      throw err;
+    } else {
+
+      rows.forEach((row) => {
+        Arr.push(ObjLista.Add(row.Pedido, row.Material, row.Descricao, row.Qtd, row.Nome, row.Data))
+      })
+
+      event.sender.send("ArrayDeRequisicoes", Arr)
+    }
+   })
+
+  Banco.close()
+
+})
 /*
 ipcMain.on("Email", (event, arg)=>{
   console.log("Enviando Email...")
@@ -274,6 +307,7 @@ function Pages() {
     height: 700,
     frame: false,
     title: "Login",
+    icon:"./src/components/icons/logo_swift.ico",
     transparent: true,
     show: false,
     webPreferences: {
@@ -292,6 +326,7 @@ function Pages() {
     frame: false,
     transparent: true,
     show: false,
+    icon:"./src/components/icons/logo_swift.ico",
     backgroundColor: 'white',
     webPreferences: {
       nodeIntegration: true,
@@ -307,7 +342,7 @@ function Pages() {
       winTabela.setMenu(null)
       winTabela.loadFile('./src/pages/Tabela.html')
       winTabela.maximize()
-      winTabela.webContents.openDevTools()
+      //winTabela.webContents.openDevTools()
       winTabela.show(true)
       winLogin.close()
       RegistrarUsuario(arg)
@@ -333,7 +368,7 @@ function Pages() {
     winLogin.show()
   })
   
-  winLogin.webContents.openDevTools()
+  //winLogin.webContents.openDevTools()
   ipcMain.on("print", (event, arg) => {
     winTabela.webContents.print({
       pageSize:"A4"

@@ -10,6 +10,7 @@ const {
 } = require("../src/components/js/Email")
 
 
+
 //Formata a data "20/09/2021" em 2021-09-20
 function DateUTP8Format(DataSting) {
   return (`${DataSting.substring(6,10)}-${DataSting.substring(3,5)}-${DataSting.substring(0,2)}`)
@@ -24,8 +25,8 @@ function SalvarBanco(Dado) {
     let i = 0
     let Tamanho = Obj.length
     while (i < Tamanho) {
-      const Banco = new SQLite.Database(LocalJob);
-      Banco.run(`INSERT INTO RequsicaoAlmox(Pedido, ID, Material, Descricao, Quantidade, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Dias, Justificativa) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      const Banco = new SQLite.Database(LocalHome);
+      Banco.run(`INSERT INTO RequsicaoAlmox(Pedido, ID, Material, Descricao, Qtd, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Dias, Justificativa) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         [Obj[i].Pedido,
           Obj[i].ID,
           Obj[i].Material,
@@ -93,7 +94,7 @@ function EnviarEmail(Lista, Destinatarios, Tipo) {
   })
   if (Tipo == "Requisição") {
     //Abre e determina o filtro do banco
-    let Banco = new SQLite.Database(LocalJob)
+    let Banco = new SQLite.Database(LocalHome)
     let SQL = `SELECT EmailGestor FROM Gestao WHERE Nome = ?`
     let Gestor = Destinatarios
     let EmailGes
@@ -147,7 +148,7 @@ function EnviarEmail(Lista, Destinatarios, Tipo) {
 function RegistrarNovoUsuario(ObjUsuario) {
 
   let Usuario = ObjUsuario
-  let BD = new SQLite.Database(LocalJob)
+  let BD = new SQLite.Database(LocalHome)
   let Msg = ""
   let InsertUser = "INSERT INTO Usuarios (Chapa, Username, Senha, Grupo) VALUES (?,?,?,?)"
   BD.run(InsertUser,
