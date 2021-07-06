@@ -5,9 +5,12 @@ const path = require("path")
 const NomeBanco = "LocalStorege.db"
 const LocalStorage = path.resolve(__dirname, "components/Db/", NomeBanco)
 const Email = require("nodemailer")
-const {
-  PageEmail
-} = require("../src/components/js/Email")
+
+const { PageEmail} = require("../src/components/js/Email")
+const nameBanco = 'DB_RequisicaoAlmox.db'
+const LocalApp = path.resolve(__dirname, "components/Db/", nameBanco)
+
+let DD = LocalApp
 
 
 
@@ -25,7 +28,7 @@ function SalvarBanco(Dado) {
     let i = 0
     let Tamanho = Obj.length
     while (i < Tamanho) {
-      const Banco = new SQLite.Database(LocalHome);
+      const Banco = new SQLite.Database(DD);
       Banco.run(`INSERT INTO RequsicaoAlmox(Pedido, ID, Material, Descricao, Qtd, PrecoUn, Valor, Data, Hora, Chapa, Nome, Gestor, Setor, Vistoria, Username, Motivo, Dias, Justificativa) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
         [Obj[i].Pedido,
           Obj[i].ID,
@@ -94,7 +97,7 @@ function EnviarEmail(Lista, Destinatarios, Tipo) {
   })
   if (Tipo == "Requisição") {
     //Abre e determina o filtro do banco
-    let Banco = new SQLite.Database(LocalHome)
+    let Banco = new SQLite.Database(DD)
     let SQL = `SELECT EmailGestor FROM Gestao WHERE Nome = ?`
     let Gestor = Destinatarios
     let EmailGes
@@ -148,7 +151,7 @@ function EnviarEmail(Lista, Destinatarios, Tipo) {
 function RegistrarNovoUsuario(ObjUsuario) {
 
   let Usuario = ObjUsuario
-  let BD = new SQLite.Database(LocalHome)
+  let BD = new SQLite.Database(DD)
   let Msg = ""
   let InsertUser = "INSERT INTO Usuarios (Chapa, Username, Senha, Grupo) VALUES (?,?,?,?)"
   BD.run(InsertUser,

@@ -194,22 +194,8 @@ function RemoveTudo(tudo) {
 function autoCompleteProduto(lista) {   
 
     // //Pega o Array de Objetos do elemento Escondido no HTML
-    let Arr = document.getElementById('NomesProdutos').Value
-
-    // //Criando estrutura para a extração e criação de um array so de nomes.
-    // let ArrNomes = new Array()
-    // let Tamanho = Arr.length;
-    // let indice = 0;
-
-    // //Criando o Array de Nomes.
-    // while (indice < Tamanho) {
-    //     let ObjetoProdutos = Arr[indice]
-    //     if (indice <= Tamanho) {
-    //         ArrNomes.push(ObjetoProdutos.Prod)
-    //     }
-    //     indice = indice + 1
-    // }
-
+    let Arr = document.getElementById('NomesProdutos')
+    Arr =  Arr.Value
     const listaMinusculo = lista.toUpperCase()
     //Procura o valor digitado no arrey e inputa na variavel
     return Arr.filter(ArrayComFilter => (ArrayComFilter.substring(0, lista.length) == listaMinusculo));
@@ -225,20 +211,6 @@ function autoCompleteNomes(lista) {
 
     //Pega o Array de Objetos do elemento Escondido no HTML
      let Arr = DivEscondida.Value
-
-    // //Criando estrutura para a extração e criação de um array so de nomes.
-    // let ArrNomes = new Array()
-    // let Tamanho = Arr.length;
-    // let indice = 0;
-
-    // //Criando o Array de Nomes.
-    // while (indice < Tamanho) {
-    //     let ObjetoColaborador = Arr[indice]
-    //     if (indice <= Tamanho) {
-    //         ArrNomes.push(ObjetoColaborador.Nome)
-    //     }
-    //     indice = indice + 1
-    // }
 
     const listaMinusculo = lista.toUpperCase()
     //Procura o valor digitado no arrey e inputa na variavel

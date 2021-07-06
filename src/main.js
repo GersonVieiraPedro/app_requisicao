@@ -7,9 +7,19 @@ const path = require('path')
 const {ipcMain} = require('electron');
 const {SalvarBanco, RegistrarUsuario, EnviarEmail, RegistrarNovoUsuario} = require('./Banco');
 const Email = require("nodemailer");
-const { CONNREFUSED } = require('dns');
 const { ListaDeRequisicoes } = require('./components/js/Classe');
+const { Upload } = require('./Upload');
+const nameBanco = 'DB_RequisicaoAlmox.db'
+const LocalApp = path.resolve(__dirname, "components/Db/", nameBanco)
 
+
+const XLSX = require('xlsx');
+const fs = require('fs')
+
+
+
+
+let DD = LocalApp
 
 // Tras a data atual formadata "00/00/0000"
 function FormatData(Data) {
@@ -66,7 +76,7 @@ ipcMain.on('Verificar', (event, arg) => {
       Data = DateUTP8Format(Data)
 
       let SQL = `SELECT Data, Chapa, Material FROM RequsicaoAlmox WHERE ID = ? AND Data > ?`
-      let Banco = new SQLite.Database(LocalHome)
+      let Banco = new SQLite.Database(DD)
 
       //console.log(`ID: ${Obj[i].Chapa}${Obj[i].Material}` + "  &  Data Where: "+ Data)
 
@@ -118,7 +128,7 @@ ipcMain.on("Usuario", (event, arg) => {
 
   function ValidarUsuario(User) {
 
-    let Banco = new SQLite.Database(LocalHome, (err) => {
+    let Banco = new SQLite.Database(DD, (err) => {
       if (err) {
         console.error(`Erro ao conectar :${err.message}`);
         throw err
@@ -160,7 +170,7 @@ ipcMain.on("VerificarChapaUsuarios", (event, arg) => {
 
 
   let SQL2 = "SELECT Chapa FROM Usuarios WHERE Chapa = ? "
-  let BancoBD = new SQLite.Database(LocalHome, (err) => {
+  let BancoBD = new SQLite.Database(DD, (err) => {
     if (err) {
       console.error(`Erro ao conectar :${err.message}`);
       throw err
@@ -198,11 +208,52 @@ ipcMain.on("VerificarChapaUsuarios", (event, arg) => {
 
 })
 
+
+
+ipcMain.on("ListaDeUsuarios", (event, arg) =>{
+
+
+  let Banco = new SQLite.Database(DD)
+
+  let SQL = "SELECT * FROM Usuarios"
+  let Arr = new Array()
+  let Users = new Object()
+  Banco.all(SQL,[], (err, rows) => {
+
+
+    if (err) {
+      throw err;
+    } else {
+
+      rows.forEach((row) => {
+        Arr.push(
+          Users = {
+            Chapa: row.Chapa,
+            Username: row.Username,
+            Grupo: row.Grupo,
+            Situacao: row.Situacao
+          }
+          
+        )
+      })
+
+      event.sender.send("ArrayDeUsuarios", Arr)
+    }
+
+  })
+
+  Banco.close()
+
+
+})
+
+
+
 ipcMain.on("VerificaChapaPessoas", (event, arg) => {
 
 
   let Chapas = Number.parseInt(arg)
-  let DB = new SQLite.Database(LocalHome, (err) => {
+  let DB = new SQLite.Database(DD, (err) => {
     if (err) {
       console.error(`Erro ao conectar :${err.message}`);
       throw err
@@ -266,12 +317,12 @@ ipcMain.on("ListaDeRequisicoes", (event, arg)=>{
   Data = FormatData(Data)
   Data = DateUTP8Format(Data)
 
-  let Banco = new SQLite.Database(LocalHome)
+  let Banco = new SQLite.Database(DD)
 
-  let SQL = "SELECT Pedido, Material, Descricao, Qtd, Data, Nome FROM RequsicaoAlmox"
+  let SQL = "SELECT Pedido, Material, Descricao, Qtd, Data, Nome FROM RequsicaoAlmox WHERE Status = ?"
   let Arr = new Array()
   let ObjLista = new ListaDeRequisicoes()
-  Banco.all(SQL,[], (err, rows) => {
+  Banco.all(SQL,['NOVO'], (err, rows) => {
 
 
     if (err) {
@@ -284,19 +335,102 @@ ipcMain.on("ListaDeRequisicoes", (event, arg)=>{
 
       event.sender.send("ArrayDeRequisicoes", Arr)
     }
-   })
+
+  })
 
   Banco.close()
 
 })
+
+
+ipcMain.on("Pedidos", (event, arg)=>{
+
+  lista = arg
+  Tamanho = lista.length
+  i = 0
+  let Msg = ""
+  while(i < Tamanho){
+
+  let Banco = new SQLite.Database(DD)
+  let Update = [lista[i].Separador, lista[i].Atendido, lista[i].Motivo, lista[i].NumSAP, lista[i].DateTime, lista[i].Pedidos, lista[i].Material, lista[i].Solicitante]
+    //console.log(Update)
+  let SQL = "UPDATE RequsicaoAlmox SET Separador = ?, Status = ? , MotivoSeparador = ?, NumReqSAP = ?, DataDeSeparacao = ? WHERE Pedido = ? AND Material = ? AND Nome = ?"
+
+  Banco.run(SQL, Update, function (err) {
+    if (err) {
+      return event.sender.send("ERRO", err.message);
+    }
+
+    //console.log(`Linha(s) Atualizada: ${this.changes}`);
+  });
+
+  Banco.close();
+
+  i++
+ }
+
+})
+
+
+ipcMain.on("AlteracoesTbUsuarios", (event, arg)=>{
+
+  lista = arg
+  Tamanho = lista.length
+  i = 0
+  let Msg = ""
+  while(i < Tamanho){
+
+  let Banco = new SQLite.Database(DD)
+  let Update = [lista[i].Grupo , lista[i].Acesso, lista[i].Chapa]
+    //console.log(Update)
+  let SQL = "UPDATE Usuarios SET Grupo = ?, Situacao = ? WHERE Chapa = ?"
+
+  Banco.run(SQL, Update, function (err) {
+    if (err) {
+      return event.sender.send("ERRO", err.message);
+    }
+
+    //console.log(`Linha(s) Atualizada: ${this.changes}`);
+    //return event.sender.send("ERRO", this.changes );
+  });
+
+  Banco.close();
+
+  i++
+ }
+
+})
+
+
 /*
 ipcMain.on("Email", (event, arg)=>{
   console.log("Enviando Email...")
   EnviarEmail
   
 })
-
 */
+ipcMain.on("ATUALIZAR", (event, arg)=>{
+
+  AtuzalizarTabela(arg)
+
+  console.log(arg)
+
+})
+
+
+
+
+
+function AtuzalizarTabela(list) {
+    
+    const outputFilename = "‪C:/Users/gvieira-sbj/Desktop/Text/File.csv"
+    const workBook = XLSX.readFile(list.path);
+    console.log(workBook)
+    XLSX.writeFile(workBook, outputFilename, { bookType: "csv" });
+    console.log(list)
+
+}
+
 
 
 
@@ -342,7 +476,7 @@ function Pages() {
       winTabela.setMenu(null)
       winTabela.loadFile('./src/pages/Tabela.html')
       winTabela.maximize()
-      //winTabela.webContents.openDevTools()
+      winTabela.webContents.openDevTools()
       winTabela.show(true)
       winLogin.close()
       RegistrarUsuario(arg)
@@ -376,8 +510,6 @@ function Pages() {
     })
   })
 }
-
-
 
 
 app.whenReady().then(() => {

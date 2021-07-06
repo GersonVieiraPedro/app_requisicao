@@ -81,7 +81,7 @@ body{
     margin: 5px;
     position: absolute;
     z-index: 1;
-    margin-left: 15px;
+    margin-left: 9px;
   }
 
   .UserFoto{
@@ -307,6 +307,11 @@ input[type=number] {
     display: none;
   }
 
+  div.navbarCuston{
+    display: none !important;
+    visibility: hidden !important;
+  }
+
   div.cardTabela{
     margin-top: 5px;
     width: 100%;
@@ -379,7 +384,8 @@ input[type=number] {
 }
 
 .Categoria{
-  transition: 0.7s;
+  transition: 0.8s;
+  cursor: pointer;
 }
 
 .Categoria:hover{
@@ -392,6 +398,10 @@ input[type=number] {
   margin-left: 75px;
 }
 
+.Categoria img{
+  height: 20px;  
+  width: 20px;
+ }
 
 .Categoria:hover img{
  height: 30px;  
@@ -480,3 +490,6 @@ td .form-check{
   margin-top: -35px;
 }
 
+.input-group .mod {
+  line-height: 240%; 
+}

@@ -12,7 +12,7 @@ const LocalHome = "C:/Users/Gerson Viera Pedro/Documents/GitHub/app_requisicao/s
 const LocalHost = "//bbrdskadm13/host/05-Bancos De Dados/DB_RequisicaoAlmox.db"
 const { Produto, Colaborador } = require("./components/js/Classe.js")
 
-let DominoDatabase = LocalHome
+let DominoDatabase = LocalApp
 
 let Produtos = new Produto()
 let Colaboradores = new Colaborador()
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //Armazena o Array criando no elemento Hidder la no HTML
             document.getElementById('ListaDeProdutos').Value = ''
             document.getElementById('ListaDeProdutos').Value = ListaProdutos
-            console.log(ListaProdutos)
+            //console.log(ListaProdutos)
         }
     });
 
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (err) {
             console.error(`Erro ao fecha o banco :${err.message}`);
         }
-        console.log('Banco de dados fechado.');
+        //console.log('Banco de dados fechado.');
 
     });
 
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
              }else if(Grupo == "USER"){
                 ButtonRequisições.className = ButtonRequisições.className + " Desabilitado "
                 ButtonAtualizar.className = ButtonAtualizar.className + " Desabilitado "
-                ButtonSoliRequisições.className = ButtonSoliRequisições.className + "Categoria "
+                ButtonSoliRequisições.className = ButtonSoliRequisições.className + " Categoria "
                 ButtonUsuarios.className = ButtonUsuarios.className + " Desabilitado "
              }else if(Grupo == "RH"){
                 ButtonRequisições.className = ButtonRequisições.className + " Desabilitado "

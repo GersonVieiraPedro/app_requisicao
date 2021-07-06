@@ -84,11 +84,13 @@ function Requisicao() {
 
 
 
+
+
 //Exportando os objetos Globalmente 
 module.exports ={
-    Produto,
-    Colaborador,
-    Requisicao,
-    ListaDeRequisicoes
-   
+  Produto,
+  Colaborador,
+  Requisicao,
+  ListaDeRequisicoes
+
 }

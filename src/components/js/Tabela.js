@@ -10,47 +10,75 @@ let ListaDeRequisicao = new Array()
 
 function Sidebar(button){
   
-let itemSelecionado = button
-let ClassName = itemSelecionado.className
-let ButtonSelecionado = itemSelecionado.id
-let Identifica = ClassName.indexOf("Categoria") < 0 ? "Desabilitado" : "Habilitado";
+  let itemSelecionado = button
+  let ClassName = itemSelecionado.className
+  let ButtonSelecionado = itemSelecionado.id
+  let Identifica = ClassName.indexOf("Categoria") < 0 ? "Desabilitado" : "Habilitado";
 
 
-let Pages = ["ContainerHome", "ContainerRequisicao", "ContainerAtualizar", "ContainerListaRequisicao", "ContainerUsuarios"]
-let botoes = [0, "ButtonSoliRequisições", "ButtonAtualizar", "ButtonRequisições", "ButtonUsuarios"]
+  let Pages = ["ContainerHome", "ContainerRequisicao", "ContainerAtualizar", "ContainerListaRequisicao", "ContainerUsuarios"]
+  let botoes = [0, "ButtonSoliRequisições", "ButtonAtualizar", "ButtonRequisições", "ButtonUsuarios"]
 
-let x = 0
+  let x = 0
 
-let B = botoes.indexOf(ButtonSelecionado)
+  let B = botoes.indexOf(ButtonSelecionado)
 
 
-while (x < Pages.length) {
-  let PageSelect = document.getElementById(Pages[x])
+  while (x < Pages.length) {
+    let PageSelect = document.getElementById(Pages[x])
 
-  if (Identifica == "Habilitado") {
+    if (Identifica == "Habilitado") {
 
-    if (B != x) {
-      PageSelect.style.visibility = "hidden"
+      if (B != x) {
+        PageSelect.style.visibility = "hidden"
+      } else {
+        PageSelect.style.visibility = "visible"
+      }
+
     } else {
-      PageSelect.style.visibility = "visible"
+      PageSelect.style.visibility = "hidden"
+      document.getElementById(Pages[0]).style.visibility = "visible"
     }
 
-  } else {
-    PageSelect.style.visibility = "hidden"
-    document.getElementById(Pages[0]).style.visibility = "visible"
+
+    x++
   }
-
-
-  x++
-}
 
   if(B == 3 && Identifica == "Habilitado"){
 
     ChamarListaDeRequisicoes()
+  }else if(B == 1 && Identifica == "Habilitado"){
+
+    CriarListasNomes()
+
+  }else if(B == 4 && Identifica == "Habilitado"){
+
+    ListaDeUsuarios() 
+
   }
+
 
 }
 
+
+
+function ListaDeUsuarios() {
+
+  ipcRenderer.send("ListaDeUsuarios", "Usuarios")
+
+}
+
+ipcRenderer.on("ArrayDeUsuarios", (event, arg) =>{
+
+  CriarTabelaDeUsuarios(arg)
+
+})
+
+function EnviarParaOBanco(Lista) {
+
+  ipcRenderer.send("AlteracoesTbUsuarios", Lista)
+
+}
 
 
 function ChamarListaDeRequisicoes(){
@@ -62,9 +90,10 @@ ipcRenderer.on("ArrayDeRequisicoes", (event, arg)=>{
   
   CriarListaDeRequisicao(arg)
 
-  console.log(arg)
+  //console.log(arg)
   
 })
+
 
 //Resolver o LOOP desnecessario ao digitar para selecionar o item 
 function CriarListasNomes() {
@@ -110,69 +139,102 @@ function CriarListasNomes() {
 }
 
 
-
 //Escuta o imput de colaborador 
-document.getElementById('Colaborador').addEventListener('keypress', () => {
-  CriarListasNomes()
+document.getElementById('Colaborador').addEventListener('keypress',
+delay( function (e) {
+  CriarElemPesquisaNome(this.value)
+}, 800))
 
-  //Define os elemente do DOM em variaveis 
-  const campo = document.getElementById('Colaborador')
-  const sugestoes = document.getElementById('ColaboradorList')
 
-  //Cria os elementos com os nomes pesquisados
-  campo.addEventListener('keyup', ({
-    target
-  }) => {
-
-    const dadosDoCampo = target.value
-
-    if (dadosDoCampo == "0" || dadosDoCampo == " " || dadosDoCampo == null) {
-      return
-    } else {
-      if (dadosDoCampo.length > 1) {
-
-        const autoCompleteValores = autoCompleteNomes(dadosDoCampo)
-        sugestoes.innerHTML = `${
-                autoCompleteValores.map((value) => { 
-                return (`<option value="${value}">`) 
-                }).join('')
-              }`
-      }
-    }
-  })
-})
 
 
 //Escuta o imput de Produtos 
-document.getElementById('Produto').addEventListener('keypress', () => {
+document.getElementById('Produto').addEventListener('keypress',  
+ delay( function (e) {
+  CriarElemPesquisaProd(this.value)
+}, 800))
 
-  CriarListasNomes()
+
+function delay(callback, ms) {
+  let timer = 0;
+  return function() {
+    let context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      callback.apply(context, args);
+    }, ms || 0);
+  };
+}
+
+
+function CriarElemPesquisaProd(V){
   //Define os elemente do DOM em variaveis 
-  const campo = document.getElementById('Produto')
-  const sugestoes = document.getElementById('ProdutoList')
+  let sugestoes = document.getElementById('ProdutoList')
 
   //Cria os elementos com os nomes pesquisados
-  campo.addEventListener('keyup', ({
-    target
-  }) => {
+    let txt = V   
 
-    const dadosDoCampo = target.value
-
-    if (dadosDoCampo == "0" || dadosDoCampo == " " || dadosDoCampo == null) {
+    if (txt == "0" || txt == " " || txt == null) {
       return
     } else {
-      if (dadosDoCampo.length >= 2) {
+      if (txt.length > 0) {
 
-        const autoCompleteValores = autoCompleteProduto(dadosDoCampo)
-        sugestoes.innerHTML = `${
-                autoCompleteValores.map((value) => { 
-                return (`<option value="${value}">`) 
-                }).join('')
-              }`
+        let Valores = autoCompleteProduto(txt)
+        let i = 0 
+        let Elem = ""
+        while(i < 15){
+
+          let Valor = Valores[i]
+          if(Valor != ""){
+
+            Elem = Elem + ` <option value ="${Valor}" > `
+
+          }else{
+            i = 15
+          }
+
+          i = i + 1
+        }
+        sugestoes.innerHTML = Elem
       }
     }
-  })
-})
+  
+}
+
+
+function CriarElemPesquisaNome(V){
+  //Define os elemente do DOM em variaveis 
+  let sugestoes = document.getElementById('ColaboradorList')
+
+  //Cria os elementos com os nomes pesquisados
+    let txt = V   
+
+    if (txt == "0" || txt == " " || txt == null) {
+      return
+    } else {
+      if (txt.length > 0) {
+
+        let Valores = autoCompleteNomes(txt)
+        let i = 0 
+        let Elem = ""
+        while(i < 15){
+
+          let Valor = Valores[i]
+          if(Valor != ""){
+
+            Elem = Elem + ` <option value ="${Valor}" > `
+
+          }else{
+            i = 15
+          }
+
+          i = i + 1
+        }
+        sugestoes.innerHTML = Elem
+      }
+    }
+  
+}
 
 
 //=================================== BOTOES ====================================================
@@ -481,6 +543,7 @@ function myFunction() {
 
 }
 
+// Model de Msg
 var modal = document.getElementById("myModal");
 
 
@@ -493,9 +556,7 @@ document.getElementById('close').addEventListener('click', () => {
 })
 
 
-
-
-
+//Verifica se a chapa exite ou já esta cadastrado
 function VerificarChapa(Chapa) {
 
   ipcRenderer.send("VerificarChapa", Chapa)
@@ -506,6 +567,7 @@ function VerificarChapa(Chapa) {
 }
 
 
+//Envia as informações para registrar novo Usuario
 function RegistrarNovoUsuario() {
   let Chapa = document.getElementById("RChapa").value
   let Status = VerificarChapa(Chapa)
@@ -537,5 +599,59 @@ function RegistrarNovoUsuario() {
           info.style.visibility = "Visible"
       }
   }
+
+}
+
+//Envia a Lista de Pedidos Conferidos Pelo Almoxarifado
+function EnviarListaParaOBanco(Lista){
+  
+  //console.log(Lista)
+  ipcRenderer.send("Pedidos" , Lista )
+
+  if (Lista != ""){
+    setTimeout(() =>{
+
+      
+        alert("Informações Salvas !")
+
+      ChamarListaDeRequisicoes()
+
+    }, 1000)
+
+  }
+
+}
+
+//Botao de Atualizar a lista de requisições feitas
+function AtualizarLista(){
+  
+  
+  ChamarListaDeRequisicoes()
+
+  alert("Pedidos Atualizados")
+
+  setTimeout(() =>{
+
+      
+    alert("Informações Salvas !")
+
+    ChamarListaDeRequisicoes()
+
+  }, 1000)
+  
+}
+
+//Caso de Algum erro, exiba para o Usuario
+ipcRenderer.on("ERRO", (event, arg) =>{
+
+  alert("Erro :" + arg)
+})
+
+
+function UploadFile(){
+
+  let Input = document.getElementById("inputGroupFile04")
+
+  ipcRenderer.send("ATUALIZAR" , Input.files)
 
 }

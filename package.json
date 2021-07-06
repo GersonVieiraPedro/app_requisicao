@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "xlsx": "^0.8.8",
     "electron": "^13.0.1",
     "nodemailer": "^6.6.2",
     "shelljs": "^0.8.4",
