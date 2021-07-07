@@ -11,11 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "xlsx": "^0.8.8",
     "electron": "^13.0.1",
+    "fs": "^0.0.1-security",
     "nodemailer": "^6.6.2",
     "shelljs": "^0.8.4",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "xlsx": "^0.8.8"
   },
   "devDependencies": {
     "electron-packager": "^15.2.0",

@@ -1,8 +1,8 @@
 const {TouchBar} = require("electron")
 const {ipcRenderer} = require('electron')
 const path = require("path")
-
-
+const XLSX = require("xlsx")
+const fs = require("fs")
 
 //Criando a Lista de requisição 
 let ListaDeRequisicao = new Array()
@@ -648,10 +648,24 @@ ipcRenderer.on("ERRO", (event, arg) =>{
 })
 
 
-function UploadFile(){
+function ATUALIZARTABELA(){
 
-  let Input = document.getElementById("inputGroupFile04")
+  let file = document.getElementById("inputGroupFile04").files[0]
 
-  ipcRenderer.send("ATUALIZAR" , Input.files)
+  file.arrayBuffer().then((res) =>{
+
+    let data = new Uint8Array(res)
+    let workbook = XLSX.read(data, {type:"array"})
+    let worksheet = workbook.SheetNames[0]
+    let output_file_name = "out.csv";
+    let stream = XLSX.utils.sheet_to_csv(worksheet);
+        stream.pipe(fs.createWriteStream(output_file_name));
+    
+    
+        console.log(SheetName)
+
+  })
+
+  //  ipcRenderer.send("ATUALIZARR", file )
 
 }

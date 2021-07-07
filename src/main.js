@@ -14,7 +14,7 @@ const LocalApp = path.resolve(__dirname, "components/Db/", nameBanco)
 
 
 const XLSX = require('xlsx');
-const fs = require('fs')
+//const fs = require('fs')
 
 
 
@@ -409,7 +409,7 @@ ipcMain.on("Email", (event, arg)=>{
   
 })
 */
-ipcMain.on("ATUALIZAR", (event, arg)=>{
+ipcMain.on("ATUALIZARR", (event, arg)=>{
 
   AtuzalizarTabela(arg)
 
@@ -422,12 +422,27 @@ ipcMain.on("ATUALIZAR", (event, arg)=>{
 
 
 function AtuzalizarTabela(list) {
+
+  file = list
     
+  file.arrayBuffer().then((res) =>{
+
+    let data = new Uint8Array(res)
+    let workbook = XLSX.read(data, {type:"array"})
+    let SheetName = workbook.SheetNames[0]
+
+    console.log(SheetName)
+
+  })
+
+
+    /*
     const outputFilename = "‪C:/Users/gvieira-sbj/Desktop/Text/File.csv"
     const workBook = XLSX.readFile(list.path);
     console.log(workBook)
     XLSX.writeFile(workBook, outputFilename, { bookType: "csv" });
     console.log(list)
+     */
 
 }
 
